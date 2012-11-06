@@ -1,0 +1,178 @@
+/*
+ * eeeee e   e eeeee eeeee  eeee eeeee eeeee  eeee 
+ * 8   " 8   8 8   8 8   8  8  8 8  88 8   8  8    
+ * 8eeee 8e  8 8eee8 8eee8e 8e   8   8 8eee8e 8eee 
+ *    88 88  8 88    88   8 88   8   8 88   8 88   
+ * 8ee88 88ee8 88    88   8 88e8 8eee8 88   8 88ee
+ *
+ * =============================================================================
+ * Build:
+ * =============================================================================
+ * 
+ *	Suprcore™
+ *	https://github.com/johnsolarz/suprcore
+ *	© Eight Seven Central 2011
+ */
+
+
+/* =============================================================================
+   @imports
+   ========================================================================== */
+
+
+
+/* =============================================================================
+   Base styles
+   ========================================================================== */
+   
+body, button, input, select, textarea {
+	color: #111;
+	font: normal 12px/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	word-spacing: -1px;
+	background: #FFF;
+}
+
+a { color: #aaa; text-decoration: none; }
+a:visited { color: #aaa; }
+a:hover { color: #111; }
+a:focus { outline: none; }
+
+a img { border: none; display: block; }
+
+nav a, nav a:hover { border-bottom: none; text-decoration: none; }
+
+blockquote { color: #aaa; padding-left: 20px; }
+blockquote cite:before { content: "\2015"; }
+
+p { margin: 0 0 1.5em; }
+
+h1 { font-size: 2em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+h2 { font-size: 2em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+h3 { font-size: 1.5em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+h4 { font-size: 1.25em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+h5 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
+
+
+
+#logo {padding:20px 0 100px; border-bottom:2px solid #000;}
+
+#main {}
+#menu {text-align: right; padding:0;font-family: "ff-meta-web-pro",sans-serif; }
+#menu ul li {margin:0; padding:0; text-align:right;}
+#menu a {padding:0; }
+
+#menu ul {margin-right:0; padding-right:0; font-weight: normal; float:right; margin:10px 0 0; display:block;padding-right:0;}
+
+
+#menu ul li a
+{
+	color:black;
+	background-color:transparent;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform: uppercase;
+}
+
+#menu ul li a:hover, #menu ul li.active a
+{
+	text-decoration:none;
+	font-weight: bold;
+}
+
+
+
+
+.checkBoxList {width:20%; float:left;}
+.checkBoxList input {display:inline block; float:left;padding:2px 5px 2px 2px; }
+.checkBoxList label {display:inline block; float:left;padding:2px; }
+ ul.selectors {list-style: none; margin:10px 0 50px; padding:0; font-size:10px; }
+ ul.selectors li {float:left; padding:3px 20px 3px 0;}
+
+.separator {margin:20px 0; border-top:1px solid #ccc;}
+.separator-dark {margin:10px 0 20px; border-top:2px solid #000;}
+#lines {background:#eee; padding:20px; border-radius: 5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+.hidden-size {visibility: hidden; height:0; width:0; float:left;}
+.jobLine {float:left;}
+.line-end {border-bottom:1px solid #000; margin:10px 0;}
+
+.search-customer {background:#eee; padding:5px; border-radius: 5px; -moz-border-radius:5px; -webkit-border-radius:5px; padding:5px 10px;}
+.auto_quote {border-top:4px solid #000;}
+.grand {background:#eee; border-radius: 5px; -moz-border-radius:5px; -webkit-border-radius:5px; padding:5px 15px;}
+
+.bold {font-weight:bold;}
+.title {font-family: "ff-meta-web-pro",sans-serif; margin-right:10px; text-transform: uppercase;}
+.lightgrey-bottom {border-bottom:1px solid #efefef;}
+.size-label {width:120px; display:block; text-align:right; margin-right:10px; font-family: "ff-meta-web-pro",sans-serif;float:left; clear:both; border-top:1px solid #ccc;}
+.size-content {float:left; border-top:1px solid #ddd;}
+.jobGroup {margin-bottom:20px;}
+.auto_quote .row {border-bottom:1px solid #ddd;}
+.grandtotal {background:#ddd;}
+.grand-pad {padding-left:5px;}
+.right-price {text-alight:right;float:right; padding-right:5px;}
+.RED {background:#f00; color:#fff;}
+.chicken .grand-pad {padding-left:0px;}
+.estimate .passes {width:33%; float:left;}
+.estimate .passes select {padding:.2em; font-size:3em;line-height:1.5em; text-align: center;box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4); border:none;color:#444;}
+.standard_style {float:left; display:block; width:30px;}
+
+
+#yw0-sunday, #yw1-sunday, #yw2-sunday, #yw3-sunday, #yw4-sunday, #yw5-sunday {background:#ccc;}
+#yw0-saturday, #yw1-saturday, #yw2-saturday, #yw3-saturday, #yw4-saturday, #yw5-saturday {background:#ccc;}
+
+/* =============================================================================
+   Search
+   ========================================================================== */
+
+form[role="search"] { border-top: 1px solid #eee; display: block; margin: 0; padding: 15px 0; }
+	#search-submit { background: transparent url(../img/arrows.png) no-repeat scroll 0 -357px; border-style: none; height: 15px; text-indent: -9999em;}
+	#search-submit:hover { background-position: 0 -117px; }
+
+input[type="search"] {
+  -webkit-appearance: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  background-color: #fff;
+  border: none;
+  border-color: #f1f1f1;
+  color: #aaa;
+  outline: 0;
+  padding: 5px 0;
+  font-size: 12px;
+  /*
+    Leaving out Helvetica Neue, to not throw off size="..."
+    on inputs. Arial is more reliable, on Windows and OS X.
+  */
+  font-family: Arial, 'Liberation Sans', FreeSans, sans-serif;
+  height: 2em;
+  width:88%;
+  margin-right: 10px;
+
+  /* IE7 */
+  *padding-top: 2px;
+  *padding-bottom: 1px;
+  *height: auto;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  /* for Opera */
+  z-index: 1;
+}

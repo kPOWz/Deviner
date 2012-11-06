@@ -1,0 +1,33 @@
+.ui-widget-header {
+	height: 2.5em;
+}
+
+.calendar_item {
+	z-index: 3;
+	cursor: move;
+}
+
+#unscheduled {
+	min-height: 9em;
+	color: gray;
+	border: 3px solid gray;
+	text-align: center;
+	background-image:url('../images/unscheduled.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.unscheduled, #unscheduled .ui-cal-item{
+	min-height:1em;
+	display: block;
+	float: left;
+	background-color: #222;
+	color: #eee;
+	margin: 3px;
+	font-size:10px;
+	letter-spacing:.02em;
+}
+
+.expander {
+	margin-top: 10px;
+}

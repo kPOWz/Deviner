@@ -1,0 +1,135 @@
+[03-Jan-2012 15:59:41] PHP Parse error:  syntax error, unexpected $end, expecting ')' in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 136
+[03-Jan-2012 16:15:48] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 501
+[03-Jan-2012 16:15:49] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 501
+[03-Jan-2012 16:17:03] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 151
+[03-Jan-2012 16:36:19] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[12-Jan-2012 15:54:07] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[17-Jan-2012 11:30:01] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home3/eight7cu/public_html/gus/protected/views/product/_form.php on line 40
+[17-Jan-2012 11:30:02] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home3/eight7cu/public_html/gus/protected/views/product/_form.php on line 40
+[17-Jan-2012 11:34:09] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[19-Jan-2012 22:22:59] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/CDbConnection.php on line 452
+[19-Jan-2012 22:24:51] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1804
+[19-Jan-2012 22:29:12] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveFinder.php on line 996
+[19-Jan-2012 22:36:36] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1803
+[20-Jan-2012 00:37:49] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/CDbConnection.php on line 310
+[20-Jan-2012 00:43:23] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveFinder.php on line 816
+[20-Jan-2012 00:44:54] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveFinder.php on line 169
+[20-Jan-2012 00:53:08] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[20-Jan-2012 00:54:02] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1362
+[20-Jan-2012 01:07:47] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[20-Jan-2012 01:16:26] PHP Fatal error:  Cannot redeclare ProductForm::getStyle() in /home3/eight7cu/public_html/gus/protected/models/ProductForm.php on line 59
+[24-Jan-2012 12:03:06] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[30-Jan-2012 12:04:10] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[30-Jan-2012 14:33:08] PHP Fatal error:  Call to undefined function  createattributefile() in /home3/eight7cu/public_html/gus/protected/models/PrintJob.php on line 115
+[30-Jan-2012 14:33:19] PHP Fatal error:  Call to undefined function  createattributefile() in /home3/eight7cu/public_html/gus/protected/models/PrintJob.php on line 115
+[30-Jan-2012 14:33:56] PHP Fatal error:  Call to undefined function  createattributefile() in /home3/eight7cu/public_html/gus/protected/models/PrintJob.php on line 115
+[30-Jan-2012 14:50:54] PHP Fatal error:  Call to undefined function  createattributefile() in /home3/eight7cu/public_html/gus/protected/models/PrintJob.php on line 115
+[03-Feb-2012 10:06:43] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[03-Feb-2012 10:07:52] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[08-Feb-2012 18:11:15] PHP Fatal error:  Undefined class constant 'report_PRINT' in /home3/eight7cu/public_html/gus/protected/controllers/ReportController.php on line 516
+[19-Feb-2012 20:54:45] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[21-Feb-2012 07:56:08] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[21-Feb-2012 07:57:27] PHP Fatal error:  Call to a member function labelEx() on a non-object in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 84
+[21-Feb-2012 08:08:04] PHP Fatal error:  Call to a member function labelEx() on a non-object in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 84
+[21-Feb-2012 22:24:55] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[22-Feb-2012 15:15:26] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[22-Feb-2012 15:18:07] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[22-Feb-2012 15:22:30] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[22-Feb-2012 15:30:51] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/JobController.php on line 367
+[27-Feb-2012 14:59:46] PHP Parse error:  syntax error, unexpected ')' in /home3/eight7cu/public_html/gus/protected/views/customer/_jobForm.php on line 52
+[27-Feb-2012 14:59:48] PHP Parse error:  syntax error, unexpected ')' in /home3/eight7cu/public_html/gus/protected/views/customer/_jobForm.php on line 52
+[27-Feb-2012 17:24:13] PHP Fatal error:  Cannot use string offset as an array in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 194
+[28-Feb-2012 09:27:53] PHP Fatal error:  Cannot use string offset as an array in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 194
+[28-Feb-2012 21:31:08] PHP Fatal error:  Cannot use string offset as an array in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 194
+[29-Feb-2012 08:07:13] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/EventController.php on line 93
+[29-Feb-2012 14:47:39] PHP Fatal error:  Cannot use string offset as an array in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 206
+[29-Feb-2012 14:49:18] PHP Fatal error:  Cannot use string offset as an array in /home3/eight7cu/public_html/gus/protected/views/job/_form.php on line 206
+[04-Apr-2012 18:14:32] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 91 bytes) in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[04-Apr-2012 18:14:40] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 91 bytes) in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[04-Apr-2012 18:17:41] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/EventController.php on line 123
+[04-Apr-2012 18:17:48] PHP Fatal error:  Call to undefined method stdClass::save() in /home3/eight7cu/public_html/gus/protected/controllers/EventController.php on line 123
+[11-Apr-2012 15:16:19] PHP Warning:  POST Content-Length of 66346362 bytes exceeds the limit of 12582912 bytes in Unknown on line 0
+[13-Apr-2012 14:31:37] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:31:37] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:31:39] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:31:51] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:31:52] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:32:29] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:34:52] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:34:54] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[13-Apr-2012 14:35:14] PHP Fatal error:  Call to a member function isAttributeRequired() on a non-object in /home3/eight7cu/public_html/gus/framework/web/helpers/CHtml.php on line 1179
+[23-Apr-2012 16:26:14] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, expecting ')' in /home3/eight7cu/public_html/gus/protected/config/main.php on line 49
+[14-May-2012 16:45:39] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 95 bytes) in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[14-May-2012 16:50:09] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 95 bytes) in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[14-May-2012 16:50:38] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 95 bytes) in /home3/eight7cu/public_html/gus/framework/db/ar/CActiveRecord.php on line 1856
+[25-May-2012 16:14:34] PHP Warning:  POST Content-Length of 14159136 bytes exceeds the limit of 12582912 bytes in Unknown on line 0
+[25-May-2012 17:17:00] PHP Warning:  POST Content-Length of 16329377 bytes exceeds the limit of 12582912 bytes in Unknown on line 0
+[30-May-2012 08:41:08] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 10:54:08] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:35] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:36] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:36] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:41] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:41] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:47] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:48] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:53] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:53] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:59] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:07:59] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:06] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:07] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:13] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:13] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:17] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:22] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:22] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:37] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:38] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:42] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:08:48] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:14] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:15] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:24] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:29] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:37] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:09:53] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:10:06] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:10:12] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:10:17] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:14:19] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:14:26] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:14:51] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:17:50] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:17:58] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:18:04] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:20:09] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:20:13] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:20:19] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:20:24] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:21:27] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:21:30] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:24:50] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:30:54] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 11:35:48] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 12:15:18] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 12:29:04] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[30-May-2012 12:29:05] PHP Parse error:  syntax error, unexpected T_AS, expecting ';' in /home3/eight7cu/public_html/gus/protected/models/Job.php on line 287
+[31-May-2012 16:49:38] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:49:40] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:49:52] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:50:00] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:50:04] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:50:12] PHP Parse error:  syntax error, unexpected '<' in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 100
+[31-May-2012 16:51:03] PHP Warning:  Unterminated comment starting line 99 in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 99
+[31-May-2012 16:51:03] PHP Fatal error:  fatal flex scanner internal error--end of buffer missed in /home3/eight7cu/public_html/gus/protected/views/job/view.php on line 99
+[26-Jun-2012 12:48:50] PHP Warning:  POST Content-Length of 13656085 bytes exceeds the limit of 12582912 bytes in Unknown on line 0
+[27-Jun-2012 14:21:17] PHP Warning:  POST Content-Length of 13656139 bytes exceeds the limit of 12582912 bytes in Unknown on line 0
+[02-Oct-2012 16:02:05] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[02-Oct-2012 16:02:28] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[02-Oct-2012 16:02:57] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[02-Oct-2012 16:05:17] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[02-Oct-2012 16:18:28] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[05-Oct-2012 10:39:03] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[05-Oct-2012 10:39:31] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108
+[05-Oct-2012 10:46:01] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 921601 bytes) in /home3/eight7cu/public_html/gus/protected/views/layouts/main.php on line 108

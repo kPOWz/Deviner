@@ -1,0 +1,1 @@
+<?php echo CHtml::encode(date('D - F j', $date));?>

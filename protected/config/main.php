@@ -27,11 +27,11 @@ return array(
 		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'gii',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-		),
-		*/
+		),*/
+		
 	),
 
 	// application components
@@ -55,17 +55,23 @@ return array(
 		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+		),
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=gus',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'charset' => 'utf8',
 		),*/
 		// uncomment the following to use a MySQL database
 		//enter DB information here. 
+		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=eight7cu_databass;port=3306',
 			'emulatePrepare' => true,
 			'username' => 'eight7cu_lance',
-			'password' => PrivateField::get('db'),
+			'password' => PrivateField::get('dbPass'),
 			'charset' => 'utf8',
 		),
-		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -75,14 +81,16 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning, trace',
+					'levels'=>'error, warning, info, trace, vardump',
+					'maxFileSize' => '10240',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
 					'class'=>'CWebLogRoute',
-				),
-				*/
+					'levels'=>'error, warning, info, trace, vardump',
+				),*/
+				
 			),
 		),
 	),

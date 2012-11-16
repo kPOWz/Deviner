@@ -1,3 +1,5 @@
+<?php /* @var $this UserController */ ?>
+
 <?php
 $this->breadcrumbs=array(
 	'Users'=>array('index'),

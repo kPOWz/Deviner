@@ -15,6 +15,7 @@ StatusProvider::$statuses = $statuses;
 
 $this->widget('zii.widgets.grid.CGridView', array( 
 	'dataProvider'=>$dataProvider,
+	'id'=>$tabId,
 	'formatter'=>new Formatter,
 	'columns'=>array(
 		array(

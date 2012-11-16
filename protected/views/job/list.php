@@ -30,11 +30,13 @@ function statusChanged(completedStatus, canceledStatus, updateUrl, selector){
 
 <?php 
 $this->widget('zii.widgets.jui.CJuiTabs', array(
+	'id'=>'job-tabs',
 	'tabs'=>array(
 		'Current Jobs'=>array('ajax'=>array('job/loadList', 'list'=>'current'),
 			'content'=>$this->renderPartial('_listSection', array(
 				'statuses'=>$statuses,
 				'dataProvider'=>$currentDataProvider,
+				'tabId'=>'job-tab-current',
 			), true),
 		),
 		'Completed Jobs'=>array('ajax'=>array('job/loadList', 'list'=>'completed')),

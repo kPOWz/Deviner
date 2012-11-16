@@ -432,20 +432,24 @@ class JobController extends Controller
 		$print = new PrintJob;
 		
 		$lineData = array();
-		$products = array();	
+		$products = array();
+		$productSizes = array();
+		
 		foreach($sizes as $size){
-			$sizeLine = new JobLineSize;
-			$sizeLine->SIZE = $size->ID;
-			$product = new ProductLine;
-			$product->SIZE = $size->ID;
-			$products[] = array(
-				'productLine'=>$product,
-				'line'=>$sizeLine,
+			$jobSizeLine = new JobLineSize;
+			$jobSizeLine->SIZE = $size->ID;
+			$productLine = new ProductLine;
+			$productLine->SIZE = $size->ID;
+			
+			$productSizes[] = array(
+				'line'=>$jobSizeLine,
+				'productLine'=>$productLine,
+				
 			);	
 		}
 				
 		$products['model'] = new JobLine;
-		$products['lines'] = $products;
+		$products['lines'] = $productSizes;
 		$products['style'] = '';
 		$products['availableColors'] = array();
 		$products['currentColor'] = null;
@@ -453,6 +457,7 @@ class JobController extends Controller
 		$products['saved'] = false;
 		$products['product'] = null;
 		$products['sizes'] = array();
+		
 		$lineData[] = $products;
 		
 		/*
@@ -460,7 +465,7 @@ class JobController extends Controller
 		 * document what the format of the "lineData" array is. The parent array,
 		 * "lineData" is a list of lists. For each combination of style and color,
 		 * there is a list in "lineData". Each child list is composed of children 
-		 * with two elements: a "product" element of type Product which
+		 * with two elements: a "product" element of type Product which   <-- !!Actually not of type Product, of type ProductLine !! <KZ>-->
 		 * has its "SIZE" property set to the corresponding size from the DB, and
 		 * a "line" element of type JobLine which represents the job line itself.
 		 * 
@@ -829,32 +834,40 @@ class JobController extends Controller
 		$jobs = Job::listJobsByStatus($filter);
 		$dataProvider = new CArrayDataProvider($jobs, array(
 			'keyField'=>'ID',
-			'pagination'=>false,
+			'pagination'=>array(
+        		'pageSize'=>15,
+    		),
 		));
 		
 		$this->renderPartial('_listSection', array(
 			'dataProvider'=>$dataProvider,
 			'statuses'=> CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT'),
-		));
+			'tabId'=>'job-tab-'.$list, //must uniquely ID tabs or pagination will not render correctly
+		), false, true);
 	}
 	
 	public function actionList(){		
 		$currentJobs = Job::listJobsByStatus(array(Job::CREATED, JOB::SCHEDULED, Job::INVOICED, Job::PAID, Job::ORDERED, Job::COUNTED, Job::PRINTED));
 		$currentDataProvider = new CArrayDataProvider($currentJobs, array(
 			'keyField'=>'ID',
-			'pagination'=>false,
+			'pagination'=>array(
+        		'pageSize'=>15,
+    		),
 		));
-		
 		$canceledJobs = Job::listJobsByStatus(Job::CANCELED);
 		$canceledDataProvider = new CArrayDataProvider($canceledJobs, array(
 			'keyField'=>'ID',
-			'pagination'=>false,
+			'pagination'=>array(
+        		'pageSize'=>15,
+    		),
 		));		
 		
 		$completedJobs = Job::listJobsByStatus(Job::COMPLETED);
 		$completedDataProvider = new CArrayDataProvider($completedJobs, array(
 			'keyField'=>'ID',
-			'pagination'=>false,
+			'pagination'=>array(
+        		'pageSize'=>15,
+    		),
 		));
 		
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');

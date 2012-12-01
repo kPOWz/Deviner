@@ -70,7 +70,7 @@
 								array('label'=>'View Customers', 'url'=>array('/customer/index')),
 								array('label'=>'View Users', 'url'=>array('/user/index')),
 								array('label'=>'Colors, Etc.', 'url'=>array('/lookup/index', 'Color'=>1, 'Style'=>1, 'Size'=>1)),
-								array('label'=>'Dashboard', 'url'=>array('/user/index'))
+								array('label'=>'Dashboard', 'url'=>array('/dashboard'))
 							),
 							'themeCssFile'=>$this->styleDirectory . 'dropdown/default.css',
 							'lastItemCssClass'=>'lastmenu',

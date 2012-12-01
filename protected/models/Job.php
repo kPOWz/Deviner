@@ -241,6 +241,34 @@ class Job extends CActiveRecord
 		return Job::model()->findAllByAttributes(array('STATUS'=>$status));
 	}
 	
+	/**
+	 * Gets a list of jobs with the given status value.
+	 * @param mixed $status The status value, or array of status values, by which to filter.
+	 * @param mixed $beginDate The status value, or array of status values, by which to filter.
+	 * @param mixed $endDate The status value, or array of status values, by which to filter.
+	 * @param mixed $eventId The status value, or array of status values, by which to filter.
+	 * @return array The set of jobs with the given status(es).
+	 */
+	public static function getJobsByStatusDateRangeForEvent($status, $beginDate, $endDate, $eventId){
+		return Job::model()->findAllByAttributes(array('STATUS'=>$status));
+		
+		//where(array('in', 'id', array(1,2)): same as "id in (1,2)"
+		//('like', 'name', '%tester%') will generate "name LIKE '%tester%'"
+		//array('and', 'type=1', array('or', 'id=1', 'id=2')) will generate 'type=1 AND (id=1 OR id=2)'
+		Yii::log('HELLO', CLogger::LEVEL_INFO, 'application.models.job');
+		$exportResults = Yii::app()->db->createCommand()
+						    ->select('job.ID, job.NAME, job.STATUS')
+						    ->from('job job')
+						    ->join('event_log log', 'job.ID=log.OBJECT_ID')
+						    //->where(array('IN', 'STATUS', $status ))
+						    ->query();
+		Yii::log('count export results '.sizeOf($exportResults), CLogger::LEVEL_INFO, 'application.models.job');
+		return $exportResults;
+	
+		
+	//$command->where(array('AND', 'value1 = :value1', 'value2 < :value2'), array(':value1' => 1, ':value2' => 2));
+	}
+	
 	protected function getEventModel($eventID){
 		$events = array();
 		foreach($this->events as $event){

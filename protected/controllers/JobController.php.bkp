@@ -57,20 +57,16 @@ class JobController extends Controller
 	 */
 	public function actionView($id)
 	{
-		echo Yii::log('reached action', CLogger::LEVEL_INFO, 'application.controllers.Job');
 		$model = $this->loadModel($id);
 		$sizes = Lookup::listItems('Size');
 		$lineData = array();
 		$products = array();
-		$productSizes = array();
 		$groupedLines = array();
 		foreach($model->jobLines as $line){
-			echo Yii::log(count($model->jobLines).' numberOfJobLines', CLogger::LEVEL_INFO, 'application.controllers.Job');
 			$groupedSizes = array();
 			foreach($line->sizes as $sizeLine){
 				$groupedSizes[(string) $sizeLine->SIZE] = $sizeLine;
 			}
-			echo Yii::log(count($groupedSizes).' numberOfSizeLines', CLogger::LEVEL_INFO, 'application.controllers.Job');
 			$groupedLines[(string) $line->product->vendorStyle][(string) $line->PRODUCT_COLOR] = array('line'=>$line, 'sizes'=>$groupedSizes);
 		}
 		
@@ -91,15 +87,15 @@ class JobController extends Controller
 							$productLine->COLOR = $line->PRODUCT_COLOR;
 							$productLine->SIZE = $size->ID;
 						}						
-						$productSizes[] = array(
+						$products[] = array(
 							'productLine' => $productLine,
 							'line'=>$sizeLine,
 						);
 					}
-					if(count($productSizes) > 0){
+					if(count($products) > 0){
 						$latestProduct = $line->product;
 						$products['model'] = $line;
-						$products['lines'] = $productSizes;
+						$products['lines'] = $products;
 						$products['style'] = $latestProduct->vendorStyle;
 						$products['availableColors'] = CHtml::listData($latestProduct->allowedColors, 'ID', 'TEXT');
 						$products['product'] = CJSON::encode($latestProduct);
@@ -437,15 +433,18 @@ class JobController extends Controller
 		
 		$lineData = array();
 		$products = array();
-		$productSizes = array();	
+		$productSizes = array();
+		
 		foreach($sizes as $size){
-			$sizeLine = new JobLineSize;
-			$sizeLine->SIZE = $size->ID;
-			$product = new ProductLine;
-			$product->SIZE = $size->ID;
+			$jobSizeLine = new JobLineSize;
+			$jobSizeLine->SIZE = $size->ID;
+			$productLine = new ProductLine;
+			$productLine->SIZE = $size->ID;
+			
 			$productSizes[] = array(
-				'productLine'=>$product,
-				'line'=>$sizeLine,
+				'line'=>$jobSizeLine,
+				'productLine'=>$productLine,
+				
 			);	
 		}
 				
@@ -458,6 +457,7 @@ class JobController extends Controller
 		$products['saved'] = false;
 		$products['product'] = null;
 		$products['sizes'] = array();
+		
 		$lineData[] = $products;
 		
 		/*
@@ -465,7 +465,7 @@ class JobController extends Controller
 		 * document what the format of the "lineData" array is. The parent array,
 		 * "lineData" is a list of lists. For each combination of style and color,
 		 * there is a list in "lineData". Each child list is composed of children 
-		 * with two elements: a "product" element of type Product which
+		 * with two elements: a "product" element of type Product which   <-- !!Actually not of type Product, of type ProductLine !! <KZ>-->
 		 * has its "SIZE" property set to the corresponding size from the DB, and
 		 * a "line" element of type JobLine which represents the job line itself.
 		 * 
@@ -854,7 +854,6 @@ class JobController extends Controller
         		'pageSize'=>15,
     		),
 		));
-		
 		$canceledJobs = Job::listJobsByStatus(Job::CANCELED);
 		$canceledDataProvider = new CArrayDataProvider($canceledJobs, array(
 			'keyField'=>'ID',
@@ -912,67 +911,7 @@ class JobController extends Controller
 			'model'=>$model,
 		));
 	}
-	
-	/**
-	 * Manages all models.
-	 */
-	public function actionExport()
-	{
-		
-		if(isset($_GET))
-		{
-			if(isset($_GET['export_begin'])){}
-				//transform that date to begin of that day - needed?
-			//else default to begin of today
-				
-			if(isset($_GET['export_end'])){}
-				//transform that date to end of that day - needed?
-			//else default to end of today
-				
-			if(isset($_GET['export_status'])){}
-			//else default to printed
-			
-			//do query and return resutls
-			//query Jobs by status and printDate , 
-			//return the result as a grid or list view flanked by checkmarks
-			///2011-12-28 00:00:00 >= , < 2011-12-29 00:00:00
-			$status = $_GET['export_status'];
-			$exportBegin = $_GET['export_begin'];
-			$exportEnd = $_GET['export_end'];
-			$exportData = Job::getJobsByStatusDateRangeForEvent(array($status), $exportBegin, $exportEnd, NULL );
-			Yii::log('HELLO2', CLogger::LEVEL_INFO, 'application.models.job');
-			//$exportData = Job::listJobsByStatus(array(Job::COMPLETED));
-			Yii::log(sizeOf($exportData), CLogger::LEVEL_INFO, 'application.models.job');
-			$exportDataProvider = new CArrayDataProvider($exportData, array(
-					'keyField'=>'ID',
-					'pagination'=>array(
-							'pageSize'=>15,
-					),
-			));
-			Yii::log(sizeOf($exportDataProvider), CLogger::LEVEL_INFO, 'application.models.job');
-			$this->renderPartial('_exportGrid', array(
-					'exportData'=>$exportDataProvider,
-					'formatter'=>new Formatter,
-			));
-		
-		}
-		else //later will be post handling to render partial of mimetype text/iif
-		//get subset of checked submissions only 
-		//attach behavior
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-		
-		/*
-		
-		$model=new Job('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Job']))
-			$model->attributes=$_GET['Job'];
-	
-		$this->render('admin',array(
-				'model'=>$model,
-		)); */
-	}
-	
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

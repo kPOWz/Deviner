@@ -47,7 +47,8 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 	*/
 	protected function initInvItem(){
 		$params = $this->createInvItem();
-		$params['ACCNT'] = null; //need a setting for this
+		//ACCT (Required) The name of the income account you use to track sales of the item. The type of this account should be INC.
+		$params['ACCNT'] = QBConstants::TRNS_ACCNT; //null; //need a setting for this
 		$params['ASSETACCNT'] = null; //might need a setting for this
 		$params['COGSACCNT'] = null; //and this
 		$params['TAXABLE'] = 'Y';

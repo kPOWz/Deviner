@@ -30,6 +30,7 @@ class QBTransactionLine_JobLine extends QBTransactionLine {
 		$params['QNTY'] = $quantity;
 		$params['INVITEM'] = $text;
 		$params['TAXABLE'] = 'Y';
+		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.
 		$params['ACCNT'] = QBConstants::PRINTING_ACCNT;
 		return $params;		
 	}
@@ -59,6 +60,7 @@ class QBTransactionLine_JobLine extends QBTransactionLine {
 		$params['QNTY'] = $quantity;
 		$params['INVITEM'] = $text;
 		$params['TAXABLE'] = 'Y';
+		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.
 		$params['ACCNT'] = QBConstants::PRINTING_ACCNT;
 		return $params;		
 	}

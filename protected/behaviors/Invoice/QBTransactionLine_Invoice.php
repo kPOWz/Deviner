@@ -14,6 +14,7 @@ class QBTransactionLine_Invoice extends QBTransactionLine {
 		$params['QNTY'] = $quantity;
 		$params['INVITEM'] = $invitem;
 		$params['TAXABLE'] = $taxable;
+		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.
 		$params['ACCNT'] = $accnt;
 		return $params;		
 	}

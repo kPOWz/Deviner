@@ -5,7 +5,8 @@ class QBTransaction_Invoice extends QBTransaction {
 		$record = $this->initItem();
 		$record['TRNSTYPE'] = 'INVOICE';
 		$record['DATE'] = date('n/j/Y', strtotime($this->owner->DATE));
-		$record['ACCNT'] = QBConstants::TRNS_ACCNT; //need a setting
+		//ACCT (Required) The name of the account assigned to the transaction.
+		$record['ACCNT'] = QBConstants::TRNS_ACCNT;
 		$record['NAME'] = $this->owner->CUSTOMER->summary;
 		$record['AMOUNT'] = $this->owner->total * (1 + $this->owner->TAX_RATE / 100);
 		$record['DOCNUM'] = 'GUS-I-' . $this->owner->ID;

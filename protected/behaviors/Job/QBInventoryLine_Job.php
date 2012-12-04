@@ -5,10 +5,10 @@ class QBInventoryLine_Job extends QBInventoryLine {
 	rush, art charge, setup time, additional charges, sales tax*/
 	protected function createRush(){		
 		return $this->createLine(
-			CHtml::encode($this->owner->getAttributeLabel('RUSH')), 
+			CHtml::encode($this->owner->getAttributeLabel('RUSH')),
+			'OTHC',
 			'Fee for accelerated handling', 
 			$this->owner->RUSH,
-			'OTHC',
 			QBConstants::RUSH_ACCNT
 		);
 	}
@@ -16,9 +16,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 	protected function createArtCharge(){
 		return $this->createLine(
 			'Artwork Charge',
+			'SERV',
 			'Fee for design work',
 			40, //hourly rate
-			'SERV',
 			QBConstants::ART_ACCNT
 		);
 	}
@@ -26,9 +26,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 	protected function createSetupFee(){
 		return $this->createLine(
 			'Setup Time',
+			'SERV',
 			'Fee for setup (waived for larger orders)',
 			30, //hourly rate
-			'SERV',
 			QBConstants::SETUP_ACCNT
 		);
 	}
@@ -36,9 +36,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 	protected function createSalesTax(){
 		return $this->createLine(
 			'Sales Tax',
+			'COMPTAX',
 			'Sales Tax',
 			$this->owner->additionalFees[Job::FEE_TAX_RATE]['VALUE'] / 100,
-			'COMPTAX',
 			QBConstants::TAX_ACCNT
 		);
 	}
@@ -46,10 +46,10 @@ class QBInventoryLine_Job extends QBInventoryLine {
 	protected function createAdditional($additional, $index){
 		return $this->createLine(
 			'Additional_'.$index,
+			'OTHC',
 			$additional['TEXT'],			
 			null,
-			'OTHC',
-			QBConstants::TRNS_ACCNT
+			strpos($additional['TEXT'],'Shipping') ? QBConstants::SHIPPING_ACCNT : QBConstants::TRNS_ACCNT
 		);
 	}
 

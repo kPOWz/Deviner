@@ -8,9 +8,9 @@ class QBInventoryLine_Invoice extends QBInventoryLine {
 	protected function createSalesTax(){
 		return $this->createLine(
 			'Sales Tax',
+			'COMPTAX',
 			'Sales Tax',
 			$this->owner->TAX_RATE / 100,
-			'COMPTAX',
 			QBConstants::TAX_ACCNT
 		);
 	}

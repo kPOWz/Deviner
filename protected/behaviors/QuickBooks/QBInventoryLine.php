@@ -11,21 +11,23 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 		return array(
 			'INVITEM'=>'INVITEM',
 			'NAME'=>null,
-			'TIMESTAMP'=>null,
-			'REFNUM'=>null,
-			'INVITEMTYPE'=>null,
+			'TIMESTAMP'=>null,  // QB EXPORT FILES ONLY & GUS MAKES IMPORT FILES
+			'REFNUM'=>null, // QB EXPORT FILES ONLY & GUS MAKES IMPORT FILES
+			'INVITEMTYPE'=>null, //NEEDS FIX
 			'DESC'=>null,
 			'PURCHASEDESC'=>null,
 			'ACCNT'=>null,
-			'ASSETACCNT'=>null,
-			'COGSACCNT'=>null,
-			'PRICE'=>null,
+			'ASSETACCNT'=>null, //Inventory part INVITEMTYPE items only
+			'COGSACCNT'=>null,  //Inventory part INVITEMTYPE items only
+			'PRICE'=>null, //MAYBE NEEDS FIX
 			'COST'=>null,
-			'TAXABLE'=>null,
+			'TAXABLE'=>null //EXTRA TAB BEING CREATED BETWEEN COST & TAXABLE
+			
+			/*, NOT REQUIRED FOR IIF & NOT USED BY GUS
 			'PAYMETH'=>null,
 			'TAXVEND'=>null,
 			'TAXDIST'=>null,
-			'TOPRINT'=>null,
+			'TOPRINT'=>null, //Inventoy Group INVITEMTYPE items only
 			'PREFVEND'=>null,
 			'REORDERPOINT'=>null,
 			'EXTRA'=>null,
@@ -35,7 +37,8 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 			'CUSTFLD4'=>null,
 			'CUSTFLD5'=>null,
 			'DEP_TYPE'=>null,
-			'ISPASSEDTHRU'=>null,
+			'ISPASSEDTHRU'=>null, //May need to add this one back in as it applies to service INVITEMTYPE
+			*/
 		);
 	}
 
@@ -49,27 +52,24 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 		$params = $this->createInvItem();
 		//ACCT (Required) The name of the income account you use to track sales of the item. The type of this account should be INC.
 		$params['ACCNT'] = QBConstants::TRNS_ACCNT;//null; //need a setting for this
-		$params['ASSETACCNT'] = null; //might need a setting for this
-		$params['COGSACCNT'] = null; //and this
 		$params['TAXABLE'] = 'Y';
-		$params['TOPRINT'] = 'Y';
-		$params['ISPASSEDTHRU'] = 'Y';
 		return $params;
 	}
 
 	/**
 	Creates an inventory line with the given name, description, price, and type.
 	@param string $name The name to associate with the line.
-	@param string $text The description to associate with the line.
-	@param float $price The unit price of the item.
 	@param string $itemType One of the item types provided in the QuickBooks IIF documentation.
+	@param string $description The description to associate with the line.
+	@param float $price The unit price of the item.	
 	@return array THe resultant array object.
 	*/
-	protected function createLine($name, $text, $price, $itemType, $accnt){
+	protected function createLine($name, $itemType, $description, $price,  $accnt){
 		$params = $this->initInvItem();
 		$params['NAME'] = $name;
-		$params['DESC'] = $text;
-		$params['PURCHASEDESC'] = $text;
+		$params['INVITEMTYPE'] = $itemType;
+		$params['DESC'] = $description;
+		$params['PURCHASEDESC'] = $description;
 		$params['PRICE'] = $price;
 		$params['ACCNT'] = $accnt;
 		return $params;

@@ -428,7 +428,7 @@ class Job extends CActiveRecord
 	 * Gets the total cost (for the customer) of the job.
 	 */
 	public function getTotal(){
-		$additionalFees = $this->additionalFees;
+		$additionalFees = $this->_additionalFees;
 		$totalFee = 0;
 		foreach($additionalFees as $fee){
 			if($fee['CONSTRAINTS']['part'] !== false){

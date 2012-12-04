@@ -3,7 +3,7 @@
 class QBInventoryLine_InvoiceLine extends QBInventoryLine {
 	protected function createRecords(){
 		$id = $this->owner->ID;
-		$text = $this->owner->DESCRIPTION;
+		$description = $this->owner->DESCRIPTION;
 		$price = ($this->owner->QUANTITY != 0) ? $this->owner->AMOUNT / $this->owner->QUANTITY : $this->owner->AMOUNT;
 		$category = null;
 		$account = null;
@@ -25,6 +25,6 @@ class QBInventoryLine_InvoiceLine extends QBInventoryLine {
 									 $account = QBConstants::RUSH_ACCNT; 
 									 break;
 		} 
-		return array($this->createLine($id, $text, $price, $category, $account));
+		return array($this->createLine($id, $category, $description, $price, $account));
 	}
 }

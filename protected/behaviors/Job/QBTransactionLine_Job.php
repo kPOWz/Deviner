@@ -71,7 +71,7 @@ class QBTransactionLine_Job extends QBTransactionLine {
 			null,
 			null,
 			'Additional_'.$index,
-			QBConstants::TRNS_ACCNT
+			strpos($additional['TEXT'],'Shipping') ? QBConstants::SHIPPING_ACCNT : QBConstants::TRNS_ACCNT
 		);
 	}
 

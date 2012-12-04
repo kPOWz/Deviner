@@ -6,6 +6,7 @@ YiiBase::import('application.behaviors.JobLine.*');
 class QBInitializer extends CActiveRecordBehavior {
 	public function attach($owner){
 		parent::attach($owner);
+		$owner->attachBehavior('headerLines', 'application.behaviors.QuickBooks.QBHeader');
 		$owner->attachBehavior('transaction', 'application.behaviors.Job.QBTransaction_Job');
 		$owner->attachBehavior('transactionLines', 'application.behaviors.Job.QBTransactionLine_Job');
 		$owner->attachBehavior('inventoryLines', 'application.behaviors.Job.QBInventoryLine_Job');
@@ -17,6 +18,7 @@ class QBInitializer extends CActiveRecordBehavior {
 
 	public function detach($owner){
 		parent::detach($owner);
+		$owner->detachBehavior('headerLines');
 		$owner->detachBehavior('transaction');
 		$owner->detachBehavior('transactionLines');
 		$owner->detachBehavior('inventoryLines');

@@ -12,6 +12,11 @@ function renderRecord($record, $separator=null){
 	echo chr(13) . chr(10);
 }
 
+
+foreach($model->headerLines->records as $record){
+	renderRecord($record);
+}
+
 foreach ($model->lines as $line) {
 	foreach($line->inventoryLines->records as $record){
 		renderRecord($record);

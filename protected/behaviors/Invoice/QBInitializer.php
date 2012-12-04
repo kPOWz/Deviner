@@ -6,6 +6,7 @@ YiiBase::import('application.behaviors.InvoiceLine.*');
 class QBInitializer extends CActiveRecordBehavior {
 	public function attach($owner){
 		parent::attach($owner);
+		$owner->attachBehavior('headerLines', 'application.behaviors.QuickBooks.QBHeader');
 		$owner->attachBehavior('transaction', 'application.behaviors.Invoice.QBTransaction_Invoice');
 		$owner->attachBehavior('transactionLines', 'application.behaviors.Invoice.QBTransactionLine_Invoice');
 		$owner->attachBehavior('inventoryLines', 'application.behaviors.Invoice.QBInventoryLine_Invoice');
@@ -17,6 +18,7 @@ class QBInitializer extends CActiveRecordBehavior {
 
 	public function detach($owner){
 		parent::detach($owner);
+		$owner->detachBehavior('headerLines');
 		$owner->detachBehavior('transaction');
 		$owner->detachBehavior('transactionLines');
 		$owner->detachBehavior('inventoryLines');

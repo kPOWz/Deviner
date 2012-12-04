@@ -30,4 +30,12 @@ class QBConstants {
 	
 	//Quickbooks Invoice/DOCNUM numbering prefix
 	const QB_DOCNUM_PREFIX = "GUS-I-";
+	
+	//Quickbooks version constants
+	const QB_PROD = 'QuickBooks Pro 6.0 for Macintosh';
+	const QB_VERSION = 'Version 6.0';
+	const QB_REL = 'Release R2';
+	const QB_IIFVER = '1';
+	const QB_DATE = '12/3/12';
+	const QB_TIME = '1354535565';
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*Wraps job to a TRNS record in QuickBooks IIF.*/
 class QBTransaction_Job extends QBTransaction {
 	protected function createRecord(){

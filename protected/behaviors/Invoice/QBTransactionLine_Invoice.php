@@ -20,10 +20,13 @@ class QBTransactionLine_Invoice extends QBTransactionLine {
 	}
 
 	protected function createSalesTax(){		
+		
+		$taxRate = $this->owner->TAX_RATE;
+		$taxRateAsFloat = strrpos($taxRate, '.' ) ? $taxRate : $taxRate . '.00';
 		return $this->createLine(
 			'0',
-			$this->owner->total * $this->owner->TAX_RATE / 100,
-			substr(string(floatval(TAX_RATE . '0')), 0, strrpos(string(floatval(TAX_RATE . '0')),'.') + 1).'%',
+			$this->owner->total * $taxRate / 100,
+			substr($taxRateAsFloat, 0, strrpos($taxRateAsFloat,'.') + 3). '%',
 			null,
 			'Sales Tax',			
 			QBConstants::TAX_ACCNT,

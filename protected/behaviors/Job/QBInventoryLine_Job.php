@@ -35,11 +35,12 @@ class QBInventoryLine_Job extends QBInventoryLine {
 
 	protected function createSalesTax(){
 		$taxRate = $this->owner->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
+		$taxRateAsFloat = strrpos($taxRate, '.' ) ? $taxRate : $taxRate . '.00';
 		return $this->createLine(
 			'Sales Tax',
 			'COMPTAX',
 			'Sales Tax',
-			substr(string(floatval($taxRate . '0')), 0, strrpos(string(floatval($taxRate . '0')),'.') + 1). '%',
+			substr($taxRateAsFloat, 0, strrpos($taxRateAsFloat,'.') + 3). '%',
 			QBConstants::TAX_ACCNT
 		);
 	}

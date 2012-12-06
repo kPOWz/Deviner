@@ -52,11 +52,12 @@ class QBTransactionLine_Job extends QBTransactionLine {
 		);
 	}
 
-	protected function createSalesTax(){		
+	protected function createSalesTax(){
+		$taxRate = $this->owner->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
 		return $this->createLine(
 			'4',
-			$this->owner->total * $this->owner->additionalFees[Job::FEE_TAX_RATE]['VALUE'] / 100,
-			null,
+			$this->owner->total * $taxRate / 100,
+			substr(string(floatval($taxRate . '0')), 0, strrpos(string(floatval($taxRate . '0')),'.') + 1).'%',
 			null,
 			'Sales Tax',			
 			QBConstants::TAX_ACCNT,

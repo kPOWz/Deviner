@@ -10,7 +10,7 @@ class QBInventoryLine_Invoice extends QBInventoryLine {
 			'Sales Tax',
 			'COMPTAX',
 			'Sales Tax',
-			$this->owner->TAX_RATE / 100,
+			$this->owner->substr(string(floatval(TAX_RATE . '0')), 0, strrpos(string(floatval(TAX_RATE . '0')),'.') + 1).'%',
 			QBConstants::TAX_ACCNT
 		);
 	}

@@ -23,7 +23,7 @@ class QBTransactionLine_Invoice extends QBTransactionLine {
 		return $this->createLine(
 			'0',
 			$this->owner->total * $this->owner->TAX_RATE / 100,
-			null,
+			substr(string(floatval(TAX_RATE . '0')), 0, strrpos(string(floatval(TAX_RATE . '0')),'.') + 1).'%',
 			null,
 			'Sales Tax',			
 			QBConstants::TAX_ACCNT,

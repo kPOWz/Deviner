@@ -13,7 +13,8 @@ class QBInventoryLine_Invoice extends QBInventoryLine {
 			'COMPTAX',
 			'Sales Tax',
 			substr($taxRateAsFloat, 0, strrpos($taxRateAsFloat,'.') + 3). '%',
-			QBConstants::TAX_ACCNT
+			QBConstants::TAX_ACCNT,
+			'N'
 		);
 	}
 

@@ -53,6 +53,9 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 		//ACCT (Required) The name of the income account you use to track sales of the item. The type of this account should be INC.
 		$params['ACCNT'] = QBConstants::TRNS_ACCNT;//null; //need a setting for this
 		$params['TAXABLE'] = 'Y';
+		$params['COST'] = '0';
+		$params['REFNUM'] = '0';
+		$params['TIMESTAMP'] = '0';
 		return $params;
 	}
 
@@ -64,7 +67,7 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 	@param float $price The unit price of the item.	
 	@return array THe resultant array object.
 	*/
-	protected function createLine($name, $itemType, $description, $price,  $accnt){
+	protected function createLine($name, $itemType, $description, $price,  $accnt, $taxable = 'Y'){
 		$params = $this->initInvItem();
 		$params['NAME'] = $name;
 		$params['INVITEMTYPE'] = $itemType;
@@ -72,6 +75,7 @@ abstract class QBInventoryLine extends CActiveRecordBehavior {
 		$params['PURCHASEDESC'] = $description;
 		$params['PRICE'] = $price;
 		$params['ACCNT'] = $accnt;
+		$params['TAXABLE'] = $taxable;
 		return $params;
 	}
 

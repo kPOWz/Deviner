@@ -12,13 +12,17 @@
 	
 	<?php 
 	$index = 0;
+	
+	$productLineCounter = count($products['lines']);
+	echo Yii::trace($productLineCounter.' numberOfDataLines', 'application.views.jobLine');
+	
 	foreach($products['lines'] as $dataLine){
 		$continue = false;
 		foreach($dataLine as $key=>$dataLineValue){
+			echo Yii::log($key.' key', CLogger::LEVEL_INFO, 'application.views.jobLine');
 			if($key == 'productLine') $productLine = $dataLineValue;
 			if($key == 'line') $sizeLine = $dataLineValue;
-			$continue = $productLine && $sizeLine;
-		}	//beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
+		}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
 		if($continue){
 			$this->renderPartial('//jobLineSize/_view', array(
 				'product'=>$productLine,

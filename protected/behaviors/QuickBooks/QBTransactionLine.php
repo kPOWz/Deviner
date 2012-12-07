@@ -27,9 +27,10 @@ abstract class QBTransactionLine extends CActiveRecordBehavior {
 			'INVITEM'=>null,
 			'PAYMETH'=>null,
 			'TAXABLE'=>null,
+			'VALDAJ'=>null,
 			'REIMBEXP'=>null,
 			'EXTRA'=>null,
-			'VALDAJ'=>null,			
+						
 		);
 	}
 

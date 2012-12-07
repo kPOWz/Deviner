@@ -20,11 +20,11 @@ class QBTransactionLine_InvoiceLine extends QBTransactionLine {
 		$params['TRNSTYPE'] = 'INVOICE';
 		$params['DATE'] = date('n/j/Y', strtotime($this->owner->INVOICE->DATE)); //may need to format this
 		$params['NAME'] = $this->owner->INVOICE->CUSTOMER->summary;
-		$params['AMOUNT'] = $this->owner->AMOUNT;
+		$params['AMOUNT'] = $this->owner->AMOUNT * -1; //amount is negative for SPL records according to the QB IIF standard
 		$params['DOCNUM'] = 'GUS-I-' . $this->owner->INVOICE_ID;
 		$params['CLEAR'] = 'N';
 		$params['PRICE'] = $this->owner->RATE;
-		$params['QNTY'] = $this->owner->QUANTITY;
+		$params['QNTY'] = ($this->owner->QUANTITY > 0) ? $this->owner->QUANTITY * -1: $this->owner->QUANTITY; //quantity is negative according to the QB IIF standard
 		$params['INVITEM'] = $this->owner->DESCRIPTION;
 		$params['TAXABLE'] = 'Y';
 		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.

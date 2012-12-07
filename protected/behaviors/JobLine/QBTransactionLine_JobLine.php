@@ -23,11 +23,11 @@ class QBTransactionLine_JobLine extends QBTransactionLine {
 		$params['TRNSTYPE'] = 'INVOICE';
 		$params['DATE'] = date('n/j/Y', strtotime($this->owner->job->printDate)); //may need to format this
 		$params['NAME'] = $this->owner->job->CUSTOMER->summary;
-		$params['AMOUNT'] = $price;
+		$params['AMOUNT'] = $price * -1;//amount is negative for SPL records according to the QB IIF standard
 		$params['DOCNUM'] = 'GUS-J-' . $this->owner->JOB_ID;
 		$params['CLEAR'] = 'N';
 		$params['PRICE'] = $unit_cost;
-		$params['QNTY'] = $quantity;
+		$params['QNTY'] = ($quantity > 0) ? $quantity * -1: $quantity; //quantity is negative according to the QB IIF standard
 		$params['INVITEM'] = $text;
 		$params['TAXABLE'] = 'Y';
 		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.
@@ -53,11 +53,11 @@ class QBTransactionLine_JobLine extends QBTransactionLine {
 		$params['TRNSTYPE'] = 'INVOICE';
 		$params['DATE'] = date('n/j/Y', strtotime($this->owner->job->printDate)); //may need to format this
 		$params['NAME'] = $this->owner->job->CUSTOMER->summary;
-		$params['AMOUNT'] = $price;
+		$params['AMOUNT'] = $price * -1; //amount is negative for SPL records according to the QB IIF standard
 		$params['DOCNUM'] = 'GUS-J-' . $this->owner->JOB_ID;
 		$params['CLEAR'] = 'N';
 		$params['PRICE'] = $unit_cost;
-		$params['QNTY'] = $quantity;
+		$params['QNTY'] = ($quantity > 0) ? $quantity * -1: $quantity; //quantity is negative according to the QB IIF standard
 		$params['INVITEM'] = $text;
 		$params['TAXABLE'] = 'Y';
 		//ACCT (Required) The income or expense account to which you assigned the amount on the distribution line.

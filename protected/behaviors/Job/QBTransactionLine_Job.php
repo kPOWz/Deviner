@@ -7,11 +7,11 @@ class QBTransactionLine_Job extends QBTransactionLine {
 		$params['TRNSTYPE'] = 'INVOICE';
 		$params['DATE'] = date('n/j/Y', strtotime($this->owner->printDate)); //may need to format this
 		$params['NAME'] = $this->owner->CUSTOMER->summary;
-		$params['AMOUNT'] = $amount;
+		$params['AMOUNT'] = $amount * -1; //amount is negative for SPL records according to the QB IIF standard
 		$params['DOCNUM'] = 'GUS-J-' . $this->owner->ID;
 		$params['CLEAR'] = 'N';
 		$params['PRICE'] = $price;
-		$params['QNTY'] = $quantity;
+		$params['QNTY'] = ($quantity > 0) ? $quantity * -1: $quantity; //quantity is negative according to the QB IIF standard
 		$params['INVITEM'] = $invitem;
 		$params['TAXABLE'] = $taxable;
 		//(Required) The income or expense account to which you assigned the amount on the distribution line.

@@ -19,7 +19,7 @@ $this->menu=array(
 	'model'=>$model,
 	'statusList'=>$statusList,
 	'colorList'=>$colorList,
-	'styleList'=>$styleList,
+	//'styleList'=>$styleList,
 	'sizeList'=>$sizeList,
 	'vendorList'=>$vendorList,
 )); ?>

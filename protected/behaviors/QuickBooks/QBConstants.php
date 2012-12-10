@@ -22,7 +22,7 @@ class QBConstants {
 	
 	//(Required) The income or expense account to which you assigned the amount on the distribution line.
 	const SHIPPING_ACCNT = "5010-Sales:Shipping";
-	const PRINTING_ACCNT = "5010-Sales:Custom Screenprinting Sales:Printing";
+	const PRINTING_ACCNT = "5010-Sales:Custom Screenprinting Sales";
 	const SETUP_ACCNT = "5010-Sales:Custom Screenprinting Sales:Setup Time";
 	const RUSH_ACCNT = "5010-Sales:Custom Screenprinting Sales:Rush Charges";
 	const ART_ACCNT = "5010-Sales:Custom Screenprinting Sales:Artwork";

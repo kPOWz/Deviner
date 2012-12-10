@@ -85,11 +85,11 @@ return array(
 					'maxFileSize' => '10240',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+				
 				array(
 					'class'=>'CWebLogRoute',
 					'levels'=>'error, warning, info, trace, vardump',
-				),*/
+				),
 				
 			),
 		),

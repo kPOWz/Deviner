@@ -32,10 +32,19 @@ class QBConstants {
 	const QB_DOCNUM_PREFIX = "GUS-I-";
 	
 	//Quickbooks version constants
+	//TODO: make this configuraable in gus dashboard/settings
+	//HDR	QuickBooks 2012 for Macintosh	Version 13.0.11	Release R12	1	12/7/12	1354915827
+	const QB_PROD = 'QuickBooks 2012 for Macintosh';
+	const QB_VERSION = 'Version 13.0.11';
+	const QB_REL = 'Release R2';
+	const QB_IIFVER = '1';
+	const QB_DATE = '12/7/12';
+	const QB_TIME = '1354915827';
+	/*
 	const QB_PROD = 'QuickBooks Pro 6.0 for Macintosh';
 	const QB_VERSION = 'Version 6.0';
 	const QB_REL = 'Release R2';
 	const QB_IIFVER = '1';
 	const QB_DATE = '12/3/12';
-	const QB_TIME = '1354535565';
+	const QB_TIME = '1354535565';*/
 }

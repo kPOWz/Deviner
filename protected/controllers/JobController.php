@@ -62,7 +62,6 @@ class JobController extends Controller
 		$sizes = Lookup::listItems('Size');
 		$lineData = array();
 		$products = array();
-		$productSizes = array();
 		$groupedLines = array();
 		foreach($model->jobLines as $line){
 			echo Yii::log(count($model->jobLines).' numberOfJobLines', CLogger::LEVEL_INFO, 'application.controllers.Job');
@@ -75,6 +74,7 @@ class JobController extends Controller
 		}
 		
 		foreach($groupedLines as $style=>$styleGroup){
+			$productSizes = array();
 			if($style){
 				foreach($styleGroup as $color=>$colorGroup){
 					$approved = false;
@@ -95,7 +95,9 @@ class JobController extends Controller
 							'productLine' => $productLine,
 							'line'=>$sizeLine,
 						);
+							
 					}
+					
 					if(count($productSizes) > 0){
 						$latestProduct = $line->product;
 						$products['model'] = $line;

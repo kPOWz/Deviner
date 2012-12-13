@@ -73,10 +73,10 @@ class JobController extends Controller
 			$groupedLines[(string) $line->product->vendorStyle][(string) $line->PRODUCT_COLOR] = array('line'=>$line, 'sizes'=>$groupedSizes);
 		}
 		
-		foreach($groupedLines as $style=>$styleGroup){
-			$productSizes = array();
+		foreach($groupedLines as $style=>$styleGroup){			
 			if($style){
 				foreach($styleGroup as $color=>$colorGroup){
+					$productSizes = array();
 					$approved = false;
 					$line = $colorGroup['line'];
 					foreach($sizes as $size){ //iterating through sizes because we want ALL of them

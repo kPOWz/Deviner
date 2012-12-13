@@ -85,7 +85,7 @@ class Job extends CActiveRecord
 			'PRINTER'=> array(self::BELONGS_TO, 'User', 'PRINTER_ID'),
 			'jobLines' => array(self::HAS_MANY, 'JobLine', 'JOB_ID'),			
 			'printJob' => array(self::BELONGS_TO, 'PrintJob', 'PRINT_ID'),
-			'events'=> array(self::HAS_MANY, 'EventLog', 'OBJECT_ID', 'condition'=>'OBJECT_TYPE = \'Job\'', 'index'=>'EVENT_ID'),
+			'events'=> array(self::HAS_MANY, 'EventLog', 'OBJECT_ID', 'condition'=>'events.OBJECT_TYPE = \'Job\'', 'index'=>'EVENT_ID'),
 			'status'=>array(self::BELONGS_TO, 'Lookup', 'STATUS'),
 		);
 	}
@@ -246,20 +246,23 @@ class Job extends CActiveRecord
 	 * @param mixed $status The status value, or array of status values, by which to filter.
 	 * @param mixed $beginDate The status value, or array of status values, by which to filter.
 	 * @param mixed $endDate The status value, or array of status values, by which to filter.
-	 * @param mixed $eventId The status value, or array of status values, by which to filter.
+	 * @param mixed $eventId The status value, or array of status values, by which to filter. Defaults to Job Print event.
 	 * @return array The set of jobs with the given status(es).
 	 */
 	public static function getJobsByStatusDateRangeForEvent($status, $beginDate, $endDate, $eventId = EventLog::JOB_PRINT){
 
 		$criteria=new CDbCriteria;
 		$criteria->alias = 'job';
+		$criteria->select = array('job.ID', 'NAME', 'STATUS');
+		//$critera->with = array('events');
+		
 		$criteria->join='JOIN event_log ON event_log.OBJECT_ID=job.ID';	
-		$criteria->addCondition('event_log.EVENT_ID='. EventLog::JOB_PRINT); //TODO pass $eventId
+		$criteria->addCondition('event_log.EVENT_ID='. $eventId);
 		$criteria->addCondition('event_log.TIMESTAMP>= STR_TO_DATE(\''. $beginDate .'\', \'%Y-%m-%d\')');
 		$criteria->addCondition('event_log.TIMESTAMP< STR_TO_DATE(\''. $endDate .'\', \'%Y-%m-%d\')');
 		$criteria->addInCondition('STATUS', $status);
 		
-		return Job::model()->findAll($criteria);
+		return Job::model()->with('events')->together()->findAll($criteria);
 
 	}
 	

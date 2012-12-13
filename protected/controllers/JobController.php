@@ -919,8 +919,7 @@ class JobController extends Controller
 	 * Manages all models.
 	 */
 	public function actionExport()
-	{
-		
+	{	
 		if(isset($_GET))
 		{
 			if(isset($_GET['export_begin'])){}
@@ -931,27 +930,21 @@ class JobController extends Controller
 				//transform that date to end of that day - needed?
 			//else default to end of today
 				
-			if(isset($_GET['export_status'])){}
-			//else default to printed
+			if(isset($_GET['export_status'])){
+				$status = array($_GET['export_status']);
+			}//else default to printed
 			
-			//do query and return resutls
-			//query Jobs by status and printDate , 
-			//return the result as a grid or list view flanked by checkmarks
-			///2011-12-28 00:00:00 >= , < 2011-12-29 00:00:00
-			$status = $_GET['export_status'];
 			$exportBegin = $_GET['export_begin'];
 			$exportEnd = $_GET['export_end'];
-			$exportData = Job::getJobsByStatusDateRangeForEvent(array($status), $exportBegin, $exportEnd, NULL );
-			Yii::log('HELLO2', CLogger::LEVEL_INFO, 'application.models.job');
-			//$exportData = Job::listJobsByStatus(array(Job::COMPLETED));
-			Yii::log(sizeOf($exportData), CLogger::LEVEL_INFO, 'application.models.job');
+			$exportData = Job::getJobsByStatusDateRangeForEvent($status, $exportBegin, $exportEnd);
+
 			$exportDataProvider = new CArrayDataProvider($exportData, array(
 					'keyField'=>'ID',
 					'pagination'=>array(
 							'pageSize'=>15,
 					),
 			));
-			Yii::log(sizeOf($exportDataProvider), CLogger::LEVEL_INFO, 'application.models.job');
+
 			$this->renderPartial('_exportGrid', array(
 					'exportData'=>$exportDataProvider,
 					'formatter'=>new Formatter,
@@ -959,20 +952,9 @@ class JobController extends Controller
 		
 		}
 		else //later will be post handling to render partial of mimetype text/iif
-		//get subset of checked submissions only 
-		//attach behavior
+			//get subset of checked submissions only 
+			//attach behavior
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-		
-		/*
-		
-		$model=new Job('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Job']))
-			$model->attributes=$_GET['Job'];
-	
-		$this->render('admin',array(
-				'model'=>$model,
-		)); */
 	}
 	
 	/**

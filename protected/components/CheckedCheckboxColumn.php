@@ -1,6 +1,6 @@
 <?php
 /**
- * CCheckBoxColumn class file.
+ * CheckedCheckBoxColumn class file.
  *
  * @author Katherine Zeman Bach <karrie.zeman@gmail.com>
  * @link http://www.yiiframework.com/
@@ -31,7 +31,7 @@ Yii::import('zii.widgets.grid.CCheckBoxColumn');
  */
 
 
-class CheckedCheckboxColumn extends CCheckBoxColumn
+class CheckedCheckBoxColumn extends CCheckBoxColumn
     {
        
     	/**

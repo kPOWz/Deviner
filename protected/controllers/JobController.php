@@ -920,22 +920,35 @@ class JobController extends Controller
 	 */
 	public function actionExport()
 	{	
-		if(isset($_GET))
+		//Yii::log('la la', CLogger::LEVEL_INFO, 'application.controllers.job');
+		//Yii::log($options['data'].'ajaxData', CLogger::LEVEL_INFO, 'farmework.web.helpers');
+			
+		if(isset($_GET)) //TODO check is ajax
 		{
-			if(isset($_GET['export_begin'])){}
-				//transform that date to begin of that day - needed?
-			//else default to begin of today
-				
-			if(isset($_GET['export_end'])){}
-				//transform that date to end of that day - needed?
-			//else default to end of today
-				
+			//Start data
+			if(isset($_GET['export_begin'])){
+				$exportBegin = $_GET['export_begin'];
+			}
+			else $exportBegin = date("Y-m-d");
+			Yii::log($exportBegin.'exportBegin', CLogger::LEVEL_INFO, 'application.controllers.job');
+
+			
+			//End date
+			if(isset($_GET['export_end'])){
+				$exportEnd = date("Y-m-d", strtotime($_GET['export_end'] . '+1 day'));
+			}
+			else $exportEnd = date("Y-m-d", strtotime('+1 day'));
+			Yii::log($exportEnd.'exportEnd', CLogger::LEVEL_INFO, 'application.controllers.job');
+			
+			
+			//Status
 			if(isset($_GET['export_status'])){
 				$status = array($_GET['export_status']);
-			}//else default to printed
+			}
+			else $status = Job::COMPLETED;
+			Yii::log($status.'exportStatus', CLogger::LEVEL_INFO, 'application.controllers.job');
 			
-			$exportBegin = $_GET['export_begin'];
-			$exportEnd = $_GET['export_end'];
+
 			$exportData = Job::getJobsByStatusDateRangeForEvent($status, $exportBegin, $exportEnd);
 
 			$exportDataProvider = new CArrayDataProvider($exportData, array(
@@ -947,13 +960,29 @@ class JobController extends Controller
 
 			$this->renderPartial('_exportGrid', array(
 					'exportData'=>$exportDataProvider,
-					'formatter'=>new Formatter,
-			));
-		
+					'gridId'=> 'export_grid'
+					), false, true);	
 		}
-		else //later will be post handling to render partial of mimetype text/iif
-			//get subset of checked submissions only 
+		
+		//Yii::log('here checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+		//Yii::log(CVarDumper::dump($_POST[data]).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+			
+		if(isset($_POST) && isset($_POST['ids'])) //TODO check is ajax
+		{
+			//Yii::log('here2 checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+			
+			//Yii::log(CVarDumper::dump($_POST).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+			//post handling to render partial of mimetype text/iif
+			//get subset of checked submissions only
 			//attach behavior
+/*
+				echo print_r( $_POST['ids']);
+				foreach($_POST['ids'] as $val) {
+					echo $val . '<br/>';
+				}*/
+				
+		}
+		else 
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 	

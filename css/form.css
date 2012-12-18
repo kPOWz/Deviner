@@ -45,6 +45,18 @@ div.form select
 	margin: 0.2em 0 0.5em 0;
 }
 
+input.fixed-medium
+{
+	width: 200px;
+}
+
+input[type=submit].vert-align
+{
+	display: block;
+    vertical-align: middle;
+    margin: 1em 0;
+}
+
 div.form fieldset
 {
 	border: 1px solid #DDD;

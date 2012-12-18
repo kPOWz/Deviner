@@ -1,27 +1,21 @@
+<div id="export_form_container" class="form">
 
-<div class="form">
-
-<!--onsubmit interception (part of html options :  'onsubmit'=>"$('#line_prototype').remove(); return true;"-->
-<!--add an id ?-->
 <!-- why does he have ajax validation off everywhere ?-->
-<!--action & method needed defined explicity? -->
-<!-- on submit do jobs filter, attach behaviors, do file, remove behaviors -->
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'id'=>'export-form',
+	'id'=>'export_preview_form',
 	'method'=>'GET',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'enctype'=>'multipart/form-data',
-	),
+	'clientOptions'=>array('validateOnSubmit'=>false, 'validateOnType'=>false)
 )); ?>
 
-<div class="row" >
-<b>From :</b>
+<fieldset >
+<div class='grid_9' >
+<div class='grid_6' >
+<h3>Export jobs printed </h3>
+<b>from :</b>
 <?php
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-    'name'=>'export_begin',  // name of post parameter
-  //  'value'=>Yii::app()->request->cookies['export_begin']->value,  // value comes from cookie after submittion
+    'name'=>'export_begin',
+	'id'=>'export_begin',
      'options'=>array(
         'showAnim'=>'fold',
         'dateFormat'=>'yy-mm-dd',
@@ -33,11 +27,11 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 ?>
 
 
-<b>To :</b>
+<b>to :</b>
 <?php
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
     'name'=>'export_end',
-    //'value'=>Yii::app()->request->cookies['end_date']->value,
+	'id'=>'export_end',
      'options'=>array(
         'showAnim'=>'fold',
         'dateFormat'=>'yy-mm-dd',
@@ -49,13 +43,28 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 ));
 ?>
 	
-<!-- make this a multi-select? -->		
+<!--TODO make this a multi-select? -->	
+<b>with status :</b>	
 <?php 
 $statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-echo CHtml::dropDownList('export_status', array_search('Completed', $statuses), $statuses)
+echo CHtml::dropDownList('export_status', array_search('Completed', $statuses), $statuses, array('id'=>'export_status'))
 ?>
-<?php echo CHtml::button('Export', array('submit' => array('job/export'))); ?>
 </div>
+             
+<?php echo CHtml::ajaxButton('Preview Export'
+							,CHtml::normalizeUrl('job/export') 
+							,array(
+									'update'        => "#export_preview_results",
+									'dataType'      => 'html',
+									'type'			=> 'GET',
+									//data not needed as this is automatically handled by the CHtml ajaxButton 
+									//'data'			=> 'export_begin=' . 'js:\$("#export_begin").val();' . '&export_end=' . 'js:\$("#export_end").val()' . '&export_status=' . 'js:\$("#export_status").val()'
+							)
+							,array('id'=>'export_preview_submit', 'name'=>'export_preview_submit','class' =>'fixed-medium')
+		
+		); ?>
+</div>
+</fieldset>
 <?php $this->endWidget(); ?>
 
 
@@ -63,3 +72,5 @@ echo CHtml::dropDownList('export_status', array_search('Completed', $statuses), 
 </div><!-- form -->
 
 <!--  do a grid view w/ check box column where all checked -->
+<div id='export_preview_results'> <!--  class='form'> -->
+</div>

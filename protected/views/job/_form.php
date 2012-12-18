@@ -151,7 +151,56 @@ CClientScript::POS_BEGIN);
 		<?php echo CHtml::button('Add Garment', array(
 			'onclick'=>"addLine(this, '".CHtml::activeName($model, 'jobLines')."');",
 		));?>
-	</div>
+		<?php echo CHtml::link('Create new product', "",  // the link for open the dialog
+    			array(
+        			'style'=>'cursor: pointer; text-decoration: underline;',
+        			'onclick'=>"{addProduct(); $('#dialogProduct').dialog('open');}"
+    	));?>
+ 		<?php
+			$this->beginWidget('zii.widgets.jui.CJuiDialog', array( // the dialog
+    			'id'=>'dialogProduct',
+   	 			'options'=>array(
+        			'title'=>'Create new product',
+        			'autoOpen'=>false,
+        			'modal'=>true,
+        			'width'=>750,
+        			'height'=>470,
+    			),
+			));?>
+		<div class="divForForm"></div>
+ 		<?php $this->endWidget();?>
+	
+		<script type="text/javascript">
+			function addProduct()
+			{
+    			<?php echo CHtml::ajax(array(
+            		'url'=>array('product/create'),
+            		'data'=> "js:$(this).serialize()",
+            		'type'=>'post',
+            		'dataType'=>'json',
+            		'success'=>"function(data)
+            		{
+               			 if (data.status == 'failure')
+                		{
+                    		$('#dialogProduct div.divForForm').html(data.div);
+                          	// Here is the trick: on submit-> once again this function!
+                    		$('#dialogProduct div.divForForm form').submit(addProduct);
+                		}
+                		else
+                		{
+    						alert(data.attributes);
+                    		$('#dialogProduct div.divForForm').html(data.div);
+                    		setTimeout(\"$('#dialogProduct').dialog('close') \",3000);
+                		}
+ 
+            		} ",
+            ))?>;
+    		return false;  
+			} 
+		</script>
+	
+	
+	</div><!-- end add garment -->
 
 	<div class="row">
 		<?php $garmentCount = $model->garmentCount;?>

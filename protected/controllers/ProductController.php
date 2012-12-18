@@ -78,13 +78,57 @@ class ProductController extends Controller
 
 		if(isset($_POST['ProductForm']))
 		{
+			Yii::log('hellow POST', CLogger::LEVEL_INFO, 'application.controllers.product');
+			
 			$model->attributes=$_POST['ProductForm'];
 			$save = $model->save();
 			if($save){
-				$this->redirect(array('update','v'=>$model->VENDOR_ID, 'i'=>$model->VENDOR_ITEM_ID));
+				
+				if (Yii::app()->request->isAjaxRequest)
+				{
+					Yii::log('hellow AJAX POST', CLogger::LEVEL_INFO, 'application.controllers.product');
+					Yii::log(print_r($model->getAttributes(), true) . 'hellow get pk', CLogger::LEVEL_INFO, 'application.controllers.product');
+						
+					//$model->metaData->tableSchema->primaryKey = 'ID';
+					//$newId = $model->getPrimaryKey(); //$model->ID;
+					//Yii::log('hellow AJAX POST new id', CLogger::LEVEL_INFO, 'application.controllers.product');
+						
+					//$newProduct = $model->find('ID=:newId', array(':newId' => $newId))->VENDOR_ITEM_ID;
+					//Yii::log('hellow AJAX POST new product', CLogger::LEVEL_INFO, 'application.controllers.product');
+						
+					
+					Yii::log('hellow new product', CLogger::LEVEL_INFO, 'application.controllers.product');
+					echo CJSON::encode(array(
+							'attributes' => $model->getAttributes(),
+							'status'=>'success',
+							'div'=>"New product added" //.$newProduct." added",
+       		 				//'value'=>array(0=>$newId, 1=>$newProduct),
+  
+					));
+					Yii::log('hellow AJAX POST exit', CLogger::LEVEL_INFO, 'application.controllers.product');
+						
+					exit;
+				}
+				else
+					$this->redirect(array('update','v'=>$model->VENDOR_ID, 'i'=>$model->VENDOR_ITEM_ID));
 			}
 		}
-
+		
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			Yii::log('hellow AJAX POST failure', CLogger::LEVEL_INFO, 'application.controllers.product');
+				
+			echo CJSON::encode(array(
+					'status'=>'failure',
+					'div'=>$this->renderPartial('_form', array(
+															'model'=>$model, 
+															'statusList' => $statusList, 
+															'colorList' => $colorList, 
+															'sizeList' => $sizeList,
+															'vendorList' => $vendorList), true)));
+			exit;
+		}
+		
 		$this->render('create',array(
 			'model'=>$model,
 			'statusList'=>$statusList,

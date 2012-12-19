@@ -1,5 +1,9 @@
 <div id="<?php echo $type.'_container'?>" class="item_container">
 	<h3><?php echo CHtml::encode($type);?></h3>
+	<?php echo CHtml::textField('new_text', '', array('class'=>'new_text'));?>
+	<?php echo CHtml::button('Add', array(
+		'class'=>'add_new',
+	));?>
 	<div class="items">
 		<?php foreach($items as $lookup){?>
 			<span id="<?php echo $lookup->ID;?>">
@@ -11,10 +15,6 @@
 			<br/>
 		<?php }?>
 	</div>
-	<?php echo CHtml::textField('new_text', '', array('class'=>'new_text'));?>
-	<?php echo CHtml::button('Add', array(
-		'class'=>'add_new',
-	));?>
 </div>
 
 <?php Yii::app()->clientScript->registerCoreScript('jquery');?>

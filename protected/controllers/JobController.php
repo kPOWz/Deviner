@@ -828,7 +828,11 @@ class JobController extends Controller
 	 */
 	public function actionLoadList($list){
 		switch($list){
-			case 'current' : $filter = array(Job::CREATED, JOB::SCHEDULED, Job::INVOICED, Job::PAID, Job::ORDERED, Job::COUNTED, Job::PRINTED); break;
+			case 'created' : $filter = Job::CREATED; break;
+			case 'ordered' : $filter =  Job::ORDERED; break;
+			case 'counted' : $filter =  Job::COUNTED; break;
+			case 'printed' : $filter =  Job::PRINTED; break;
+			case 'invoiced' : $filter =  Job::INVOICED; break;
 			case 'canceled' : $filter = Job::CANCELED; break;
 			case 'completed' : $filter = Job::COMPLETED; break;
 			default : $filter = null; break;
@@ -920,11 +924,13 @@ class JobController extends Controller
 	 */
 	public function actionExport()
 	{	
-		//Yii::log('la la', CLogger::LEVEL_INFO, 'application.controllers.job');
+		Yii::log('hello action export', CLogger::LEVEL_INFO, 'application.controllers.job');
 		//Yii::log($options['data'].'ajaxData', CLogger::LEVEL_INFO, 'farmework.web.helpers');
 			
 		if(isset($_GET)) //TODO check is ajax
 		{
+			Yii::log('hello action export GET', CLogger::LEVEL_INFO, 'application.controllers.job');
+			
 			//Start data
 			if(isset($_GET['export_begin'])){
 				$exportBegin = $_GET['export_begin'];
@@ -967,21 +973,26 @@ class JobController extends Controller
 		//Yii::log('here checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
 		//Yii::log(CVarDumper::dump($_POST[data]).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
 			
-		if(isset($_POST) && isset($_POST['ids'])) //TODO check is ajax
+		if(isset($_POST)) //TODO check is ajax
 		{
-			//Yii::log('here2 checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+			Yii::log('hello action export POST', CLogger::LEVEL_INFO, 'application.controllers.job');
+			if(isset($_POST['ids']))
+			{			
+				Yii::log('hello action export POST ids', CLogger::LEVEL_INFO, 'application.controllers.job');
 			
-			//Yii::log(CVarDumper::dump($_POST).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
-			//post handling to render partial of mimetype text/iif
-			//get subset of checked submissions only
-			//attach behavior
-/*
+				//Yii::log(CVarDumper::dump($_POST).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
+				//post handling to render partial of mimetype text/iif
+				//get subset of checked submissions only
+				//attach behavior
+
 				echo print_r( $_POST['ids']);
 				foreach($_POST['ids'] as $val) {
 					echo $val . '<br/>';
-				}*/
+				}
+			}
 				
-		}/*
+		}
+		/*
 		else 
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');*/
 	}

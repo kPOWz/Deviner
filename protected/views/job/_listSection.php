@@ -6,7 +6,7 @@ class StatusProvider {
 	
 	public static function statusSelector($model){
 		return CHtml::activeDropDownList($model, 'STATUS', StatusProvider::$statuses, array(
-			'onchange'=>"statusChanged(".Job::COMPLETED.", ".Job::CANCELED.", '".CHtml::normalizeUrl(array('job/status', 'id'=>$model->ID))."', this);"
+			'onchange'=>"statusChanged('".CHtml::normalizeUrl(array('job/status', 'id'=>$model->ID))."', this);"
 		));
 	}
 }

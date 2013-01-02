@@ -98,11 +98,11 @@
 	<?php }?>
 	
 	<?php if(Yii::app()->user->hasFlash('success')){?>
-		<div class="flash-success" id="flash-success">
+		<div class="flash-success" id="flash-success" >
 			<?php echo Yii::app()->user->getFlash('success');?>
 		</div>
 	<?php } else if(Yii::app()->user->hasFlash('failure')){?>
-		<div class="flash-error" id="flash-error">
+		<div class="flash-error" id="flash-error" >
 			<?php echo Yii::app()->user->getFlash('failure');?>
 		</div>
 	<?php }?>

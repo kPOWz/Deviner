@@ -17,11 +17,12 @@
 	
 	<script type="text/javascript" src="http://use.typekit.com/skq5ysu.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+<?php Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'flashMessages.js', CClientScript::POS_END);?>
+
 <div id="wrapper" class="container_12 clearfix">
 	<div class="grid_2" id="menu">
 		
@@ -97,11 +98,11 @@
 	<?php }?>
 	
 	<?php if(Yii::app()->user->hasFlash('success')){?>
-		<div class="flash-success">
+		<div class="flash-success" id="flash-success">
 			<?php echo Yii::app()->user->getFlash('success');?>
 		</div>
 	<?php } else if(Yii::app()->user->hasFlash('failure')){?>
-		<div class="flash-error">
+		<div class="flash-error" id="flash-error">
 			<?php echo Yii::app()->user->getFlash('failure');?>
 		</div>
 	<?php }?>

@@ -3,7 +3,6 @@
 class JobController extends Controller
 {
 
-
 	/**
 	 * @return array action filters
 	 */
@@ -667,9 +666,12 @@ class JobController extends Controller
 	}
 	
 	/**
-	 * Let's the user download the art associated with a job.
+	 * Lets the user download the art associated with a job.
+	 * @param integer $art_id the ID of the print art to download
+	 * @param integer $id the ID of the job associated with the art
+	 * @return an image file via browser downloads
 	 */
-	public function actionArt($art_id){
+	public function actionArt($art_id, $id){
 		$model = PrintArt::model()->findByPk((int) $art_id);
 		if($model){
 			$file = $model->FILE;
@@ -680,10 +682,37 @@ class JobController extends Controller
 				$pattern="/([[:alnum:]_\.-]*)/";
 				$name=str_replace(str_split(preg_replace($pattern,$replace,$name)),$replace,$name);
 				//end snippet
+
+				Yii::log('art file looked for at ' . $file, CLogger::LEVEL_INFO, 'application.controllers.job');
 				
-				Yii::app()->request->sendFile($name, file_get_contents($file));
+				//TODO: after file names are corrected in database, switch to this commented out lookup
+				//if(($fileContents = @file_get_contents(Yii::app()->basePath . $file)) === false)
+				if(($fileContents = @file_get_contents($file)) === false)
+				{
+					$e = error_get_last();
+					
+					Yii::log('error get last : ' . print_r(error_get_last()), CLogger::LEVEL_ERROR, 'application.controllers.job');
+					Yii::log('error exception caught ', CLogger::LEVEL_ERROR, 'application.controllers.job');
+					Yii::log('Request to download print art file ' .$file . ' failed with the following exception : '. $e['message'] . 'code : ' . $e['code'], CLogger::LEVEL_ERROR, 'application.controllers.job');
+					
+					Yii::log('flash error set ', CLogger::LEVEL_INFO, 'application.controllers.job');
+					Yii::app()->user->setFlash('failure','Failed to download file. File may be missing or blank.');
+					
+					//TODO: check that request was ajax ?
+					$this->redirect(array('view', 'id' => $id)); //could also get job id from Yii::app()->request->getUrlReferrer()
+				} 
+				/* catch(ErrorException $e){
+					Yii::log('error exception caught ', CLogger::LEVEL_ERROR, 'application.controllers.job');
+					Yii::log('Request to download print art file ' .$file . ' failed with the following exception : '. $e->getMessage() . 'code : ' . $e->getCode(), CLogger::LEVEL_ERROR, 'application.controllers.job');					
+				}catch(CException $e){
+					Yii::log('unexpected exception caught ', CLogger::LEVEL_ERROR, 'application.controllers.job');
+					Yii::log('Request to download print art file ' .$file . ' failed with the following exception : '. $e, CLogger::LEVEL_ERROR, 'application.controllers.job');					
+				} */
 			}
 		}
+
+		Yii::log('send file attempt ', CLogger::LEVEL_INFO, 'application.controllers.job');
+		Yii::app()->request->sendFile($name, $fileContents);
 	}
 	
 	/**

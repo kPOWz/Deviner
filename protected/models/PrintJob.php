@@ -60,7 +60,7 @@ class PrintJob extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'jobs' => array(self::HAS_MANY, 'Job', 'PRINT_ID'),
+			'jobs' => array(self::HAS_MANY, 'Job', 'PRINT_ID'), // this doesn't seem correct job can not have more than one print id
 			'approver' => array(self::BELONGS_TO, 'User', 'APPROVAL_USER'),
 			'files'=>array(self::HAS_MANY, 'PrintArt', 'PRINT_ID'),
 		);

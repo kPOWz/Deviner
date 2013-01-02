@@ -8,7 +8,6 @@
 		<?php echo CHtml::encode($model->BACK_PASS);?> <strong>/</strong> 
 		<?php //echo CHtml::activeLabelEx($model,'SLEEVE_PASS'); ?>
 		<?php echo CHtml::encode($model->SLEEVE_PASS);?>
-		</div>
 	</div>
 	
 	<div class="row art">
@@ -16,7 +15,7 @@
 		foreach($model->files as $art){?>
 			<?php $this->renderPartial('//print/_artView', array(
 				'model'=>$art,
-				'artLink'=>isset($art->FILE) && is_string($art->FILE) ? CHtml::normalizeUrl(array('job/art', 'art_id'=>$art->ID)) : null,
+				'artLink'=>isset($art->FILE) && is_string($art->FILE) ? CHtml::normalizeUrl(array('job/art', 'art_id'=>$art->ID, 'id'=>$jobId)) : null,
 			));?>
 		<?php }?>
 	</div>
@@ -25,7 +24,6 @@
 		<span class="title bold"><?php echo CHtml::activeLabelEx($model,'COST'); ?></span>
 		<?php echo CHtml::encode($formatter->formatCurrency($model->COST));?>
 	</div>
-</div>
 
 	
 

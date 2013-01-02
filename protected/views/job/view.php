@@ -49,6 +49,7 @@
 	
 	<?php $this->renderPartial('//print/_jobView', array(
 		'model'=>$print,
+		'jobId'=>$model->ID,
 		'artLink'=>isset($artLink) ? $artLink : null,
 		'mockupLink'=>isset($mockupLink) ? $mockupLink : null,
 		'formatter'=>$formatter,

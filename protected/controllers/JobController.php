@@ -497,8 +497,9 @@ class JobController extends Controller
 			}
 			unset($_POST['Customer']['summary']);
 			$customer->attributes = $_POST['Customer'];
+			
 			if(isset($_FILES['PrintJob'])){
-				$print->loadFromArray($_POST['PrintJob'], $_FILES['PrintJob']);
+				$print->loadFromArray($_POST['PrintJob'], $_FILES);
 			} else {
 				$print->loadFromArray($_POST['PrintJob'], array());
 			}

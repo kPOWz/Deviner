@@ -113,6 +113,7 @@ class PrintJob extends CActiveRecord
 	 * value given by $rawFile is property stored in the file system.
 	 * @param object $rawFile The file to be saved.
 	 * @param string $attribute The attribute in which to place the final file path.
+	 * TODO: remove - never referenced (logic moved to PrintArt class)
 	 */
 	protected function createAttributeFile($rawFile, $attribute){
 		if($rawFile){
@@ -130,6 +131,7 @@ class PrintJob extends CActiveRecord
 	/**
 	 * Does the necessary file manipulation to ensure that the $_FILES
 	 * value given by $rawFile is properly stored in the file system.
+	 * TODO: remove - never referenced (logic moved to PrintArt class)
 	 */
 	public function createArtFile($rawFile){
 		$this->createAttributeFile($rawFile, 'ART');
@@ -138,6 +140,7 @@ class PrintJob extends CActiveRecord
 	/**
 	 * Does the necessary file manipulation to ensure that the $_FILES
 	 * value given by $rawFile is properly stored in the file system.
+	 * TODO: remove - never referenced (logic moved to PrintArt class)
 	 */
 	public function createMockUpFile($rawFile){
 		$this->createAttributeFile($rawFile, 'MOCK_UP');
@@ -150,6 +153,9 @@ class PrintJob extends CActiveRecord
 	 * @param array $files The file array.
 	 */
 	public function loadFromArray($attributes, $files){
+		
+		Yii::trace(CVarDumper::dump($files) .' upload files', 'application.models.printjob');
+		
 		$attributesInternal = $attributes;
 		if(isset($attributesInternal['files'])){
 			$artFiles = $attributesInternal['files'];

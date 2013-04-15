@@ -389,18 +389,18 @@ class Job extends CActiveRecord
 				//Automatically assign Print Date to nearest weekday two weeks from now
 				$printEvent->USER_ASSIGNED = $this->PRINTER_ID;
 				//TODO: event user ID assigned automatically?
-				Yii::log('Print date before :  '. $printEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Print date before :  '. $printEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 				$printEvent->DATE = date('Y-m-d', strtotime('+2 weeks', time()));
-				Yii::log('Print date after :  '. $printEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Print date after :  '. $printEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 				
-				Yii::log('Pickup date :  '. $this->pickUpDate, CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Pickup date :  '. $this->pickUpDate, CLogger::LEVEL_TRACE, 'application.models.job');
 				
 				//Automatically assign Due Date to whatever Job creator picked at Pickup Date for now
 				$dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;
 				//TODO: event user ID assigned automatically?
-				Yii::log('Due date before :  '.$dueDateEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Due date before :  '.$dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 				$dueDateEvent->DATE = $this->pickUpDate;
-				Yii::log('Due date after :  '. $dueDateEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Due date after :  '. $dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 			}
 			return true;
 		} else {

@@ -96,8 +96,11 @@
 		<div class="row">
 			<span class="title bold"><?php echo CHtml::activeLabelEx($model,'RUSH'); ?></span>
 			<?php echo CHtml::encode($formatter->formatCurrency($model->RUSH));?>
-		</div>
-
+		</div>		
+		<div class="row">
+			<span class="title bold"><?php echo CHtml::activeLabelEx($model->printJob,'COST'); ?></span>
+			<?php echo CHtml::encode($formatter->formatCurrency($model->printJob->COST));?>
+		</div>	
 		<div class="row">
 			<span class="title bold"><?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?></span>
 			<?php echo CHtml::encode($formatter->formatCurrency($model->SET_UP_FEE));?>

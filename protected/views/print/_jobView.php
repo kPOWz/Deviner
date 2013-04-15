@@ -19,14 +19,4 @@
 			));?>
 		<?php }?>
 	</div>
-
-	<div class="row">
-		<span class="title bold"><?php echo CHtml::activeLabelEx($model,'COST'); ?></span>
-		<?php echo CHtml::encode($formatter->formatCurrency($model->COST));?>
-	</div>
-
-	
-
-	
-
 </div><!-- print_content -->

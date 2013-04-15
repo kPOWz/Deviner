@@ -9,12 +9,50 @@
 					"'fileType': fileType,
 				}," .
 				"'success': function(data){
-					$(sender).parent().before(data);" .
-					"$('.art_count').val((1 * $('.art_count').val()) + 1);
+					$(sender).parent().prev('div.form').append(data);" .
+					"$('.art_count').val((1 * $('.art_count').val()) + 1);" .
+					"document.getElementById(namePrefix + '_FILE').addEventListener('change', submitForm, false);
 				}
 			})
-		}", 
-CClientScript::POS_BEGIN);?>
+		}", CClientScript::POS_BEGIN);?>
+
+<!-- PrintJob_files_0_FILE -->
+
+multiUploader.prototype._submit = function(e){
+		e.stopPropagation(); e.preventDefault();
+		self._startUpload();
+	}
+
+<?php Yii::app()->clientScript->registerScript('submit-form', "" .
+		"function submitForm(e){
+			e.stopPropagation(); e.preventDefault();
+			self._startUpload();
+			
+			//disable all submit buttons on page
+			
+			//check that xhr will work, file types, file size OK
+			
+			//xhr event handlers
+
+			//do xhr
+							
+			//what should the xhr method hander do ? 
+				//just check if is a file,
+				//check if is instance of CUploadedFile (or whatever that class is)
+				//check for error on $_FILES
+				//should be it, don't actually want to move to perm location yet
+			
+			//event listener on xhr to re-enable buttons disabled for upload
+		
+		}", CClientScript::POS_BEGIN);
+
+
+
+?>
+
+<!--  submit form will do ajax post of form data or XMLHttpRequest of forms data to form the
+	php $_FILES / store temorarily & update progress bar
+-->
 
 <?php Yii::app()->clientScript->registerScript('art-delete', "" .
 		"$('.art_delete').live('click', function(event){
@@ -74,19 +112,16 @@ CClientScript::POS_END);?>
 				'artLink'=>isset($art->FILE) && is_string($art->FILE) ? CHtml::normalizeUrl(array('job/art', 'art_id'=>$art->ID)) : null,
 			));?>
 		<?php }?>
+		<div id='uploader' class='form'>
+		
+		</div>
 		<div class="row buttons">
 			<?php foreach($fileTypes as $fileType){
-				echo CHtml::button('Add '.$fileType->TEXT . ' File', array(
+				echo CHtml::button('Add '.$fileType->TEXT . ' File', array( 
 					'onclick'=>"addArt(this, '".$namePrefix."', ".$fileType->ID.")",
 				));
 			}?>
 		</div>
-	</div>
-
-	<div class="row">
-		<?php echo CHtml::activeLabelEx($model,'COST'); ?>
-		<?php echo CHtml::activeTextField($model,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
-		<?php echo CHtml::error($model,'COST'); ?>
 	</div>
 
 </div><!-- form -->

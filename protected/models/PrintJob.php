@@ -5,8 +5,11 @@
  *
  * The followings are the available columns in table 'print':
  * @property integer $ID
- * @property integer $PASS
+ * @property integer $FRONT_PASS
+ * @property integer $BACK_PASS
+ * @property integer $SLEEVE_PASS
  * @property string $ART
+ * @property string $MOCK_UP
  * @property string $COST
  * @property string $APPROVAL_DATE
  * @property integer $APPROVAL_USER

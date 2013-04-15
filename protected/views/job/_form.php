@@ -222,9 +222,9 @@ CClientScript::POS_BEGIN);
 			<?php echo $form->error($model,'RUSH'); ?>
 		</div>
 		<div class="row">
-			<?php echo CHtml::activeLabelEx($model->printJob,'COST'); ?>
-			<?php echo CHtml::activeTextField($model->printJob,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
-			<?php echo CHtml::error($model->printJob,'COST'); ?>
+			<?php echo CHtml::activeLabelEx($print,'COST'); ?>
+			<?php echo CHtml::activeTextField($print,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
+			<?php echo CHtml::error($print,'COST'); ?>
 		</div>
 		<div class="row">
 			<?php echo $form->labelEx($model,'SET_UP_FEE'); ?>

@@ -1,19 +1,32 @@
 <div id="content">
 	<div class="row">
 		<div id="hugebig" class="grid_6 alpha">
-			<span class="title bold">JOB</span> <?php echo $model->NAME; ?>
 			<div class="row">
-				<span class="title bold">DUE </span><?php $chicken = CHtml::encode($model->formattedPickUpDate); $chicken2 = str_replace("00:00", "", $chicken); echo $chicken2;?>
+				<span class="title bold grid_2 alpha">JOB</span> <?php echo $model->NAME; ?>
 			</div>
 			<div class="row">
-				<span class="title bold"><?php echo CHtml::activeLabelEx($model, 'PRINTER_ID');?> / <?php echo CHtml::activeLabelEx($model, 'LEADER_ID');?></span>
+				<span class="title bold grid_2 alpha">PICK UP </span>
+				<?php 
+					$formattedPickUpDate = CHtml::encode($model->formattedPickUpDate); 
+					$shortenedPickupDate = str_replace("00:00", "", $formattedPickUpDate); 
+					echo $shortenedPickupDate;
+				?>
+			</div>
+			<div class="row">
+				<span class="title bold grid_2 alpha">PRINT </span>
+				<?php 
+					$formattedPrintDate = CHtml::encode($model->formattedPrintDate); 
+					$shortenedPrintDate = str_replace("00:00", "", $formattedPrintDate); 
+					echo $shortenedPrintDate;
+				?>
+			</div>
+			<div class="row">
+				<span class="title bold grid_2 alpha"><?php echo CHtml::activeLabelEx($model, 'PRINTER_ID');?> / <?php echo CHtml::activeLabelEx($model, 'LEADER_ID');?></span>
 				<?php echo CHtml::encode($model->PRINTER->FIRST);?> / <?php echo CHtml::encode($model->LEADER->FIRST);?>
 			</div>
 		</div>
 
 		<div class="grid_4 omega">
-			
-
 			<div class="buttons right">
 				<?php echo CHtml::button('Edit', array(
 					'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/update', 'id'=>$model->ID))."';"
@@ -28,11 +41,8 @@
 						'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/invoice', 'id'=>$model->ID, 'type'=>'iif'))."';"
 					));
 				}?>	
-			</div>
-
-			
+			</div>			
 		</div>
-
 		<div class="clear"></div>
 	</div>	
 	

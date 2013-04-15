@@ -7,6 +7,9 @@
  * @property integer $ID
  * @property integer $CUSTOMER_ID
  * @property integer $LEADER_ID
+ * @property integer $PRINTER_ID
+ * @property integer $PRINT_ID
+ * @property string $NAME
  * @property string $DESCRIPTION
  * @property string $NOTES
  * @property string $ISSUES
@@ -14,11 +17,17 @@
  * @property string $SET_UP_FEE
  * @property integer $SCORE
  * @property string $QUOTE
+ * @property integer $STATUS
  *
  * The followings are the available model relations:
- * @property Customer $cUSTOMER
- * @property User $lEADER
+ * @property Customer $CUSTOMER
+ * @property User $LEADER
+ * @property Printer $PRINTER
  * @property JobLine[] $jobLines
+ * @property PrintJob $printJob
+ * @property EventLog[] $events
+ * @property Lookup $status
+ * 
  */
 class Job extends CActiveRecord
 {
@@ -110,6 +119,7 @@ class Job extends CActiveRecord
 			'quote' => 'Auto Quote Total',
 			'totalPasses' => 'Passes',
 			'formattedDueDate'=> 'Due Date',
+			'formattedPrintDate'=> 'Print Date',
 			'formattedPickUpDate' =>'Pickup Date',
 			'NAME'=>'Name',
 			'PRINTER'=>'Printer',
@@ -129,6 +139,13 @@ class Job extends CActiveRecord
 		);
 	}
 	
+	/**
+	 * Gets an inaccessible (properties not yet declared or not visible in the current scope) property.
+	 * Never triggered in a static context nor when assignment chaining.
+	 * Special handling for getting properties' display formats and Jobs' EventLog events (dueDate, printDate & pickUpDate)
+	 * @param name The name of the property being read.
+	 * @return value assoicated with name parameter.
+	 */
 	public function __get($name){
 		$found = false;
 		$originalName = $name;
@@ -161,15 +178,22 @@ class Job extends CActiveRecord
 			}
 		}
 		
-		//if we found it, return it, otherwise, return what the parent thinks 
-		//is a matching attribute 
+		//Return found property, otherwise, let the parent handle it
 		if(!$found){
-			return parent::__get($name);
+			return parent::__get($name); //uh, is this really a pattern in the context of an ActiveRecord or an anti-pattern? (KZB)
 		} else {
 			return $value;
 		}
 	}
 	
+	/**
+	 * Sets an inaccessible (properties not yet declared or not visible in the current scope) property.
+	 * Never triggered in a static context nor when assignment chaining.
+	 * Special handling for setting properties' display formats and Jobs' EventLog events (dueDate, printDate & pickUpDate)
+	 * @param name The name of the property being written.
+	 * @param value The value of the property being written.
+	 * @return return value of __set() is ignored by PHP.
+	 */
 	public function __set($name, $value){
 		$found = false;
 		$originalName = $name;
@@ -198,8 +222,7 @@ class Job extends CActiveRecord
 			}
 		}
 		
-		//if we found it, set it, otherwise, set what the parent thinks 
-		//is a matching attribute 
+		//If property not found, let the parent have a go
 		if(!$found){
 			parent::__set($name, $value);
 		}
@@ -266,24 +289,31 @@ class Job extends CActiveRecord
 
 	}
 	
+	/**
+	 * Loops through the jobs' events copying them into another array.
+	 * If the eventID argument is not in that copy, create a new EventLog object -
+	 * 	otherwise, set the event to the existing copy.
+	 * @param integer $eventID
+	 * @return EventLog
+	 */
 	protected function getEventModel($eventID){
-		$events = array();
+		$eventsCopy = array();
 		foreach($this->events as $event){
-			$events[(string) $event->EVENT_ID] = $event;
+			$eventsCopy[(string) $event->EVENT_ID] = $event;
 		}
-		if(!isset($events[(string) $eventID])){
+		if(!isset($eventsCopy[(string) $eventID])){
 			$event = new EventLog;
 			$event->assocObject = $this;
-			$event->EVENT_ID = $eventID;
+			$event->EVENT_ID = $eventID; //TODO: need to make sure this is a valid event ID for a job (i.e. EventLog::JOB_DUE, EventLog::JOBPRINT, EventLog::JOBPICKUP)
 			if($this->events === null){
 				$this->events = array();
 			}
 			//$this->events[(string) $eventID] = $event;
-			$events[(string) $eventID] = $event;
+			$eventsCopy[(string) $eventID] = $event;
 		} else {
-			$event = $events[(string) $eventID];
+			$event = $eventsCopy[(string) $eventID];
 		}
-		$this->events = $events;		
+		$this->events = $eventsCopy;		
 		return $event;
 	}
 	
@@ -349,11 +379,28 @@ class Job extends CActiveRecord
 			foreach($this->eventAttributes() as $eventID){
 				$this->getEventModel($eventID);
 			}
-			//per request of Ben, automatically assigning a print date.
+
 			if($this->isNewRecord){
+				Yii::log('Considered New Record ', CLogger::LEVEL_INFO, 'application.models.job');
+				
 				$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
+				$dueDateEvent = $this->getEventModel(EventLog::JOB_DUE);
+				
+				//Automatically assign Print Date to nearest weekday two weeks from now
 				$printEvent->USER_ASSIGNED = $this->PRINTER_ID;
-				$printEvent->DATE = $this->pickUpDate;
+				//TODO: event user ID assigned automatically?
+				Yii::log('Print date before :  '. $printEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				$printEvent->DATE = date('Y-m-d', strtotime('+2 weeks', time()));
+				Yii::log('Print date after :  '. $printEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				
+				Yii::log('Pickup date :  '. $this->pickUpDate, CLogger::LEVEL_INFO, 'application.models.job');
+				
+				//Automatically assign Due Date to whatever Job creator picked at Pickup Date for now
+				$dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;
+				//TODO: event user ID assigned automatically?
+				Yii::log('Due date before :  '.$dueDateEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
+				$dueDateEvent->DATE = $this->pickUpDate;
+				Yii::log('Due date after :  '. $dueDateEvent->DATE, CLogger::LEVEL_INFO, 'application.models.job');
 			}
 			return true;
 		} else {

@@ -424,7 +424,7 @@ class JobController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Job;
+		$model= new Job;
 		$customer = new Customer;
 		$existingCustomers = Customer::model()->findAll();
 		$leaders = User::listUsersWithRole(User::LEAD_ROLE);

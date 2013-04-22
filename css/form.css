@@ -57,6 +57,14 @@ input[type=submit].vert-align
     margin: 1em 0;
 }
 
+
+input[type="checkbox"] {
+	right: 3px;
+	height: 20px;
+	width: 20px;
+	top: 0;
+}
+
 div.form fieldset
 {
 	border: 1px solid #DDD;

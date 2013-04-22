@@ -74,6 +74,7 @@ class Job extends CActiveRecord
 		return array(
 			array('SCORE', 'numerical', 'integerOnly'=>true),
 			array('RUSH', 'numerical'),
+			array('SET_UP_FEE', 'numerical'),
 			array('ID, NAME, DESCRIPTION, NOTES, ISSUES, STATUS, additionalFees', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

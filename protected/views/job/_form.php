@@ -216,33 +216,36 @@ CClientScript::POS_BEGIN);
 	<div class="separator"></div>
 
 	<div class="row auto_quote">
+		<!-- Rush Charge Group-->
 		<div class="row">
 			<?php echo $form->labelEx($model,'RUSH'); ?>
 			<?php echo $form->textField($model,'RUSH', array('class'=>'part')); ?>
 			<?php echo $form->error($model,'RUSH'); ?>
 		</div>
+		
+		<!-- Art Charge Group-->
 		<div class="row">
 			<?php echo CHtml::activeLabelEx($print,'COST'); ?>
 			<?php echo CHtml::activeTextField($print,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
 			<?php echo CHtml::error($print,'COST'); ?>
 		</div>
+		
+		<!-- Setup Fee Group-->
 		<div class="row">
-			<?php echo $form->labelEx($model,'SET_UP_FEE'); ?>
-			<?php echo $form->textField($model,'SET_UP_FEE',array(
-				'size'=>6,
-				'maxlength'=>6, 
-				'class'=>'part editable-fee',
-				'onchange'=>"refreshSetupFee($(this).val(), $(this).parent().children('.hidden-fee').children('.hidden-value').val(), $(this).parent().children('.hidden-fee'));",
-			)); ?>
-			<?php $fee = CostCalculator::calculateSetupFee($model->garmentCount, $print->FRONT_PASS, $print->BACK_PASS, $print->SLEEVE_PASS);
-			$formatter = new Formatter;?>
-			<a class="hidden-fee" href="#" <?php echo ($model->SET_UP_FEE != $fee) ? 'style="display: hidden;"' : '';?> onclick="$(this).parent().children('.part').val($(this).children(':hidden').val()).change(); $(this).hide(); return false;">
-				<span><?php echo CHtml::encode($formatter->formatCurrency($fee));?></span>
-				<?php echo CHtml::hiddenField(CHtml::getIdByName(CHtml::activeName($model, 'SET_UP_FEE').'_hidden'), $fee, array('class'=>'hidden-value'));?>
-			</a>		
-			<?php echo $form->error($model,'SET_UP_FEE'); ?>
+			<?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>
+		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
+		    		'checked'=>'checked',
+		    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
+		    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
+		    		'class'=>'part editable-fee',
+		    		'onchange'=>"$('#setup-fee-hint').text($(this).is(':checked') ? $(this).val() : 0)"
+	    		)); ?>
+	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT ?></span>
+		    <?php echo CHtml::error($model,'setupFee'); ?>
 		</div>
-
+		
+		<!-- Additional Fees Group-->
+		<div class='row'>
 		<?php foreach($model->additionalFees as $key=>$fee){?>
 			<?php echo $form->labelEx($model, 'additionalFees['.$key.']', array(
 				'label'=>$fee['TEXT'],
@@ -254,10 +257,9 @@ CClientScript::POS_BEGIN);
 				'class'=>($fee['CONSTRAINTS']['part'] !== false) ? 'part' : '',
 			));?>
 		<?php }?>
-
-		<div class="clear"></div>
-		<br>
-
+		</div>
+		
+		<!-- Auto Quote Group-->
 		<div class="grid_6 alpha">
 			<h4>Auto Quote</h4>		
 			<div class="grid_3 alpha">
@@ -282,7 +284,8 @@ CClientScript::POS_BEGIN);
 				<?php echo CHtml::textField('auto_grand_each', $model->garmentPrice * (1 + $taxRate), array('readonly'=>'readonly', 'id'=>'auto_grand_each'));?>
 			</div>
 		</div>
-
+		
+		<!-- Quoted Group-->
 		<div class="grid_4 omega">
 			<h4>Quoted</h4>
 
@@ -306,6 +309,7 @@ CClientScript::POS_BEGIN);
 		<div class="separator"></div>
 
 		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
+		
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
 				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){
 					var qty = 0;" .
@@ -320,13 +324,13 @@ CClientScript::POS_BEGIN);
 						"$('#qty_warning').hide();
 					}" .
 					"$('#garment_qty').val(qty).change();" .
-					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('.hidden-fee'), qty);
+					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);
 				})", 
 		CClientScript::POS_END);
 		
-		Yii::app()->clientScript->registerScript('auto-totaler', "" .
-				"$('.part, #$taxRateField').live('change keyup', autoTotal($('#$taxRateField')));", 
-		CClientScript::POS_END);?>
+			Yii::app()->clientScript->registerScript('auto-totaler', "" .
+					"$('.part, #$taxRateField').live('change keyup', autoTotal($('#$taxRateField')));", 
+			CClientScript::POS_END);?>
 	</div> <!-- <div class="row auto_quote">-->	
 	
 	<div class="row">

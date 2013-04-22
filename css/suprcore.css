@@ -80,7 +80,9 @@ h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
 	font-weight: bold;
 }
 
-
+/* Added by KZB for Gus*/
+.intToUsd:before { content: "$";}
+.intToUsd:after { content: ".00";}
 
 
 .checkBoxList {width:20%; float:left;}

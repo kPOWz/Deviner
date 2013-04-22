@@ -24,4 +24,5 @@ $this->menu=array(
 	'passes'=>$passes,
 	'lineData'=>$lineData,
 	'fileTypes'=>$fileTypes,
+	'formatter'=>new Formatter
 )); ?>

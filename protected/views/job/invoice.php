@@ -105,8 +105,8 @@ $setup = $model->SET_UP_FEE;
 	<tr class="item_row">
 		<td>Setup Time</td>
 		<td>Fee for setup (waived for larger orders)</td>
-		<td><?php echo $formatter->formatNumber($setup / 30);?></td>
-		<td><?php echo $formatter->formatCurrency(GlobalConstants::SETUP_FEE_DEFAULT);?></td>
+		<td><?php echo $formatter->formatNumber(GlobalConstants::SETUP_FEE_QUANTITY_DEFAULT);?></td>
+		<td><?php echo $formatter->formatCurrency(GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT);?></td>
 		<td><?php echo $formatter->formatCurrency($setup);?></td>
 	</tr>
 	<?php foreach($model->additionalFees as $fee){?>

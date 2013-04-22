@@ -135,6 +135,7 @@ function autoTotal(taxRateField){
 		var tax = (1 * $(taxRateField).val()) / 100;
 		var totalEach = 0;
 		$('.part').each(function(index){
+			if($(this).is(':checkbox') && !($(this).is(":checked"))) return; //skip current iteration so as not to add values of unchecked booleans
 			total += (1 * $(this).val());
 		});
 		$('#auto_total').val(parseFloat(total).toFixed(2));

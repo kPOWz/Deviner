@@ -233,14 +233,13 @@ CClientScript::POS_BEGIN);
 		<!-- Setup Fee Group-->
 		<div class="row">
 			<?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>
-		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
-		    		'checked'=>'checked',
+		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(		    		
 		    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
 		    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
 		    		'class'=>'part editable-fee',
 		    		'onchange'=>"$('#setup-fee-hint').text($(this).is(':checked') ? $(this).val() : 0)"
 	    		)); ?>
-	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT ?></span>
+	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_WAIVED ?></span>
 		    <?php echo CHtml::error($model,'setupFee'); ?>
 		</div>
 		

@@ -78,26 +78,26 @@ class ProductController extends Controller
 
 		if(isset($_POST['ProductForm']))
 		{
-			Yii::log('hellow POST', CLogger::LEVEL_INFO, 'application.controllers.product');
+			Yii::log('hello POST of ProductForm model', CLogger::LEVEL_INFO, 'application.controllers.product');
 			
 			$model->attributes=$_POST['ProductForm'];
-			$save = $model->save();
-			if($save){
+			$saved = $model->save();
+			if($saved){
 				
 				if (Yii::app()->request->isAjaxRequest)
 				{
-					Yii::log('hellow AJAX POST', CLogger::LEVEL_INFO, 'application.controllers.product');
-					Yii::log(print_r($model->getAttributes(), true) . 'hellow get pk', CLogger::LEVEL_INFO, 'application.controllers.product');
+					Yii::log('hello AJAX POST of ProductForm model', CLogger::LEVEL_TRACE, 'application.controllers.product');
+					Yii::log(print_r($model->getAttributes(), true) . 'hellow get pk', CLogger::LEVEL_TRACE, 'application.controllers.product');
 						
 					//$model->metaData->tableSchema->primaryKey = 'ID';
 					//$newId = $model->getPrimaryKey(); //$model->ID;
-					//Yii::log('hellow AJAX POST new id', CLogger::LEVEL_INFO, 'application.controllers.product');
+					//Yii::log('hello AJAX POST new id', CLogger::LEVEL_INFO, 'application.controllers.product');
 						
 					//$newProduct = $model->find('ID=:newId', array(':newId' => $newId))->VENDOR_ITEM_ID;
-					//Yii::log('hellow AJAX POST new product', CLogger::LEVEL_INFO, 'application.controllers.product');
+					//Yii::log('hello AJAX POST new product', CLogger::LEVEL_INFO, 'application.controllers.product');
 						
 					
-					Yii::log('hellow new product', CLogger::LEVEL_INFO, 'application.controllers.product');
+					Yii::log('hello new product', CLogger::LEVEL_TRACE, 'application.controllers.product');
 					echo CJSON::encode(array(
 							'attributes' => $model->getAttributes(),
 							'status'=>'success',
@@ -105,18 +105,18 @@ class ProductController extends Controller
        		 				//'value'=>array(0=>$newId, 1=>$newProduct),
   
 					));
-					Yii::log('hellow AJAX POST exit', CLogger::LEVEL_INFO, 'application.controllers.product');
+					Yii::log('hello AJAX POST of ProductForm exit', CLogger::LEVEL_TRACE, 'application.controllers.product');
 						
 					exit;
 				}
 				else
-					$this->redirect(array('update','v'=>$model->VENDOR_ID, 'i'=>$model->VENDOR_ITEM_ID));
+					$this->redirect(array('update','id'=>$model->getID()));
 			}
 		}
 		
 		if (Yii::app()->request->isAjaxRequest)
 		{
-			Yii::log('hellow AJAX POST failure', CLogger::LEVEL_INFO, 'application.controllers.product');
+			Yii::log('hello AJAX POST failure', CLogger::LEVEL_TRACE, 'application.controllers.product');
 				
 			echo CJSON::encode(array(
 					'status'=>'failure',
@@ -140,12 +140,12 @@ class ProductController extends Controller
 
 	/**
 	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * If update is successful, the browser will be taken to the 'update' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($v, $i)
+	public function actionUpdate($id)
 	{
-		$model = new ProductForm(array('VENDOR_ID'=>$v, 'VENDOR_ITEM_ID'=>$i));
+		$model = new ProductForm(array('ID'=>$id));
 		$statusList = Lookup::listValues('ProductStatus');
 		$colorList = Lookup::listValues('Color', array('order'=>'TEXT')); 
 		$sizeList = Lookup::listValues('Size');
@@ -159,7 +159,7 @@ class ProductController extends Controller
 			$model->attributes=$_POST['ProductForm'];
 			$save = $model->save();
 			if($save)
-				$this->redirect(array('update','v'=>$model->VENDOR_ID, 'i'=>$model->VENDOR_ITEM_ID));
+				$this->redirect(array('update','id'=>$model->getID()));
 		}
 
 		$this->render('update',array(

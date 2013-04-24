@@ -1,7 +1,7 @@
 <?php
 /*$this->breadcrumbs=array(
 	'Products'=>array('index'),
-	$model->vendorStyle=>array('update','v'=>$model->VENDOR_ID, 'i'=>$model->VENDOR_ITEM_ID),
+	$model->vendorStyle=>array('update','id'=>$model->getID()),
 	'Update',
 );*/
 

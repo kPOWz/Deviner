@@ -84,7 +84,7 @@ class Controller extends CController
 		$protoMenu = array();
 		foreach($products as $product){
 			$protoMenu[$product->VENDOR->NAME][(string) $product->VENDOR_ITEM_ID] = array(
-				'url'=>array('/product/update', 'v'=>$product->VENDOR_ID, 'i'=>$product->VENDOR_ITEM_ID),
+				'url'=>array('/product/update', 'id'=>$product->ID),
 				'label'=>$product->VENDOR_ITEM_ID,
 			);
 		}

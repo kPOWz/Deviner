@@ -18,9 +18,11 @@ class ProductForm extends CFormModel {
 	
 	public function __construct($config = array(), $scenario = ''){
 		parent::__construct($scenario);
-		if(isset($config['VENDOR_ID']) && isset($config['VENDOR_ITEM_ID'])){
+		
+		//used in update product scenario
+		if(isset($config['ID'])){
 			//find if there is an existing product that matches these criteria
-			$product = Product::model()->findByAttributes(array('VENDOR_ITEM_ID'=>$config['VENDOR_ITEM_ID'], 'VENDOR_ID'=>$config['VENDOR_ID']));			
+			$product = Product::model()->findByAttributes(array('ID'=>$config['ID']));			
 		}
 		if(!isset($product)){
 			$product = new Product;
@@ -29,12 +31,24 @@ class ProductForm extends CFormModel {
 		$this->_product = $product;
 	}
 	
+	public function getID(){
+		return $this->_product->ID;
+	}
+	
 	public function getVENDOR_ITEM_ID(){
 		return $this->_product->VENDOR_ITEM_ID;
 	}
 	
 	public function setVENDOR_ITEM_ID($value){
 		$this->_product->VENDOR_ITEM_ID = $value;
+	}
+	
+	public function getVENDOR_ITEM_DESC(){
+		return $this->_product->VENDOR_ITEM_DESC;
+	}
+	
+	public function setVENDOR_ITEM_DESC($value){
+		$this->_product->VENDOR_ITEM_DESC = $value;
 	}
 	
 	public function getVENDOR_ID(){
@@ -124,6 +138,7 @@ class ProductForm extends CFormModel {
 	public function attributeLabels(){
 		return array(
 			'VENDOR_ITEM_ID'=>'Item ID',
+			'VENDOR_ITEM_DESC'=>'Item Description',
 			'VENDOR_ID'=>'Vendor',
 			'COST'=>'Cost',
 			'COLORS'=>'Colors',
@@ -133,7 +148,7 @@ class ProductForm extends CFormModel {
 	
 	public function rules(){
 		return array(
-			array('VENDOR_ITEM_ID, VENDOR_ID, COST, COLORS, SIZES', 'safe'),
+			array('VENDOR_ITEM_ID, VENDOR_ITEM_DESC, VENDOR_ID, COST, COLORS, SIZES', 'safe'),
 		);
 	}
 	

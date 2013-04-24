@@ -50,19 +50,9 @@ function listColors($model){
 		array(
 			'class'=>'CLinkColumn',
 			'header'=>'Item',
-			'urlExpression'=>"array('product/update', 'v'=>\$data->VENDOR_ID, 'i'=>\$data->VENDOR_ITEM_ID)",
+			'urlExpression'=>"array('product/update', 'id'=>\$data->ID)",
 			'labelExpression'=>"\$data->vendorStyle",
 		),
-		/*array(
-			'header'=>'Available Sizes',
-			'type'=>'raw',
-			'value'=>"listSizes(\$data)",			
-		),
-		array(
-			'header'=>'Available Colors',
-			'type'=>'raw',
-			'value'=>"listColors(\$data)",
-		),*/
 		array(
 			'class'=>'CButtonColumn',
 			'viewButtonImageUrl'=>false,

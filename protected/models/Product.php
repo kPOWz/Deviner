@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'product':
  * @property integer $ID
+ * @property integer $VENDOR_ID
+ * @property string $VENDOR_ITEM_ID
+ * @property string $VENDOR_ITEM_DESC
  * @property string $COST
  * @property integer $STATUS
- * @property integer $STYLE
- * @property integer $COLOR
- * @property integer $SIZE
- * @property integer $AVAILABLE
+ *
  *
  * The followings are the available model relations:
  * @property JobLine[] $jobLines
@@ -71,13 +71,13 @@ class Product extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+		// NOTE: Only define rules for those attributes that receive user inputs.
 		return array(
 			array('STATUS', 'numerical', 'integerOnly'=>true),
 			array('COST', 'numerical'),
-			array('VENDOR_ID, VENDOR_ITEM_ID', 'required'),
-			array('VENDOR_ITEM_ID', 'length', 'max'=>50),
+			array('VENDOR_ID, VENDOR_ITEM_ID, VENDOR_ITEM_DESC','required'),
+			array('VENDOR_ITEM_ID, VENDOR_ITEM_DESC', 'length', 'max'=>50),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, COST, STATUS', 'safe', 'on'=>'search'),
@@ -111,6 +111,7 @@ class Product extends CActiveRecord
 			'STATUS' => 'Status',
 			'VENDOR_ID' => 'Vendor',
 			'VENDOR_ITEM_ID' => 'Vendor Item ID',
+			'VENDOR_ITEM_DESC' => 'Vendor Item Description',
 			'vendorStyle' => 'Style',
 		);
 	}
@@ -126,17 +127,11 @@ class Product extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		//$criteria->compare('ID',$this->ID);
-		//$criteria->compare('COST',$this->COST,true);
-		//$criteria->compare('STATUS',$this->STATUS);
-		//$criteria->compare('STYLE',$this->STYLE);
-		//$criteria->compare('COLOR',$this->COLOR);
-		//$criteria->compare('SIZE',$this->SIZE);
 		//$criteria->compare('AVAILABLE',$this->AVAILABLE);
 		$criteria->compare('VENDOR_ITEM_ID', $this->VENDOR_ITEM_ID, true);
+		$criteria->compare('VENDOR_ITEM_DESC', $this->VENDOR_ITEM_DESC, true);
 		$criteria->compare('STATUS', '<> '.Product::DELETED, false);
-		$criteria->limit = -1;
-		
+		$criteria->limit = -1;		
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

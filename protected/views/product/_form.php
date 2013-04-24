@@ -153,6 +153,12 @@ CClientScript::POS_END);
 	</div>
 	
 	<div class="row">
+		<?php echo $form->labelEx($model, 'VENDOR_ITEM_DESC');?>
+		<?php echo $form->textField($model, 'VENDOR_ITEM_DESC', array('size'=>40));?>
+		<?php echo $form->error($model, 'VENDOR_ITEM_DESC');?>
+	</div>
+	
+	<div class="row">
 		<?php $vendors = CHtml::listData($vendorList, 'ID', 'NAME');?>
 		<?php echo $form->labelEx($model, 'VENDOR_ID');?>
 		<?php echo $form->dropDownList($model, 'VENDOR_ID', $vendors);?>

@@ -520,7 +520,7 @@ class JobController extends Controller
 			}
 			if($saved){
 				//if saved, redirect
-				Yii::app()->user->setFlash('success', 'The job was created successfully!');
+				Yii::app()->user->setFlash('success', 'Success! New job created.');
 				$this->redirect(array('view', 'id'=>$model->ID));
 			} else {
 				//otherwise, delete everything
@@ -645,7 +645,7 @@ class JobController extends Controller
 			}
 			if($saved){
 				//if saved, redirect
-				Yii::app()->user->setFlash('success', 'The job was saved successfully!');
+				Yii::app()->user->setFlash('success', 'Success! Job changes saved.');
 				$this->redirect(array('view', 'id'=>$model->ID));
 			}
 		}

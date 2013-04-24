@@ -77,7 +77,8 @@ class Product extends CActiveRecord
 			array('COST', 'numerical'),
 			array('VENDOR_ID, VENDOR_ITEM_ID, VENDOR_ITEM_DESC','required'),
 			array('VENDOR_ITEM_ID, VENDOR_ITEM_DESC', 'length', 'max'=>50),
-			
+			//TODO: at least one product line?
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, COST, STATUS', 'safe', 'on'=>'search'),

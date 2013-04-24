@@ -88,6 +88,10 @@ class ProductForm extends CFormModel {
 	public function setCOLORS($value){
 		$finalValue = array(); //array of lookup IDs
 		
+		if($value == null) {
+			$this->_colors = $value;
+			return;
+		}
 		//normalize the value array.
 		foreach($value as $color){
 			if(is_object($color)){
@@ -115,6 +119,10 @@ class ProductForm extends CFormModel {
 	public function setSIZES($value){
 		$finalValue = array(); //array of lookup IDs
 		
+		if($value == null){
+			$this->_sizes = $value;
+			return;
+		}
 		//normalize the value array.
 		foreach($value as $size){
 			if(is_object($size)){
@@ -146,9 +154,12 @@ class ProductForm extends CFormModel {
 		);
 	}
 	
+	/**
+	 * @return array validation rules for ProductForm model attributes.
+	 */
 	public function rules(){
 		return array(
-			array('VENDOR_ITEM_ID, VENDOR_ITEM_DESC, VENDOR_ID, COST, COLORS, SIZES', 'safe'),
+			array('VENDOR_ITEM_ID, VENDOR_ITEM_DESC, VENDOR_ID, COST, COLORS, SIZES', 'safe')
 		);
 	}
 	

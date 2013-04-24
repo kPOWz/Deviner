@@ -78,26 +78,15 @@ class ProductController extends Controller
 
 		if(isset($_POST['ProductForm']))
 		{
-			Yii::log('hello POST of ProductForm model', CLogger::LEVEL_INFO, 'application.controllers.product');
+			Yii::log('hello POST of ProductForm model', CLogger::LEVEL_TRACE, 'application.controllers.product');
 			
 			$model->attributes=$_POST['ProductForm'];
 			$saved = $model->save();
 			if($saved){
-				
+				Yii::app()->user->setFlash('success', 'Success! New product created.');
 				if (Yii::app()->request->isAjaxRequest)
 				{
 					Yii::log('hello AJAX POST of ProductForm model', CLogger::LEVEL_TRACE, 'application.controllers.product');
-					Yii::log(print_r($model->getAttributes(), true) . 'hellow get pk', CLogger::LEVEL_TRACE, 'application.controllers.product');
-						
-					//$model->metaData->tableSchema->primaryKey = 'ID';
-					//$newId = $model->getPrimaryKey(); //$model->ID;
-					//Yii::log('hello AJAX POST new id', CLogger::LEVEL_INFO, 'application.controllers.product');
-						
-					//$newProduct = $model->find('ID=:newId', array(':newId' => $newId))->VENDOR_ITEM_ID;
-					//Yii::log('hello AJAX POST new product', CLogger::LEVEL_INFO, 'application.controllers.product');
-						
-					
-					Yii::log('hello new product', CLogger::LEVEL_TRACE, 'application.controllers.product');
 					echo CJSON::encode(array(
 							'attributes' => $model->getAttributes(),
 							'status'=>'success',
@@ -105,12 +94,14 @@ class ProductController extends Controller
        		 				//'value'=>array(0=>$newId, 1=>$newProduct),
   
 					));
-					Yii::log('hello AJAX POST of ProductForm exit', CLogger::LEVEL_TRACE, 'application.controllers.product');
-						
+					Yii::log('hello AJAX POST of ProductForm exit', CLogger::LEVEL_TRACE, 'application.controllers.product');						
 					exit;
 				}
 				else
 					$this->redirect(array('update','id'=>$model->getID()));
+			}
+			else{
+				Yii::app()->user->setFlash('failure','Failed to create product.');
 			}
 		}
 		
@@ -186,7 +177,7 @@ class ProductController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])){
-				Yii::app()->user->setFlash('success', 'The product was successfully deleted.');
+				Yii::app()->user->setFlash('success', 'Success! Product deleted.');
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 			}
 		}

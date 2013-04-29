@@ -210,7 +210,8 @@ class CalendarWidget extends CWidget {
 		
 		$id = array($this->id, strtolower($name), 'items');
 		$classes = array('ui-cal-items');
-		$options = $this->createOptions($classes, $id);
+		$htmlOptions = array('ondrop'=>'dropIt(event);', 'ondragover'=>'event.preventDefault();');
+		$options = $this->createOptions($classes, $id, $htmlOptions);
 		echo CHtml::openTag('div', $options);
 		$i = 0;
 		foreach($items as $item){
@@ -228,7 +229,8 @@ class CalendarWidget extends CWidget {
 	protected function renderItem($index, $name, $item){
 		$id = array($this->id, strtolower($name), 'item', $index);
 		$classes = array('ui-cal-item', $this->itemCss);
-		$options = $this->createOptions($classes, $id);
+		$htmlOptions = array('draggable'=>'true', 'ondragstart'=>'dragIt(event);');
+		$options = $this->createOptions($classes, $id, $htmlOptions);
 		echo CHtml::openTag('div', $options);
 		$this->controller->renderPartial($this->itemView, array('item'=>$item));
 		echo CHtml::closeTag('div');

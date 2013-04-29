@@ -1,6 +1,7 @@
 <?php
 $this->pageTitle = Yii::app()->user->name . ' - ' . 'Dashboard';
 Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/job_dashboard.css');
+Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dragAndDrop.js', CClientScript::POS_END);
 
 //it doesn't make sense to me either, but the yii framework doesn't let me add extra variables
 //to expressions in the grid view. so this is what I have to do...

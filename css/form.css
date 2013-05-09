@@ -38,11 +38,16 @@ div.form
 {
 }
 
+form input,
+form textarea,
+form select,
 div.form input,
 div.form textarea,
 div.form select
 {
 	margin: 0.2em 0 0.5em 0;
+	/* Turn this on to let the CSS grid do it's job!*/
+	/* width: 100%;  */
 }
 
 input.fixed-medium
@@ -99,14 +104,14 @@ div.form .note
 
 div.form span.required
 {
-	color: red;
+	color: #CC0000;
 }
 
 div.form div.error label,
 div.form label.error,
 div.form span.error
 {
-	color: #C00;
+	color: #CC0000;
 }
 
 div.form div.error input,
@@ -116,8 +121,10 @@ div.form input.error,
 div.form textarea.error,
 div.form select.error
 {
-	background: #FEE;
-	border-color: #C00;
+	background: #F2DEDE;
+	/*background: #FEE;
+	border-color: #C00;*/
+	border: 2px solid #EED3D7;
 }
 
 div.form div.success input,
@@ -134,17 +141,20 @@ div.form select.success
 
 div.form .errorSummary
 {
-	border: 2px solid #C00;
+	border: 2px solid #EED3D7;  /* #CC0000 */
 	padding: 7px 7px 12px 7px;
 	margin: 0 0 20px 0;
-	background: #FEE;
-	font-size: 0.9em;
+	background: #F2DEDE;
+	color: #CC0000; /*#B94A48;*/
+	border-radius: 4px 4px 4px 4px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 div.form .errorMessage
 {
-	color: red;
+	color: #CC0000;
 	font-size: 0.9em;
+	
 }
 
 div.form .errorSummary p

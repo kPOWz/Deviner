@@ -12,6 +12,9 @@
 			'attribute'=>'summary',
 			'sourceUrl'=>array('customer/search', 'response'=>'juijson'),
 			'options'=>array(),
+			'htmlOptions'=>array(
+					'class'=>'input_xlarge'
+			)
 		));
 		
 		$ac->options['select'] = "js:function(event, ui){" .

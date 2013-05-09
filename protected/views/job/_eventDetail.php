@@ -7,7 +7,6 @@
 	<?php if($job->RUSH){?>
 		<span class="warning">RUSH</span>&nbsp;
 	<?php } ?>
-	<?php Yii::log('event detail job id :  '. $job->ID, CLogger::LEVEL_TRACE, 'application.models.job');?>
 	<a href="<?php echo CHtml::normalizeUrl(array('job/view', 'id'=>$job->ID));?>">
 		<?php echo CHtml::encode($job->NAME);?>
 	</a>&nbsp; (<strong><?php echo $job->score;?></strong>)

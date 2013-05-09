@@ -155,18 +155,17 @@ class CalendarWidget extends CWidget {
 				$classes[] = $this->todayCss;
 			}			
 			$id = array($this->id, strtolower($dayName)); //$id is array
-			$options = $this->createOptions($classes, $id);
+			$options = $this->createOptions($classes, $id, $others=array(), null);
 			
 			//associate the date string for retrieval if something is dropped on a day
-			$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $info['date'])."');";
-			
+			//$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $info['date'])."');";
+				
 			echo CHtml::openTag('div', $options);
 			
 			$this->renderDay($dayName, $info['items'], $info['date']);
 			
 			echo CHtml::closeTag('div');
 		}
-		
 		echo CHtml::closeTag('div');
 		
 		$hasScripts = false;
@@ -197,7 +196,8 @@ class CalendarWidget extends CWidget {
 	protected function renderDay($name, $items, $date){
 		$classes = array('ui-cal-header', $this->headerCss);
 		$id = array($this->id, strtolower($name), 'header');
-		$options = $this->createOptions($classes, $id);
+				
+		$options = $this->createOptions($classes, $id, $others=array(), null);
 		echo CHtml::openTag('div', $options);
 		
 		$this->controller->renderPartial($this->headerView, array(
@@ -207,15 +207,19 @@ class CalendarWidget extends CWidget {
 		));
 		
 		echo CHtml::closeTag('div');
-		
-		$id = array($this->id, strtolower($name), 'items');
+	
+		$id = $date;
+		$name = array($this->id, strtolower($name), 'items');
 		$classes = array('ui-cal-items');
-		$htmlOptions = array('ondrop'=>'dropIt(event);', 'ondragover'=>'event.preventDefault();');
-		$options = $this->createOptions($classes, $id, $htmlOptions);
+		$htmlOptions = array('ondrop'=>'dropItForDateChange(event);', 'ondragover'=>'event.preventDefault();');
+		$options = $this->createOptions($classes, $id, $htmlOptions, $name);
 		echo CHtml::openTag('div', $options);
+
+		//associate the date string for retrieval if something is dropped on a day
+		//$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $date)."');";		
 		$i = 0;
 		foreach($items as $item){
-			$this->renderItem($i, $name, $item);
+			$this->renderItem($i, $name.'', $item);
 			$i++;
 		}
 		echo CHtml::closeTag('div');
@@ -227,10 +231,12 @@ class CalendarWidget extends CWidget {
 	 * @param integer $index The index of the item to render.
 	 */
 	protected function renderItem($index, $name, $item){
-		$id = array($this->id, strtolower($name), 'item', $index);
+		$job = $item->getAssocObject();
+		$id = $job->ID;
+		$name = array($this->id, strtolower($name), 'item', $index);
 		$classes = array('ui-cal-item', $this->itemCss);
 		$htmlOptions = array('draggable'=>'true', 'ondragstart'=>'dragIt(event);');
-		$options = $this->createOptions($classes, $id, $htmlOptions);
+		$options = $this->createOptions($classes, $id, $htmlOptions, $name);
 		echo CHtml::openTag('div', $options);
 		$this->controller->renderPartial($this->itemView, array('item'=>$item));
 		echo CHtml::closeTag('div');
@@ -239,11 +245,12 @@ class CalendarWidget extends CWidget {
 	/**
 	 * Creates an HTML options array.
 	 * @param array $classes The CSS classes to apply to the HTML element. Null classes are ignored.
-	 * @param array $id An array of strings which, collectively, give a unique ID to the element.
-	 * @param array $others Any additional HTML options to pass to the element. 
-	 */
-	private function createOptions($classes, $id, $others=array()){
-		$id = implode('-', $id);
+	 * @param mixed $id value or values to concatinate with a dash to set the HTML element's id attribute
+	 * @param array $others Any additional HTML options to pass to the element.
+	 * @param mixed $name value of HTML element's name attribute
+	 */	
+	private function createOptions($classes, $id, $others=array(), $name){
+		if(is_array($id))$id = implode('-', $id);
 		$usedClasses = array();
 		foreach($classes as $class){
 			if(isset($class) && $class !== null){
@@ -253,8 +260,13 @@ class CalendarWidget extends CWidget {
 		$usedClasses = implode(' ', $usedClasses);
 		$options = array(
 			'id'=>$id,
-			'class'=>$usedClasses,	
+			'class'=>$usedClasses
 		);
+		
+		if($name !== null) {
+			if(is_array($name)) $name = implode('-', $name);
+			$options['name']=$name;
+		}
 		$options = array_merge($options, $others);
 		return $options;
 	}

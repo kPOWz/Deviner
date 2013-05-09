@@ -923,6 +923,18 @@ class JobController extends Controller
 		$model->save();
 	}
 	
+	public function actionUpdatePrintDate(){
+		if(isset($_POST['id']) && isset($_POST['newPrintDate'])){
+			$id = $_POST['id'];
+			$model = $this->loadModel($id);
+			$date = $_POST['newPrintDate'];
+			$model->printDate = date('Y-m-d', $date);
+			$model->save();
+			//need to return json error message from compareDate clientValidateAttribute
+			//  to make sure user understand she can't move printDate beyond dueDate
+		}
+	}
+	
 	private function resultToCalendarData($result){
 		$calendarData = array();
 		foreach($result as $event){

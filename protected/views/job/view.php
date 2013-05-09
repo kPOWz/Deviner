@@ -5,11 +5,11 @@
 				<span class="title bold grid_2 alpha">JOB</span> <?php echo $model->NAME; ?>
 			</div>
 			<div class="row">
-				<span class="title bold grid_2 alpha">PICK UP </span>
+				<span class="title bold grid_2 alpha">DUE</span>
 				<?php 
-					$formattedPickUpDate = CHtml::encode($model->formattedPickUpDate); 
-					$shortenedPickupDate = str_replace("00:00", "", $formattedPickUpDate); 
-					echo $shortenedPickupDate;
+					$formattedDueDate = CHtml::encode($model->formattedDueDate); 
+					$shortenedDueDate = str_replace("00:00", "", $formattedDueDate); 
+					echo $shortenedDueDate;
 				?>
 			</div>
 			<div class="row">

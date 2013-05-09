@@ -1,26 +1,19 @@
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'export_form',
-	'clientOptions'=>array('validateOnSubmit'=>false, 'validateOnType'=>false)
-)); ?>
-
-<fieldset>
-<div class='grid_9'>
-	<div class='grid_6'>
-		<h3>Jobs to export</h3>
-	</div>
-
-<?php echo CHtml::ajaxSubmitButton('Export Checked Jobs'
+<?php
+echo CHtml::ajaxLink('Export Checked Jobs'
 							,CHtml::normalizeUrl('job/export') 
 							,array(
-									//'dataType'      => 'script',
+									//'dataType'      => 'json',
+									'type'=>'POST',
 									//'export_begin=' . 'js:\$("#export_begin").val();' . '&export_end=' . 'js:\$("#export_end").val()' . '&export_status=' . 'js:\$("#export_status").val()'
-										
-									'data' => "js:{ids:$.fn.yiiGridView.getSelection('export_grid')}"			)
+									//'data' => "js:{ids:$.fn.yiiGridView.getChecked('export_grid', 'checked')}"
+//'js:{theIds : $.fn.yiiGridView.getChecked("example-grid-view-id","example-check-boxes").toString()}'
+        
+									'data' => 'js:{ids : $.fn.yiiGridView.getChecked("export_grid", "checked").toString()}'			)
 							,array('id'=>'export_submit', 'name'=>'export_submit','class' =>'fixed-medium vert-align')
 		
-		); ?>
-</div>
+		); 
+?>
+<!-- </div>  -->
 <?php $this->widget('zii.widgets.grid.CGridView', array( 
 	'dataProvider'=>$exportData,
 	'id'=>$gridId,
@@ -31,7 +24,7 @@
 			array(
 					//'header' => 'Export?',
 					'id' => 'checked',
-					'class' => 'CheckedCheckBoxColumn',
+					'class' => 'CCheckBoxColumn',
 					'checked' => 'true'
 					//'value' => 'CHtml::checkBox("cid[]",true,array("value"=>$data->ID,"id"=>"cid_".$data->ID))',
 					//'type'=>'raw',
@@ -54,5 +47,3 @@
 		)
 	)
 )); ?>
-</fieldset>
-<?php $this->endWidget(); ?>

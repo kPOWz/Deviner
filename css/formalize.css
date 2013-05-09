@@ -2,31 +2,31 @@
 ----------------------------------------------------------------------------------------------------*/
 
 .input_tiny {
-  width: 50px;
+  width: 50px !important;
 }
 
 .input_small {
-  width: 100px;
+  width: 100px !important;
 }
 
 .input_medium {
-  width: 150px;
+  width: 150px !important;
 }
 
 .input_large {
-  width: 200px;
+  width: 200px !important;
 }
 
 .input_xlarge {
-  width: 250px;
+  width: 250px !important;
 }
 
 .input_xxlarge {
-  width: 300px;
+  width: 300px !important;
 }
 
 .input_full {
-  width: 100%;
+  width: 100% !important;
 }
 
 /*

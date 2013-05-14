@@ -2,7 +2,7 @@
 /**
  * Provides a simple way to calculate the price for garments in a job.
  */ 
-YiiBase::import('application.config.GlobalConstants');
+YiiBase::import('application.components.GlobalConstants');
 
 class CostCalculator extends CComponent {
 	/**
@@ -47,8 +47,8 @@ class CostCalculator extends CComponent {
 	public static function calculateSetupFee($garments, $frontPasses, $backPasses, $sleevePasses){
 		Yii::log('Number garments :  '. $garments, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
 		if($garments < 24 && $garments != 0){
-			Yii::log('Setup fee returned :  '. GlobalConstants::SETUP_FEE_DEFAULT, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
-			return GlobalConstants::SETUP_FEE_DEFAULT;
+			Yii::log('Setup fee returned :  '. GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
+			return GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT;
 		} else {
 			return 0;
 		}

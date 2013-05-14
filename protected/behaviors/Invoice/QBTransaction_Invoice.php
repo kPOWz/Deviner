@@ -9,7 +9,7 @@ class QBTransaction_Invoice extends QBTransaction {
 		$record['ACCNT'] = QBConstants::TRNS_ACCNT;
 		$record['NAME'] = $this->owner->CUSTOMER->summary;
 		$record['AMOUNT'] = $this->owner->total * (1 + $this->owner->TAX_RATE / 100);
-		$record['DOCNUM'] = 'GUS-I-' . $this->owner->ID;
+		$record['DOCNUM'] = QBConstants::QB_DOCNUM_PREFIX . $this->owner->ID;
 		$record['CLEAR'] = 'N';
 		$record['TOPRINT'] = 'N';
 		$record['DUEDATE'] = date('n/j/Y', strtotime($this->owner->DATE));

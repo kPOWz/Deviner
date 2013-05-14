@@ -55,20 +55,11 @@ return array(
 		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=gus',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'charset' => 'utf8',
 		),*/
-		// uncomment the following to use a MySQL database
-		//enter DB information here. 
-		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=eight7cu_databass;port=3306',
+			'connectionString' => PrivateField::get('connectionString'),
 			'emulatePrepare' => true,
-			'username' => 'eight7cu_lance',
+			'username' => PrivateField::get('username'),
 			'password' => PrivateField::get('dbPass'),
 			'charset' => 'utf8',
 		),

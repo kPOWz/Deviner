@@ -31,6 +31,19 @@ class QBConstants {
 	//Quickbooks Invoice/DOCNUM numbering prefix
 	const QB_DOCNUM_PREFIX = "GUS-I-";
 	
+	//
+	const DESCRIPTION_SALES_TAX = 'Sales Tax';
+	const DESCRIPTION_RUSH = 'Fee for accelerated handling';
+	const DESCRIPTION_ART_CHARGE = 'Fee for design work';
+	const DESCRIPTION_SETUP_TIME = 'Fee for setup (waived for larger orders)';
+	
+	//
+	const NAME_SALES_TAX = 'Sales Tax';
+	//const NAME_RUSH = '';
+	const NAME_ART_CHARGE = 'Artwork Charge';
+	const NAME_SETUP_TIME = 'Setup Time';
+	
+	
 	//Quickbooks version constants
 	//TODO: make this configuraable in gus dashboard/settings
 	//HDR	QuickBooks 2012 for Macintosh	Version 13.0.11	Release R12	1	12/7/12	1354915827

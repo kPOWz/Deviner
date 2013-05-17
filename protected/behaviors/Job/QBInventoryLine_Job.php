@@ -7,7 +7,7 @@ class QBInventoryLine_Job extends QBInventoryLine {
 		return $this->createLine(
 			CHtml::encode($this->owner->getAttributeLabel('RUSH')),
 			'OTHC',
-			'Fee for accelerated handling', 
+			QBConstants::DESCRIPTION_RUSH, 
 			$this->owner->RUSH,
 			QBConstants::RUSH_ACCNT
 		);
@@ -15,9 +15,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 
 	protected function createArtCharge(){
 		return $this->createLine(
-			'Artwork Charge',
+			QBConstants::NAME_ART_CHARGE,
 			'SERV',
-			'Fee for design work',
+			QBConstants::DESCRIPTION_ART_CHARGE,
 			40, //hourly rate
 			QBConstants::ART_ACCNT
 		);
@@ -25,9 +25,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 
 	protected function createSetupFee(){
 		return $this->createLine(
-			'Setup Time',
+			QBConstants::NAME_SETUP_TIME,
 			'SERV',
-			'Fee for setup (waived for larger orders)',
+			QBConstants::DESCRIPTION_SETUP_TIME,
 			30, //hourly rate
 			QBConstants::SETUP_ACCNT
 		);
@@ -37,9 +37,9 @@ class QBInventoryLine_Job extends QBInventoryLine {
 		$taxRate = $this->owner->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
 		$taxRateAsFloat = strrpos($taxRate, '.' ) ? $taxRate : $taxRate . '.00';
 		return $this->createLine(
-			'Sales Tax',
+			QBConstants::NAME_SALES_TAX,
 			'COMPTAX',
-			'Sales Tax',
+			QBConstants::DESCRIPTION_SALES_TAX,
 			substr($taxRateAsFloat, 0, strrpos($taxRateAsFloat,'.') + 3). '%',
 			QBConstants::TAX_ACCNT,
 			'N'

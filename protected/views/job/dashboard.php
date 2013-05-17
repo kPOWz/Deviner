@@ -14,7 +14,6 @@ class StatusProvider {
 		));
 	}
 }
-
 StatusProvider::$statuses = $statuses;
 ?>
 <script type="text/javascript">
@@ -29,6 +28,22 @@ StatusProvider::$statuses = $statuses;
 		});
 	}
 </script>
+<?php Yii::app()->clientScript->registerScript('update-print-date', "" .
+		"function dropItForDateChange(event){" .
+			"dropIt(event);" .
+			"var draggedElementId = event.dataTransfer.getData('Text');" .
+			"var targetElementId = event.target.getAttribute('id');" .
+			"$.ajax({
+				url: '".CHtml::normalizeUrl(array('job/updatePrintDate'))."'," .
+				"type: 'POST'," .
+				"data: {
+						newPrintDate: targetElementId," .
+						"id: draggedElementId,
+					}
+			})
+
+		}", CClientScript::POS_END);?>
+		
 <!--table goes here-->
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array( 
@@ -36,13 +51,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'formatter'=>new CFormatter,
 	'columns'=>array(
 		array(
-			'name'=>'pickUpDate',
-			'value'=>"(strtotime(\$data->pickUpDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->pickUpDate));",
-			'header'=>'Pick-Up',
+		'header'=>'Due',
+		'name'=>'dueDate',
+		'value'=>"(strtotime(\$data->pickUpDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->pickUpDate));"
 		),
 		array(
 			'class'=>'CLinkColumn',
-			'header'=>'Open Jobs',
+			'header'=>'	Job',
 			'labelExpression'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
 			'urlExpression'=>"CHtml::normalizeUrl(array('job/view', 'id'=>\$data->ID));",
 		),
@@ -55,11 +70,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header'=>'Print',
 			'name'=>'printDate',
 			'value'=>"(strtotime(\$data->printDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->printDate));",
-		),
-		array(
-			'header'=>'Due',
-			'name'=>'dueDate',
-			'value'=>"(strtotime(\$data->pickUpDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->pickUpDate));"
 		),
 		'totalPasses::Passes',
 		array(

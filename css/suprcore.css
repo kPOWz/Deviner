@@ -32,7 +32,7 @@ body, button, input, select, textarea {
 	background: #ff0;
 }
 
-a { color: #aaa; text-decoration: none; }
+a { color: #828282; text-decoration: none; }
 a:visited { color: #aaa; }
 a:hover { color: #111; }
 a:focus { outline: none; }

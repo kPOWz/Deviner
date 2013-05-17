@@ -78,24 +78,44 @@ CClientScript::POS_BEGIN);
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<div class="grid_5 alpha">
+		<div class="grid_3 alpha">
 			<?php echo $form->labelEx($model, 'NAME');?>
 			<?php echo $form->textField($model, 'NAME');?>
 			<?php echo $form->error($model, 'NAME');?>
 		</div>
-		<div class="grid_5 omega">
-			<?php echo $form->labelEx($model, 'formattedPickUpDate');?>
+		<div class="grid_3 omega">
+			<?php echo $form->labelEx($model, 'formattedDueDate');?>
 			<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				'name'=>'Job[formattedPickUpDate]',
+				'name'=>'Job[formattedDueDate]',
 				'model'=>$model,
-				'attribute'=>'formattedPickUpDate',
+				'attribute'=>'formattedDueDate',
+				'htmlOptions'=>array(
+					'class'=>'input_full',
+					'value' => date('l, M j, Y')
+				),
 				'options'=>array(
 					'showAnim'=>'fold',
 					'dateFormat'=>'DD, MM d, yy',
 				),
 			));?>
-			<?php echo $form->error($model, 'formattedPickUpDate'); ?>	
+			<?php echo $form->error($model, 'formattedDueDate'); ?>	
 		</div>
+	<!-- <div class="grid_3 omega"> -->	
+			<?php /*echo $form->labelEx($model, 'formattedPrintDate'); */?>
+			<?php /*$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				'name'=>'Job[formattedPrintDate]',
+				'model'=>$model,
+				'attribute'=>'formattedPrintDate',
+				'htmlOptions'=>array(
+					'class'=>'input_full'
+				),
+				'options'=>array(
+					'showAnim'=>'fold',
+					'dateFormat'=>'DD, MM d, yy',
+				),
+			));*/?>
+			<?php /* echo $form->error($model, 'formattedPrintDate'); */ ?>	
+		<!-- </div> -->	
 
 		<div class="clear"></div>
 
@@ -103,14 +123,14 @@ CClientScript::POS_BEGIN);
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
 		
 		<div class="row">
-			<div class="grid_5 alpha">
+			<div class="grid_2 alpha">
 				<?php echo $form->labelEx($model, 'LEADER_ID');?>
-				<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList); ?>
+				<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'input_full')); ?>
 				<?php echo $form->error($model, 'LEADER_ID');?>
 			</div>
-			<div class="grid_5 omega">
+			<div class="grid_2 push_1 omega">
 				<?php echo $form->labelEx($model, 'PRINTER_ID');?>
-				<?php echo $form->dropDownList($model, 'PRINTER_ID', $printerList);?>
+				<?php echo $form->dropDownList($model, 'PRINTER_ID', $printerList, array('class'=>'input_full'));?>
 				<?php echo $form->error($model, 'PRINTER_ID');?>
 			</div>
 			<div class="clear"></div>
@@ -240,7 +260,7 @@ CClientScript::POS_BEGIN);
 		    		'onchange'=>"$('#setup-fee-hint').text($(this).is(':checked') ? $(this).val() : 0)"
 	    		)); ?>
 	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_WAIVED ?></span>
-		    <?php echo CHtml::error($model,'setupFee'); ?>
+		    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>
 		</div>
 		
 		<!-- Additional Fees Group-->

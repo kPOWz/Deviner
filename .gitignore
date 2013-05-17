@@ -1,4 +1,19 @@
-protected/runtime/application.log*
+## generic files to ignore
 .buildpath
 .project
-./settings
+.settings
+.DS_Store
+
+## yii application log files to ignore
+*log
+#protected/runtime/*.log*
+protected/runtime/*
+
+## Gus asset files to ignore
+#protected/files/PrintJob/ART/*
+#protected/files/PrintJob*
+#protected/files/PrintJob*/*
+protected/files*
+assets/*
+!assets/*.js
+protected/files/*

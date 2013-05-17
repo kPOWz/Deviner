@@ -1,4 +1,6 @@
 <?php
+Yii::import('application.extensions.validators.*');
+require_once('compareDate.php');
 
 /**
  * This is the model class for table "job".
@@ -76,6 +78,7 @@ class Job extends CActiveRecord
 			array('RUSH', 'numerical'),
 			array('SET_UP_FEE', 'numerical'),
 			array('ID, NAME, DESCRIPTION, NOTES, ISSUES, STATUS, additionalFees', 'safe'),
+			array('printDate', 'compareDate', 'compareAttribute'=>'dueDate', 'operator'=>'<='),	
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, CUSTOMER_ID, LEADER_ID, NAME, DESCRIPTION, NOTES, ISSUES, RUSH, SET_UP_FEE, SCORE, QUOTE', 'safe', 'on'=>'search'),
@@ -121,7 +124,7 @@ class Job extends CActiveRecord
 			'totalPasses' => 'Passes',
 			'formattedDueDate'=> 'Due Date',
 			'formattedPrintDate'=> 'Print Date',
-			'formattedPickUpDate' =>'Pickup Date',
+			'formattedPickUpDate' =>'Pickup Date', /* not used as of 05/13 */
 			'NAME'=>'Name',
 			'PRINTER'=>'Printer',
 			'PRINTER_ID'=>'Printer',
@@ -148,17 +151,15 @@ class Job extends CActiveRecord
 	 * @return value assoicated with name parameter.
 	 */
 	public function __get($name){
-		$found = false;
-		$originalName = $name;
+		$formatted=false;
 		//first, determine if client code is requesting a "formatted" attribute
 		if(($pos = strpos($name, 'formatted')) === 0){
 			$formatted = true;
+			Yii::log('Formatted date requested : '.$name, CLogger::LEVEL_TRACE, 'application.models.job');
 			$name = substr($name, 9); //9 is length of "formatted"
 			$first = substr($name, 0, 1); //get first character
 			$first = strtolower($first);
 			$name = substr_replace($name, $first, 0, 1);
-		} else {
-			$formatted = false;
 		}
 		
 		//then, if the (unformatted) attribute is an event attribute,
@@ -166,25 +167,19 @@ class Job extends CActiveRecord
 		foreach($this->eventAttributes() as $attrName => $eventID){
 			if(strcmp($name, $attrName) == 0){
 				$event = $this->getEventModel($eventID);
+				$value = $event->DATE;
+				
 				if($formatted){
-					if($event->DATE !== null){
-						$value = $event->DATE;
-					} else {
-						$value = null;
-					}
-				} else {
-					$value = $event->DATE;
+					Yii::log('Formatting date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
+					//format the date like so - Monday, January 2, 2013
+					$value = date('l, F j, Y', strtotime($value));
+					Yii::log('Formatted date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
 				}
-				$found = true;
+				return $value;
 			}
 		}
-		
-		//Return found property, otherwise, let the parent handle it
-		if(!$found){
-			return parent::__get($name); //uh, is this really a pattern in the context of an ActiveRecord or an anti-pattern? (KZB)
-		} else {
-			return $value;
-		}
+		//property not found - let the parent have a go
+		return parent::__get($name);		
 	}
 	
 	/**
@@ -197,28 +192,19 @@ class Job extends CActiveRecord
 	 */
 	public function __set($name, $value){
 		$found = false;
-		$originalName = $name;
 		//first, determine if client code is requesting a "formatted" attribute
 		if(strlen($name) > 9 && substr($name, 0, 9) === 'formatted'){
-			$formatted = true;
 			$name = substr($name, 9); //9 is length of "formatted"
 			$first = substr($name, 0, 1); //get first character
 			$first = strtolower($first);
 			$name = substr_replace($name, $first, 0, 1);
-		} else {
-			$formatted = false;
 		}
 		
-		//then, if the (unformatted) attribute is an event attribute,
-		//set the event value
-		foreach($this->eventAttributes() as $attrName => $eventID){
-			if(strcmp($name, $attrName) == 0){
+		//if the attribute is an event attribute, set it's date
+		foreach($this->eventAttributes() as $eventAttrName => $eventID){
+			if(strcmp($name, $eventAttrName) == 0){
 				$event = $this->getEventModel($eventID);
-				if($formatted){
-					$event->DATE = $value;
-				} else {
-					$event->DATE = $value;
-				}
+				$event->DATE = $value;
 				$found = true;
 			}
 		}
@@ -359,6 +345,21 @@ class Job extends CActiveRecord
 	}
 	
 	protected function beforeValidate(){
+
+		//set print & due dates to more standard format that 
+		//	will work with CDateTimeParser rather than the display format
+		Yii::log('Due date formatted:  '.$this->formattedDueDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		Yii::log('Print date formatted :  '.$this->formattedPrintDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		
+		Yii::log('Due date before:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		Yii::log('Print date before :  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		
+		$this->dueDate = date('Y-m-d', strtotime($this->dueDate));
+		$this->printDate = date('Y-m-d', strtotime($this->printDate));
+		
+		Yii::log('Due date after:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		Yii::log('Print date after:  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');
+		
 		if(parent::beforeValidate()){
 			if($this->STATUS == null){
 				$this->STATUS = Job::CREATED;
@@ -381,28 +382,34 @@ class Job extends CActiveRecord
 				$this->getEventModel($eventID);
 			}
 
+			$dueDateEvent = $this->getEventModel(EventLog::JOB_DUE);
+			$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
+			$pickUpDateEvent = $this->getEventModel(EventLog::JOB_PICKUP);
+
+			Yii::log('Due date :  '.$dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
+			
 			if($this->isNewRecord){
-				Yii::log('Considered New Record ', CLogger::LEVEL_INFO, 'application.models.job');
+				Yii::log('Considered New Job Record ', CLogger::LEVEL_INFO, 'application.models.job');				
 				
-				$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
-				$dueDateEvent = $this->getEventModel(EventLog::JOB_DUE);
-				
-				//Automatically assign Print Date to nearest weekday two weeks from now
+				//Automatically assign Job creator as the user assigned
 				$printEvent->USER_ASSIGNED = $this->PRINTER_ID;
-				//TODO: event user ID assigned automatically?
-				Yii::log('Print date before :  '. $printEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
-				$printEvent->DATE = date('Y-m-d', strtotime('+2 weeks', time()));
+				$dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;					
+			}			
+			
+			$savedDueDateString = EventLog::model()->findByPk($dueDateEvent->getPrimaryKey())->DATE;
+			if(!isset($savedDueDateString) || trim($savedDueDateString)==='') return true;
+			//Convert due date back to a Date before comparison because of EventLog's afterFind() DateConverter behavior
+			//If Due Date has changed, also change Print and Pickup Date to match it
+			$savedDueDate =  date('Y-m-d', strtotime($savedDueDateString));
+			if($dueDateEvent->DATE != $savedDueDate){
+				//set Print Date to user-specified Due Date by default any time the dueDate changes
+				$printEvent->DATE = $this->dueDate;
 				Yii::log('Print date after :  '. $printEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 				
-				Yii::log('Pickup date :  '. $this->pickUpDate, CLogger::LEVEL_TRACE, 'application.models.job');
-				
-				//Automatically assign Due Date to whatever Job creator picked at Pickup Date for now
-				$dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;
-				//TODO: event user ID assigned automatically?
-				Yii::log('Due date before :  '.$dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
-				$dueDateEvent->DATE = $this->pickUpDate;
-				Yii::log('Due date after :  '. $dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
-			}
+				//set Pickup Date to user-specified Due Date by default any time dueDate changes
+				$pickUpDateEvent->DATE = $this->dueDate;
+				Yii::log('Pickup date after :  '.$pickUpDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');					
+			}		
 			return true;
 		} else {
 			return false;

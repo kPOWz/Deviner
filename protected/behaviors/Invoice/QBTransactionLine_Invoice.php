@@ -8,7 +8,7 @@ class QBTransactionLine_Invoice extends QBTransactionLine {
 		$params['DATE'] = date('n/j/Y', strtotime($this->owner->DATE)); //may need to format this
 		$params['NAME'] = $this->owner->CUSTOMER->summary;
 		$params['AMOUNT'] = $amount;
-		$params['DOCNUM'] = 'GUS-I-' . $this->owner->ID;
+		$params['DOCNUM'] = QBConstants::QB_DOCNUM_PREFIX . $this->owner->ID;
 		$params['CLEAR'] = 'N';
 		$params['PRICE'] = $price;
 		$params['QNTY'] = $quantity;
@@ -28,7 +28,7 @@ class QBTransactionLine_Invoice extends QBTransactionLine {
 			$this->owner->total * $taxRate / 100,
 			substr($taxRateAsFloat, 0, strrpos($taxRateAsFloat,'.') + 3). '%',
 			null,
-			'Sales Tax',			
+			QBConstants::DESCRIPTION_SALES_TAX,			
 			QBConstants::TAX_ACCNT,
 			'N'
 		);

@@ -357,8 +357,15 @@ class Job extends CActiveRecord
 		Yii::log('Due date before:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		Yii::log('Print date before :  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		
+		//TODO: should preserve null through strtotime here?
 		$this->dueDate = date('Y-m-d', strtotime($this->dueDate));
 		$this->printDate = date('Y-m-d', strtotime($this->printDate));
+		
+
+		if($this->isNewRecord === false && $this->printDate > $this->dueDate){
+			$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
+			$printEvent->DATE = $this->dueDate;
+		}
 		
 		Yii::log('Due date after:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		Yii::log('Print date after:  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');

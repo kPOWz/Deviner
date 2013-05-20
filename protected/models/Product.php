@@ -141,11 +141,9 @@ class Product extends CActiveRecord
 	}
 	
 	/**
-	 * Gets a string representing a summary of this product. Only style, color,
-	 * and size are included.
+	 * Gets the textual summary of this product
 	 */
 	public function getSummary(){
-		//return $this->color->TEXT . ' ' . $this->style->TEXT . ', ' . $this->size->TEXT;
 		return $this->vendorStyle;
 	}
 	

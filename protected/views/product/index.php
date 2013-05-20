@@ -49,9 +49,21 @@ function listColors($model){
 	'columns'=>array(
 		array(
 			'class'=>'CLinkColumn',
-			'header'=>'Item',
+			'header'=>'Product ID',
 			'urlExpression'=>"array('product/update', 'id'=>\$data->ID)",
-			'labelExpression'=>"\$data->vendorStyle",
+			'labelExpression'=>"\$data->VENDOR_ITEM_ID",
+		),
+		array(
+			'header'=>'Description',
+			'value'=>"\$data->VENDOR_ITEM_DESC",
+		),
+		array(
+			'header'=>'Cost',
+			'value'=>"\$data->COST",
+		),
+		array(
+				'header'=>'Vendor',
+				'value'=>"\$data->VENDOR->NAME",
 		),
 		array(
 			'class'=>'CButtonColumn',

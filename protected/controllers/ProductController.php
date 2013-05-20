@@ -201,7 +201,6 @@ class ProductController extends Controller
 		$newItems = array();
 		foreach($items as $item){
 			$newItems[$item->vendorStyle] = $item;
-			//$newItems[] = $item;
 		}
 		
 		$items = $newItems;

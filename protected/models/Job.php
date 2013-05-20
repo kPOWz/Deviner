@@ -171,8 +171,11 @@ class Job extends CActiveRecord
 				
 				if($formatted){
 					Yii::log('Formatting date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
-					//format the date like so - Monday, January 2, 2013
-					$value = date('l, F j, Y', strtotime($value));
+					//format the date like so - Monday, January 2, 2013 and
+					//	don't let strtotime default the date to 1969 when null - preserve the null
+					$date = strtotime($value);
+					$value = ($date === false) ? null : date('l, F j, Y', $date);
+					
 					Yii::log('Formatted date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
 				}
 				return $value;

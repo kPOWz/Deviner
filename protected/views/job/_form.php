@@ -89,13 +89,14 @@ CClientScript::POS_BEGIN);
 				'name'=>'Job[formattedDueDate]',
 				'model'=>$model,
 				'attribute'=>'formattedDueDate',
-				'htmlOptions'=>array(
-					'class'=>'input_full',
-					'value' => date('l, M j, Y')
-				),
+				'value' => $model->formattedDueDate,	
 				'options'=>array(
 					'showAnim'=>'fold',
 					'dateFormat'=>'DD, MM d, yy',
+					'defaultDate'=> $model->formattedDueDate
+				),
+				'htmlOptions'=>array(
+						'class'=>'input_full'
 				),
 			));?>
 			<?php echo $form->error($model, 'formattedDueDate'); ?>	

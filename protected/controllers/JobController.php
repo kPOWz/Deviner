@@ -425,6 +425,10 @@ class JobController extends Controller
 	public function actionCreate()
 	{
 		$model= new Job;
+		
+		//on job create, default the due date to today
+		$model->formattedDueDate = isset($model->formattedDueDate) ? $model->formattedDueDate : date('l, M j, Y');
+		
 		$customer = new Customer;
 		$existingCustomers = Customer::model()->findAll();
 		$leaders = User::listUsersWithRole(User::LEAD_ROLE);

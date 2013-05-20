@@ -171,8 +171,11 @@ class Job extends CActiveRecord
 				
 				if($formatted){
 					Yii::log('Formatting date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
-					//format the date like so - Monday, January 2, 2013
-					$value = date('l, F j, Y', strtotime($value));
+					//format the date like so - Monday, January 2, 2013 and
+					//	don't let strtotime default the date to 1969 when null - preserve the null
+					$date = strtotime($value);
+					$value = ($date === false) ? null : date('l, F j, Y', $date);
+					
 					Yii::log('Formatted date :  '.$value, CLogger::LEVEL_TRACE, 'application.models.job');
 				}
 				return $value;
@@ -354,8 +357,15 @@ class Job extends CActiveRecord
 		Yii::log('Due date before:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		Yii::log('Print date before :  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		
+		//TODO: should preserve null through strtotime here?
 		$this->dueDate = date('Y-m-d', strtotime($this->dueDate));
 		$this->printDate = date('Y-m-d', strtotime($this->printDate));
+		
+
+		if($this->isNewRecord === false && $this->printDate > $this->dueDate){
+			$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
+			$printEvent->DATE = $this->dueDate;
+		}
 		
 		Yii::log('Due date after:  '.$this->dueDate, CLogger::LEVEL_TRACE, 'application.models.job');
 		Yii::log('Print date after:  '.$this->printDate, CLogger::LEVEL_TRACE, 'application.models.job');

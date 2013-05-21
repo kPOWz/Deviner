@@ -1,14 +1,14 @@
 /*
- * eeeee e   e eeeee eeeee  eeee eeeee eeeee  eeee 
- * 8   " 8   8 8   8 8   8  8  8 8  88 8   8  8    
- * 8eeee 8e  8 8eee8 8eee8e 8e   8   8 8eee8e 8eee 
- *    88 88  8 88    88   8 88   8   8 88   8 88   
+ * eeeee e   e eeeee eeeee  eeee eeeee eeeee  eeee
+ * 8   " 8   8 8   8 8   8  8  8 8  88 8   8  8
+ * 8eeee 8e  8 8eee8 8eee8e 8e   8   8 8eee8e 8eee
+ *    88 88  8 88    88   8 88   8   8 88   8 88
  * 8ee88 88ee8 88    88   8 88e8 8eee8 88   8 88ee
  *
  * =============================================================================
  * Build:
  * =============================================================================
- * 
+ *
  *	Suprcore™
  *	https://github.com/johnsolarz/suprcore
  *	© Eight Seven Central 2011
@@ -24,12 +24,12 @@
 /* =============================================================================
    Base styles
    ========================================================================== */
-   
+
 body, button, input, select, textarea {
 	color: #111;
 	font: normal 12px/1.5 "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	word-spacing: -1px;
-	background: #FFF;
+	background: #ff0;
 }
 
 a { color: #828282; text-decoration: none; }

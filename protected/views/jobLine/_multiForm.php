@@ -118,7 +118,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 	foreach($products['lines'] as $dataLine){
 		$continue = false;
 		foreach($dataLine as $key=>$dataLineValue){
-			echo Yii::trace($key.' key', 'application.views.jobLine');
+			//echo Yii::trace($key.' key', 'application.views.jobLine');
 			if($key == 'productLine') $productLine = $dataLineValue;
 			if($key == 'line') $sizeLine = $dataLineValue;
 		}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.

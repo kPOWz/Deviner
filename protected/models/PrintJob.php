@@ -157,7 +157,7 @@ class PrintJob extends CActiveRecord
 	 */
 	public function loadFromArray($attributes, $files){
 		
-		Yii::trace(CVarDumper::dump($files) .' upload files', 'application.models.printjob');
+		//Yii::trace(CVarDumper::dump($files) .' upload files', 'application.models.printjob');
 		
 		$attributesInternal = $attributes;
 		if(isset($attributesInternal['files'])){

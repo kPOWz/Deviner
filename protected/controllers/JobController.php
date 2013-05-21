@@ -934,7 +934,7 @@ class JobController extends Controller
 			$date = $_POST['newPrintDate'];
 			$model->printDate = date('Y-m-d', $date);
 			$model->save();
-			//need to return json error message from compareDate clientValidateAttribute
+			//TODO: need to return json error message from compareDate clientValidateAttribute
 			//  to make sure user understand she can't move printDate beyond dueDate
 		}
 	}

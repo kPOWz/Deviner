@@ -27,23 +27,23 @@ multiUploader.prototype._submit = function(e){
 		"function submitForm(e){
 			e.stopPropagation(); e.preventDefault();
 			self._startUpload();
-			
+
 			//disable all submit buttons on page
-			
+
 			//check that xhr will work, file types, file size OK
-			
+
 			//xhr event handlers
 
 			//do xhr
-							
-			//what should the xhr method hander do ? 
+
+			//what should the xhr method hander do ?
 				//just check if is a file,
 				//check if is instance of CUploadedFile (or whatever that class is)
 				//check for error on $_FILES
 				//should be it, don't actually want to move to perm location yet
-			
+
 			//event listener on xhr to re-enable buttons disabled for upload
-		
+
 		}", CClientScript::POS_BEGIN);
 
 
@@ -75,15 +75,15 @@ CClientScript::POS_END);?>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo CHtml::errorSummary($model); ?>
-	
-	<div class="row">	
-	
+
+	<div class="row">
+
 		<?php //echo CHtml::activeLabelEx($model,'FRONT_PASS'); ?>
-		
-		<label>Passes ( FRONT / BACK / SLEEVE )</label>
+
+		<label>Ink Colors (Front/Back/Sleve)</label>
 		<?php echo CHtml::activeDropDownList($model,'FRONT_PASS', $passes, array('class'=>'pass_part front_pass')); ?>
 		<?php echo CHtml::error($model,'FRONT_PASS'); ?>
-	
+
 		<?php //echo CHtml::activeLabelEx($model,'BACK_PASS'); ?>
 		<?php echo CHtml::activeDropDownList($model,'BACK_PASS', $passes, array('class'=>'pass_part back_pass')); ?>
 		<?php echo CHtml::error($model,'BACK_PASS'); ?>
@@ -91,18 +91,18 @@ CClientScript::POS_END);?>
 		<?php echo CHtml::activeDropDownList($model,'SLEEVE_PASS', $passes, array('class'=>'pass_part sleeve_pass')); ?>
 		<?php echo CHtml::error($model,'SLEEVE_PASS'); ?>
 	</div>
-	
+
 	<?php echo CHtml::hiddenField('score_pass',$model->pass, array('class'=>'score_pass')); ?>
-	
-	<div class="row art">	
+
+	<div class="row art">
 		<?php echo CHtml::hiddenField('PrintJob_fileCount', count($model->files) - 1, array(
 			'class'=>'art_count',
 		));?>
 		<?php $index = -1;
-		$fileField = 'files'; 
+		$fileField = 'files';
 		$namePrefix = CHtml::resolveName($model, $fileField);
 		foreach($model->files as $art){?>
-			<?php $index++; 
+			<?php $index++;
 			$this->renderPartial('//print/_artForm', array(
 				'model'=>$art,
 				'print_id'=>$model->ID,
@@ -113,11 +113,11 @@ CClientScript::POS_END);?>
 			));?>
 		<?php }?>
 		<div id='uploader' class='form'>
-		
+
 		</div>
 		<div class="row buttons">
 			<?php foreach($fileTypes as $fileType){
-				echo CHtml::button('Add '.$fileType->TEXT . ' File', array( 
+				echo CHtml::button('Add '.$fileType->TEXT . ' File', array(
 					'onclick'=>"addArt(this, '".$namePrefix."', ".$fileType->ID.")",
 				));
 			}?>
@@ -133,5 +133,5 @@ CClientScript::POS_END);?>
 				passes += 1 * $(this).val();
 			});" .
 			"$('.score_pass').val(passes).change();
-		});", 
+		});",
 CClientScript::POS_END);?>

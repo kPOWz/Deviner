@@ -19,10 +19,10 @@
 	foreach($products['lines'] as $dataLine){
 		$continue = false;
 		foreach($dataLine as $key=>$dataLineValue){
-			echo Yii::log($key.' key', CLogger::LEVEL_INFO, 'application.views.jobLine');
+			//echo Yii::log($key.' key', CLogger::LEVEL_TRACE, 'application.views.jobLine');
 			if($key == 'productLine') $productLine = $dataLineValue;
 			if($key == 'line') $sizeLine = $dataLineValue;
-		}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
+		}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance. (M.T.)
 		if($continue){
 			$this->renderPartial('//jobLineSize/_view', array(
 				'product'=>$productLine,

@@ -801,11 +801,19 @@ class JobController extends Controller
 	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
 	 */
 	private function findWeekSchedule($employee_id, $weekOffset = 0){
-		$secondsPerWeek = 24*60*60*7;
-		$lastSunday = strtotime('last sunday', time());		
-		$nextSaturday = $lastSunday + $secondsPerWeek - 1;
-		$lastSunday += $weekOffset * $secondsPerWeek;
-		$nextSaturday += $weekOffset * $secondsPerWeek;
+		$lastSunday = strtotime('last sunday', time());				
+		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
+		
+		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
+		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');
+		
+		
+		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;		
+		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
+		
+		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
+		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');
+		
 		$jobsThisWeek = EventLog::model()->findAllByAttributes(array(
 			'USER_ASSIGNED'=>$employee_id,
 			'OBJECT_TYPE'=>'Job',		
@@ -824,11 +832,14 @@ class JobController extends Controller
 	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
 	 */
 	private function findLedJobs($employee_id, $weekOffset = 0){
-		$secondsPerWeek = 24*60*60*7;
+
 		$lastSunday = strtotime('last sunday', time());		
-		$nextSaturday = $lastSunday + $secondsPerWeek - 1;
-		$lastSunday += $weekOffset * $secondsPerWeek;
-		$nextSaturday += $weekOffset * $secondsPerWeek;
+		
+		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
+		
+		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
+		
+		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
 		
 		$criteria = new CDbCriteria;
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
@@ -845,12 +856,12 @@ class JobController extends Controller
 	
 	private function formatWeekSchedule($employee_id, $weekOffset = 0){
 		$currentWeek = $this->findWeekSchedule($employee_id, $weekOffset);
-		$secondsPerWeek = 24*60*60*7;
+		
 		$currentWeek = $this->resultToCalendarData($currentWeek);
 		if(count($currentWeek) == 0){
 			$currentWeek[date('l')] = array(
 				'items'=>array(),
-				'date'=>time() + $weekOffset * $secondsPerWeek,
+				'date'=>time() + $weekOffset * GlobalConstants::SECONDS_IN_WEEK,
 			);
 		}
 		return $currentWeek;

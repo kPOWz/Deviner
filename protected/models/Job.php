@@ -399,15 +399,18 @@ class Job extends CActiveRecord
 			Yii::log('Due date :  '.$dueDateEvent->DATE, CLogger::LEVEL_TRACE, 'application.models.job');
 			
 			if($this->isNewRecord){
-				Yii::log('Considered New Job Record ', CLogger::LEVEL_INFO, 'application.models.job');				
-				
-				//Automatically assign Job creator as the user assigned
-				$printEvent->USER_ASSIGNED = $this->PRINTER_ID;
-				$dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;					
-			}			
+				Yii::log('New Job Record ', CLogger::LEVEL_INFO, 'application.models.job');							
+			}
 			
+			//Automatically assign Job printer as the event log assigned user
+			$printEvent->USER_ASSIGNED = $dueDateEvent->USER_ASSIGNED = $this->PRINTER_ID;
+			
+			//Prep for comarission of stored and current due date
+			
+			//Usually the case of a new record; don't need to compare due dates as none exists, so bail
 			$savedDueDateString = EventLog::model()->findByPk($dueDateEvent->getPrimaryKey())->DATE;
 			if(!isset($savedDueDateString) || trim($savedDueDateString)==='') return true;
+			
 			//Convert due date back to a Date before comparison because of EventLog's afterFind() DateConverter behavior
 			//If Due Date has changed, also change Print and Pickup Date to match it
 			$savedDueDate =  date('Y-m-d', strtotime($savedDueDateString));

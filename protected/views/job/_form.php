@@ -328,12 +328,12 @@ CClientScript::POS_BEGIN);
 			)); ?>
 			<?php echo $form->error($model,'QUOTE'); ?>
 		</div>
+		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
 		*/ ?>
 		<div class="clear"></div>
 		<div class="separator"></div>
 
 
-		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
 
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
 				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){

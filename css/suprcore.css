@@ -33,7 +33,7 @@ body, button, input, select, textarea {
 }
 
 a { color: #828282; text-decoration: none; }
-a:visited { color: #aaa; }
+a:visited { color: #111; }
 a:hover { color: #111; }
 a:focus { outline: none; }
 

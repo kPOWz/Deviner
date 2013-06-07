@@ -12,6 +12,7 @@
 
 .ui-cal-header {
 	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
 	width: 100%;
 	text-align: center;
 	height: 10%;

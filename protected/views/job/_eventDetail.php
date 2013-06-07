@@ -4,7 +4,7 @@
 	<div class="pad"><?php
 		$job = $item->getAssocObject();
 	?>
-	<?php /* js: hide rush warning
+	<?php /* js: hide rush warning, todo: rm red bg
 	<?php if($job->RUSH){?>
 		<span class="warning">RUSH</span>&nbsp;
 	<?php } ?>

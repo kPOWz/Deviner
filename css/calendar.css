@@ -19,6 +19,7 @@
 }
 
 .ui-cal-item {
+	border-bottom: 1px solid #fff;
 	width: 100%;
 	position:relative;
 	float: left;
@@ -26,7 +27,7 @@
 	float: left;
 	background-color: #d0d0d0; /*#f00; CC0000*/
 	color: #fff;
-	margin: 3px 0;
+	margin: 0;
 	padding:5px;
 	font-size:10px;
 	overflow: visible;

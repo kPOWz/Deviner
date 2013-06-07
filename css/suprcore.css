@@ -120,7 +120,7 @@ h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
 
 
 #yw0-sunday, #yw1-sunday, #yw2-sunday, #yw3-sunday, #yw4-sunday, #yw5-sunday {background:#ccc;}
-#yw0-saturday, #yw1-saturday, #yw2-saturday, #yw3-saturday, #yw4-saturday, #yw5-saturday {background:#ccc;}
+#yw0-saturday, #yw1-saturday, #yw2-saturday, #yw3-saturday, #yw4-saturday, #yw5-saturday {/*background:#ccc;*/}
 
 /* =============================================================================
    Search

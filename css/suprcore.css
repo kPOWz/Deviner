@@ -108,7 +108,7 @@ h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
 .size-label {width:120px; display:block; text-align:right; margin-right:10px; font-family: "ff-meta-web-pro",sans-serif;float:left; clear:both; border-top:1px solid #ccc;}
 .size-content {float:left; border-top:1px solid #ddd;}
 .jobGroup {margin-bottom:20px;}
-.auto_quote .row {border-bottom:1px solid #ddd;}
+.auto_quote .row {/*border-bottom:1px solid #ddd;*/}
 .grandtotal {background:#ddd;}
 .grand-pad {padding-left:5px;}
 .right-price {text-alight:right;float:right; padding-right:5px;}

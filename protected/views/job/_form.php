@@ -238,6 +238,7 @@ CClientScript::POS_BEGIN);
 
 	<div class="separator"></div>
 
+
 	<div class="row auto_quote">
 		<!-- Rush Charge Group-->
 		<div class="row">
@@ -281,6 +282,7 @@ CClientScript::POS_BEGIN);
 		<?php }?>
 		</div>
 
+	<?php /* js: hide auto quote
 		<!-- Auto Quote Group-->
 		<div class="grid_6 alpha">
 			<h4>Auto Quote</h4>
@@ -326,9 +328,10 @@ CClientScript::POS_BEGIN);
 			)); ?>
 			<?php echo $form->error($model,'QUOTE'); ?>
 		</div>
-
+		*/ ?>
 		<div class="clear"></div>
 		<div class="separator"></div>
+
 
 		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
 

@@ -6,23 +6,30 @@
 			</div>
 			<div class="row">
 				<span class="title bold grid_2 alpha">DUE</span>
-				<?php 
-					$formattedDueDate = CHtml::encode($model->formattedDueDate); 
-					$shortenedDueDate = str_replace("00:00", "", $formattedDueDate); 
+				<?php
+					$formattedDueDate = CHtml::encode($model->formattedDueDate);
+					$shortenedDueDate = str_replace("00:00", "", $formattedDueDate);
 					echo $shortenedDueDate;
 				?>
 			</div>
 			<div class="row">
 				<span class="title bold grid_2 alpha">PRINT </span>
-				<?php 
-					$formattedPrintDate = CHtml::encode($model->formattedPrintDate); 
-					$shortenedPrintDate = str_replace("00:00", "", $formattedPrintDate); 
+				<?php
+					$formattedPrintDate = CHtml::encode($model->formattedPrintDate);
+					$shortenedPrintDate = str_replace("00:00", "", $formattedPrintDate);
 					echo $shortenedPrintDate;
 				?>
 			</div>
 			<div class="row">
-				<span class="title bold grid_2 alpha"><?php echo CHtml::activeLabelEx($model, 'PRINTER_ID');?> / <?php echo CHtml::activeLabelEx($model, 'LEADER_ID');?></span>
-				<?php echo CHtml::encode($model->PRINTER->FIRST);?> / <?php echo CHtml::encode($model->LEADER->FIRST);?>
+				<span class="title bold grid_2 alpha">
+					<?php /* js: hide printer fields
+					<?php echo CHtml::activeLabelEx($model, 'PRINTER_ID');?> /
+					*/ ?>
+				<?php echo CHtml::activeLabelEx($model, 'LEADER_ID');?></span>
+				<?php /* js: hide printer fields
+				<?php echo CHtml::encode($model->PRINTER->FIRST);?> /
+				*/ ?>
+				<?php echo CHtml::encode($model->LEADER->FIRST);?>
 			</div>
 		</div>
 
@@ -31,32 +38,32 @@
 				<?php echo CHtml::button('Edit', array(
 					'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/update', 'id'=>$model->ID))."';"
 				));?>
-				
+
 				<?php echo CHtml::button('View Invoice', array(
 					'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/invoice', 'id'=>$model->ID))."';"
 				));?>
-				
+
 				<?php if(Yii::app()->user->getState('isAdmin')){
 					echo CHtml::button('Export to QuickBooks', array(
 						'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/invoice', 'id'=>$model->ID, 'type'=>'iif'))."';"
 					));
-				}?>	
-			</div>			
+				}?>
+			</div>
 		</div>
 		<div class="clear"></div>
-	</div>	
-	
+	</div>
+
 	<div class="separator-dark"></div>
-	
-	<?php 
+
+	<?php
 		$this->renderPartial('//customer/_jobView', array(
 			'model'=>$customer,
 			'formatter'=>$formatter,
 		));
 	?>
-	
-	<div class="separator"></div>	
-	
+
+	<div class="separator"></div>
+
 	<?php $this->renderPartial('//print/_jobView', array(
 		'model'=>$print,
 		'jobId'=>$model->ID,
@@ -64,9 +71,9 @@
 		'mockupLink'=>isset($mockupLink) ? $mockupLink : null,
 		'formatter'=>$formatter,
 	));?>
-	
+
 	<br>
-	
+
 	<div id="lines" class="row">
 		<?php
 		$index = 0;
@@ -82,7 +89,7 @@
 		}?>
 		<div class="clear"></div>
 	</div>
-	
+
 	<br>
 
 	<div class="row">
@@ -96,11 +103,11 @@
 		<div class="row">
 			<span class="title bold"><?php echo CHtml::activeLabelEx($model,'RUSH'); ?></span>
 			<?php echo CHtml::encode($formatter->formatCurrency($model->RUSH));?>
-		</div>		
+		</div>
 		<div class="row">
 			<span class="title bold"><?php echo CHtml::activeLabelEx($model->printJob,'COST'); ?></span>
 			<?php echo CHtml::encode($formatter->formatCurrency($model->printJob->COST));?>
-		</div>	
+		</div>
 		<div class="row">
 			<span class="title bold"><?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?></span>
 			<?php echo CHtml::encode($formatter->formatCurrency($model->SET_UP_FEE));?>
@@ -115,9 +122,9 @@
 			</div>
 		<?php }?>
 
-		<div> <!--class="grid_6 alpha">-->	
+		<div> <!--class="grid_6 alpha">-->
 			<!--<h4>Auto Quote</h4>-->
-			<h4>Quoted</h4>	
+			<h4>Quoted</h4>
 			<div> <!--class="grid_3 alpha">-->
 				<div class="row">
 					<span class="title bold total"><?php echo CHtml::label('Sub Total', 'auto_total');?></span>
@@ -125,7 +132,7 @@
 				</div>
 				<div class="row">
 					<span class="title bold total"><?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'] / 100;?>
-					<?php echo CHtml::label('Total Tax', 'auto_tax');?>	</span>	
+					<?php echo CHtml::label('Total Tax', 'auto_tax');?>	</span>
 					<span class="right-price"><?php echo CHtml::encode($formatter->formatCurrency($model->total * $taxRate));?></span>
 				</div>
 				<div class="row grandtotal">
@@ -151,7 +158,7 @@
 
 		<!--<div class="grid_4 omega">
 			<h4>Quoted</h4>
-		
+
 			<div class="row">
 				<span class="title bold total"><?php echo CHtml::label('Total Per Garment', 'item_total');?></span>
 				<span class="right-price"><?php echo CHtml::encode($formatter->formatCurrency(($garmentCount == 0) ? 0 : $model->QUOTE / $garmentCount));?></span>
@@ -159,9 +166,9 @@
 
 			<div class="row <?php $quoted = CHtml::encode($formatter->formatCurrency($model->QUOTE)); if($quoted != '$0.00'){ echo 'RED'; } else {echo 'chicken'; } ?>">
 				<span class="title bold total grand-pad"><?php echo CHtml::activeLabelEx($model,'QUOTE'); ?></span>
-				<span class="right-price"><?php echo $quoted; ?></span>		
+				<span class="right-price"><?php echo $quoted; ?></span>
 			</div>
-	
+
 		</div>-->
 
 		<div class="clear"></div>
@@ -180,16 +187,16 @@
 		<?php echo CHtml::button('Edit', array(
 			'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/update', 'id'=>$model->ID))."';"
 		));?>
-		
+
 		<?php echo CHtml::button('View Invoice', array(
 			'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/invoice', 'id'=>$model->ID))."';"
 		));?>
-		
+
 		<?php if(Yii::app()->user->getState('isAdmin')){
 			echo CHtml::button('Export to QuickBooks', array(
 				'onclick'=>"js:window.location.href='".CHtml::normalizeUrl(array('job/invoice', 'id'=>$model->ID, 'type'=>'iif'))."';"
 			));
-		}?>	
+		}?>
 	</div>
 
 

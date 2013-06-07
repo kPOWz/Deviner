@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerCoreScript('jquery');
-Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobOperations.js', CClientScript::POS_HEAD); 
+Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobOperations.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, namePrefix){
 	var count = $(sender).parent().children('.jobLines').children('.jobLine').children('.part').size();" .
@@ -54,8 +54,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 
 Yii::app()->clientScript->registerScript('calculate-total', "" .
 		"function calculateTotal(garments, front, back, sleeve, dest){
-			calculateTotalMain('".CHtml::normalizeUrl(array('job/garmentCost'))."', garments, front, back, sleeve, dest);			
-		}", 
+			calculateTotalMain('".CHtml::normalizeUrl(array('job/garmentCost'))."', garments, front, back, sleeve, dest);
+		}",
 CClientScript::POS_BEGIN);
 
 Yii::app()->clientScript->registerScript('calculate-setup-fee', "" .
@@ -89,7 +89,7 @@ CClientScript::POS_BEGIN);
 				'name'=>'Job[formattedDueDate]',
 				'model'=>$model,
 				'attribute'=>'formattedDueDate',
-				'value' => $model->formattedDueDate,	
+				'value' => $model->formattedDueDate,
 				'options'=>array(
 					'showAnim'=>'fold',
 					'dateFormat'=>'DD, MM d, yy',
@@ -99,9 +99,9 @@ CClientScript::POS_BEGIN);
 						'class'=>'input_full'
 				),
 			));?>
-			<?php echo $form->error($model, 'formattedDueDate'); ?>	
+			<?php echo $form->error($model, 'formattedDueDate'); ?>
 		</div>
-	<!-- <div class="grid_3 omega"> -->	
+	<!-- <div class="grid_3 omega"> -->
 			<?php /*echo $form->labelEx($model, 'formattedPrintDate'); */?>
 			<?php /*$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				'name'=>'Job[formattedPrintDate]',
@@ -115,14 +115,14 @@ CClientScript::POS_BEGIN);
 					'dateFormat'=>'DD, MM d, yy',
 				),
 			));*/?>
-			<?php /* echo $form->error($model, 'formattedPrintDate'); */ ?>	
-		<!-- </div> -->	
+			<?php /* echo $form->error($model, 'formattedPrintDate'); */ ?>
+		<!-- </div> -->
 
 		<div class="clear"></div>
 
 		<?php $printerList = CHtml::listData($printers, 'ID', 'FIRST');?>
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
-		
+
 		<div class="row">
 			<div class="grid_2 alpha">
 				<?php echo $form->labelEx($model, 'LEADER_ID');?>
@@ -130,32 +130,34 @@ CClientScript::POS_BEGIN);
 				<?php echo $form->error($model, 'LEADER_ID');?>
 			</div>
 			<div class="grid_2 push_1 omega">
+				<?php /* js: hide printer fields
 				<?php echo $form->labelEx($model, 'PRINTER_ID');?>
 				<?php echo $form->dropDownList($model, 'PRINTER_ID', $printerList, array('class'=>'input_full'));?>
 				<?php echo $form->error($model, 'PRINTER_ID');?>
+				*/ ?>
 			</div>
 			<div class="clear"></div>
 		</div>
-	</div>	
-	
+	</div>
+
 	<div class="separator"></div>
-	
-	<?php 
+
+	<?php
 		$this->renderPartial('//customer/_jobForm', array(
 			'customerList'=>$customerList,
 			'newCustomer'=>$newCustomer,
 		));
-	?>	
-	
+	?>
+
 	<div class="separator"></div>
 	<?php $this->renderPartial('//print/_jobForm', array(
 		'model'=> $print,
 		'job'=>$model,
 		'fileTypes'=>$fileTypes,
-		'passes'=>$passes, 
+		'passes'=>$passes,
 	));?>
 	<div class="separator"></div>
-	
+
 	<div id="lines" class="row">
 		<?php
 		$index = 0;
@@ -190,7 +192,7 @@ CClientScript::POS_BEGIN);
 			));?>
 		<div class="divForForm"></div>
  		<?php $this->endWidget();?>
-	
+
 		<script type="text/javascript">
 			function addProduct()
 			{
@@ -213,14 +215,14 @@ CClientScript::POS_BEGIN);
                     		$('#dialogProduct div.divForForm').html(data.div);
                     		setTimeout(\"$('#dialogProduct').dialog('close') \",3000);
                 		}
- 
+
             		} ",
             ))?>;
-    		return false;  
-			} 
+    		return false;
+			}
 		</script>
-	
-	
+
+
 	</div><!-- end add garment -->
 
 	<div class="row">
@@ -233,7 +235,7 @@ CClientScript::POS_BEGIN);
 			'onkeyup'=>"js:\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());"
 		));?>
 	</div>
-	
+
 	<div class="separator"></div>
 
 	<div class="row auto_quote">
@@ -243,18 +245,18 @@ CClientScript::POS_BEGIN);
 			<?php echo $form->textField($model,'RUSH', array('class'=>'part')); ?>
 			<?php echo $form->error($model,'RUSH'); ?>
 		</div>
-		
+
 		<!-- Art Charge Group-->
 		<div class="row">
 			<?php echo CHtml::activeLabelEx($print,'COST'); ?>
 			<?php echo CHtml::activeTextField($print,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
 			<?php echo CHtml::error($print,'COST'); ?>
 		</div>
-		
+
 		<!-- Setup Fee Group-->
 		<div class="row">
 			<?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>
-		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(		    		
+		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
 		    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
 		    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
 		    		'class'=>'part editable-fee',
@@ -263,7 +265,7 @@ CClientScript::POS_BEGIN);
 	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_WAIVED ?></span>
 		    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>
 		</div>
-		
+
 		<!-- Additional Fees Group-->
 		<div class='row'>
 		<?php foreach($model->additionalFees as $key=>$fee){?>
@@ -278,19 +280,19 @@ CClientScript::POS_BEGIN);
 			));?>
 		<?php }?>
 		</div>
-		
+
 		<!-- Auto Quote Group-->
 		<div class="grid_6 alpha">
-			<h4>Auto Quote</h4>		
+			<h4>Auto Quote</h4>
 			<div class="grid_3 alpha">
 				<?php echo CHtml::label('Sub Total', 'auto_total');?>
 				<?php echo CHtml::textField('auto_total', $model->total, array('readonly'=>'readonly', 'id'=>'auto_total'));?>
-				
+
 				<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'] / 100;
 				$taxRateField = CHtml::getIdByName('Job[additionalFees]['.Job::FEE_TAX_RATE.']');?>
 				<?php echo CHtml::label('Total Tax', 'auto_tax');?>
 				<?php echo CHtml::textField('auto_tax', $model->total * $taxRate, array('readonly'=>'readonly', 'id'=>'auto_tax'));?>
-				
+
 				<?php echo CHtml::label('Grand Total', 'auto_grand');?>
 				<?php echo CHtml::textField('auto_grand', $model->total * (1 + $taxRate), array('readonly'=>'readonly', 'id'=>'auto_grand'));?>
 			</div>
@@ -298,13 +300,13 @@ CClientScript::POS_BEGIN);
 				<?php echo CHtml::label('Sub Total Per Garment', 'auto_total_each');?>
 				<?php echo CHtml::textField('auto_total_each', $model->garmentPrice, array('readonly'=>'readonly', 'id'=>'auto_total_each'));?>
 				<?php echo CHtml::label('Total Tax Per Garment', 'auto_tax_each');?>
-				
+
 				<?php echo CHtml::textField('auto_tax_each', $model->garmentPrice * $taxRate, array('readonly'=>'readonly', 'id'=>'auto_tax_each'));?>
 				<?php echo CHtml::label('Grand Total Per Garment', 'auto_grand_each');?>
 				<?php echo CHtml::textField('auto_grand_each', $model->garmentPrice * (1 + $taxRate), array('readonly'=>'readonly', 'id'=>'auto_grand_each'));?>
 			</div>
 		</div>
-		
+
 		<!-- Quoted Group-->
 		<div class="grid_4 omega">
 			<h4>Quoted</h4>
@@ -329,7 +331,7 @@ CClientScript::POS_BEGIN);
 		<div class="separator"></div>
 
 		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
-		
+
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
 				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){
 					var qty = 0;" .
@@ -345,14 +347,14 @@ CClientScript::POS_BEGIN);
 					}" .
 					"$('#garment_qty').val(qty).change();" .
 					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);
-				})", 
+				})",
 		CClientScript::POS_END);
-		
+
 			Yii::app()->clientScript->registerScript('auto-totaler', "" .
-					"$('.part, #$taxRateField').live('change keyup', autoTotal($('#$taxRateField')));", 
+					"$('.part, #$taxRateField').live('change keyup', autoTotal($('#$taxRateField')));",
 			CClientScript::POS_END);?>
-	</div> <!-- <div class="row auto_quote">-->	
-	
+	</div> <!-- <div class="row auto_quote">-->
+
 	<div class="row">
 		<?php echo CHtml::hiddenField('score_base', 30, array('class'=>'score_base'));?>
 		<?php /*echo $form->labelEx($model, 'SCORE');?>
@@ -369,11 +371,11 @@ CClientScript::POS_BEGIN);
 						qty += 1 * $(this).val();
 					});" .
 					"$('#score').val(base + (passes * qty));
-				});", 
+				});",
 		CClientScript::POS_END);?>
 	</div>
 
-	
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'NOTES'); ?>

@@ -14,5 +14,8 @@ class GlobalConstants {
 	//The score is a time estimate, in minutes, of how long the job will take
 	const BASE_JOB_SCORE = 30;
 	
+	//24*60*60*7
+	const SECONDS_IN_WEEK = 604800;
+	
 	
 }

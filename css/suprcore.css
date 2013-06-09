@@ -33,7 +33,7 @@ body, button, input, select, textarea {
 }
 
 a { color: #828282; text-decoration: none; }
-a:visited { color: #aaa; }
+a:visited { color: #111; }
 a:hover { color: #111; }
 a:focus { outline: none; }
 
@@ -108,7 +108,7 @@ h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
 .size-label {width:120px; display:block; text-align:right; margin-right:10px; font-family: "ff-meta-web-pro",sans-serif;float:left; clear:both; border-top:1px solid #ccc;}
 .size-content {float:left; border-top:1px solid #ddd;}
 .jobGroup {margin-bottom:20px;}
-.auto_quote .row {border-bottom:1px solid #ddd;}
+.auto_quote .row {/*border-bottom:1px solid #ddd;*/}
 .grandtotal {background:#ddd;}
 .grand-pad {padding-left:5px;}
 .right-price {text-alight:right;float:right; padding-right:5px;}
@@ -119,8 +119,8 @@ h6 { font-size: 1em; margin: 1em 0;font-family: "ff-meta-web-pro",sans-serif; }
 .standard_style {float:left; display:block; width:30px;}
 
 
-#yw0-sunday, #yw1-sunday, #yw2-sunday, #yw3-sunday, #yw4-sunday, #yw5-sunday {background:#ccc;}
-#yw0-saturday, #yw1-saturday, #yw2-saturday, #yw3-saturday, #yw4-saturday, #yw5-saturday {background:#ccc;}
+#yw0-sunday, #yw1-sunday, #yw2-sunday, #yw3-sunday, #yw4-sunday, #yw5-sunday {/*background:#ccc;*/}
+#yw0-saturday, #yw1-saturday, #yw2-saturday, #yw3-saturday, #yw4-saturday, #yw5-saturday {/*background:#ccc;*/}
 
 /* =============================================================================
    Search

@@ -2,14 +2,17 @@
 .ui-cal-day {
 	display: inline;
 	float: left;
-	width: 13.85%;
+	width: 14%;
 	background-color: #E7E7E9;
-	margin-right:3px;
+	margin-left: 1px;
+	margin-right: 1px;
 	border-left: none;
 	min-height: 10em;
 }
 
 .ui-cal-header {
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
 	width: 100%;
 	text-align: center;
 	height: 10%;
@@ -17,26 +20,27 @@
 }
 
 .ui-cal-item {
+	border-bottom: 1px solid #fff;
 	width: 100%;
 	position:relative;
 	float: left;
 	display: block;
 	float: left;
-	background-color: #CC0000; /*#f00;*/
-	color: #eee;
-	margin: 3px 0;
+	background-color: #d0d0d0; /*#f00; CC0000*/
+	color: #fff;
+	margin: 0;
 	padding:5px;
 	font-size:10px;
 	overflow: visible;
-	letter-spacing:.02em;
+
 }
 
 .ui-cal {
 	display: block;
-	margin-top: 2px;
+	margin-top: 0;
 	margin-bottom: 2px;
-	padding-bottom: 2px;
-	padding-top: 2px;
+	padding-bottom: 0;
+	padding-top: 0;
 	float: none;
 	clear:both;
 	min-height: 10em;
@@ -47,7 +51,7 @@
 	width: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
-	height: 100px;
+	height: 115px;
 }
 
 .valid-target,
@@ -72,3 +76,11 @@
   -webkit-user-drag: element;
 }
 
+/**
+ * jQuery-ui style overrides
+ */
+
+.ui-tabs .ui-tabs-panel {
+	margin-top: 5px;
+	padding: 0 !important;
+}

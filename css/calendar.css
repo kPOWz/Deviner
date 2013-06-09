@@ -1,4 +1,4 @@
-/*dummy comment deux -  css used in gus calendars*/
+/*css used in gus calendars*/
 .ui-cal-day {
 	display: inline;
 	float: left;
@@ -48,5 +48,27 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	height: 100px;
+}
+
+.valid-target,
+.ui-cal-items.valid-target {
+	border:3px solid #C6D880;
+	
+}
+
+.invalid-target,
+.ui-cal-items.invalid-target {
+	border:3px solid #FBC2C4;	
+}
+
+/* Prevent the text contents of draggable elements from being selectable. */
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }
 

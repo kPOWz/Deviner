@@ -50,13 +50,55 @@ class JobController extends Controller
 		);
 	}
 
+	
+	public function actionSearch(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+			$term = $_GET['term'];
+			$model = new Job('search');
+			$model->unsetAttributes();
+			
+			$model->NAME = $term;
+			$model->customer_search = $term;
+					
+			$results = $model->search();
+
+			$juiResults = array();			
+			foreach($results->data as $result){
+				$company = $result->CUSTOMER->COMPANY;
+				$label = strlen($company) > 0 ? $result->NAME . ' - ' . $company : $result->NAME;
+				$juiResults[] = array(
+						'label'=> $label,
+						'value'=>$result->NAME,
+						'id'=>$result->ID,
+				);
+			}
+			header('Content-Type: text/json');
+			echo CJSON::encode($juiResults);
+		}
+	}
+	
+	
+	/**
+	 * Displays a particular model. 
+	 * Alternative view action for scenarios where Job ID dynamically determined via javascript (or any means).
+	 * 
+	 */
+	public function actionSearchResult()
+	{
+		echo Yii::log('reached search result action', CLogger::LEVEL_TRACE, 'application.controllers.Job');
+		if(isset($_GET['id']) ){			
+			echo Yii::log('reached search result action - had id', CLogger::LEVEL_TRACE, 'application.controllers.Job');
+			$this->redirect(array('view','id'=>$_GET['id']));
+		}
+	}
+	
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
 	{
-		echo Yii::log('reached action', CLogger::LEVEL_INFO, 'application.controllers.Job');
+		echo Yii::log('reached view action', CLogger::LEVEL_INFO, 'application.controllers.Job');
 		$model = $this->loadModel($id);
 		$sizes = Lookup::listItems('Size');
 		$lineData = array();
@@ -805,8 +847,7 @@ class JobController extends Controller
 		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
 		
 		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
-		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');
-		
+		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');		
 		
 		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;		
 		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
@@ -938,16 +979,70 @@ class JobController extends Controller
 		$model->save();
 	}
 	
-	public function actionUpdatePrintDate(){
-		if(isset($_POST['id']) && isset($_POST['newPrintDate'])){
-			$id = $_POST['id'];
-			$model = $this->loadModel($id);
-			$date = $_POST['newPrintDate'];
-			$model->printDate = date('Y-m-d', $date);
-			$model->save();
-			//TODO: need to return json error message from compareDate clientValidateAttribute
-			//  to make sure user understand she can't move printDate beyond dueDate
+	public function actionUpdatePrintDate(){		
+		if(Yii::app()->request->isAjaxRequest)
+		{
+			foreach (Yii::app()->log->routes as $route) {
+				if($route instanceof CWebLogRoute) {
+					$route->enabled = false; // disable any weblogroutes
+				}
+			}
+		
+			if(isset($_POST['id']) && isset($_POST['newPrintDate'])){
+			
+				$id = $_POST['id'];
+				$model = $this->loadModel($id);
+				$newPrintDate = $_POST['newPrintDate'];
+				$model->printDate = date('Y-m-d', $newPrintDate);
+				
+				$model->setScenario("update_printDate");
+				header('Content-type: application/json');
+				
+				if($model->save()){
+					Yii::trace('new print date saved', 'application.controllers.job');
+					//$this->renderJSON(array("SAVED"=>true));				
+					echo CJSON::encode(array('SAVED'=>true));
+					
+					Yii::app()->end();
+					return;
+				}else{
+					Yii::trace('new print date not saved', 'application.controllers.job');
+					//$this->renderJSON(array("SAVED"=>false));
+					echo CJSON::encode(array('SAVED'=>false
+											,'DUEDATE'=>$model->formattedDueDate
+							));
+					
+					foreach (Yii::app()->log->routes as $route) {
+						if($route instanceof CWebLogRoute) {
+							$route->enabled = false; // disable any weblogroutes
+						}
+					}
+					Yii::app()->end();
+				}
+			}
 		}
+	}
+	
+	public function actionValidatePrintDate(){
+		if(isset($_GET['id']) && isset($_GET['newPrintDate'])){
+			$id = $_GET['id'];
+			$model = $this->loadModel($id);
+			$newPrintDate = date('Y-m-d', $_GET['newPrintDate']);
+			
+			header('Content-type: application/json');
+			
+			//if($model->validate(array('printDate'))) { //TODO: need to do conversion on printDate or will beforeValidation kick in?
+			if($newPrintDate <= date('Y-m-d', strtotime($model->dueDate))){
+				Yii::trace('new print date valid', 'application.controllers.job');
+				echo CJSON::encode(array('VALID'=>true));
+					
+				Yii::app()->end();
+				return;
+			}
+		}
+		Yii::trace('new print date not valid', 'application.controllers.job');
+		echo CJSON::encode(array("VALID"=>false));
+		Yii::app()->end();
 	}
 	
 	private function resultToCalendarData($result){

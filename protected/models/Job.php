@@ -33,6 +33,8 @@ require_once('compareDate.php');
  */
 class Job extends CActiveRecord
 {
+	public $customer_search;
+	
 	//job statuses 
 	const CREATED = 26; //the job has just been created, and perhaps a quote has been given
 	const INVOICED = 31; //a formal invoice has been sent.//deprecated
@@ -81,7 +83,8 @@ class Job extends CActiveRecord
 			array('printDate', 'compareDate', 'compareAttribute'=>'dueDate', 'operator'=>'<='),	
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, CUSTOMER_ID, LEADER_ID, NAME, DESCRIPTION, NOTES, ISSUES, RUSH, SET_UP_FEE, SCORE, QUOTE', 'safe', 'on'=>'search'),
+			array('ID, CUSTOMER_ID, LEADER_ID, NAME, DESCRIPTION, NOTES, ISSUES, RUSH, SET_UP_FEE, SCORE, QUOTE, customer_search', 
+					'safe', 'on'=>'search'),
 		);
 	}
 
@@ -221,27 +224,20 @@ class Job extends CActiveRecord
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 * TODO: may need to set specific scenario for AutoComplete search vs a form search ...
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
-
-		$criteria->compare('ID',$this->ID);
-		$criteria->compare('CUSTOMER_ID',$this->CUSTOMER_ID);
-		$criteria->compare('LEADER_ID',$this->LEADER_ID);
-		$criteria->compare('DESCRIPTION',$this->DESCRIPTION,true);
-		$criteria->compare('NOTES',$this->NOTES,true);
-		$criteria->compare('ISSUES',$this->ISSUES,true);
-		$criteria->compare('RUSH',$this->RUSH);
-		$criteria->compare('SET_UP_FEE',$this->SET_UP_FEE,true);
-		$criteria->compare('SCORE',$this->SCORE);
-		$criteria->compare('QUOTE',$this->QUOTE,true);
+		$criteria->compare('NAME', $this->NAME, true, 'OR');
+	 	$criteria->with = array('CUSTOMER');
+		$criteria->compare('CUSTOMER.COMPANY', $this->customer_search, true, 'OR');
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+						'pageSize'=>25,
+				),
 		));
 	}
 	
@@ -361,8 +357,11 @@ class Job extends CActiveRecord
 		$this->dueDate = date('Y-m-d', strtotime($this->dueDate));
 		$this->printDate = date('Y-m-d', strtotime($this->printDate));
 		
-
-		if($this->isNewRecord === false && $this->printDate > $this->dueDate){
+		Yii::log('job scenario :  '.$this->getScenario(), CLogger::LEVEL_TRACE, 'application.models.job');
+		
+		//TODO: only want to do this if we aren't in the update print date scenario
+		if($this->isNewRecord === false && $this->printDate > $this->dueDate
+				&& $this->getScenario() != "update_printDate"){
 			$printEvent = $this->getEventModel(EventLog::JOB_PRINT);
 			$printEvent->DATE = $this->dueDate;
 		}

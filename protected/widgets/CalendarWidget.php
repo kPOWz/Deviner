@@ -211,12 +211,10 @@ class CalendarWidget extends CWidget {
 		$id = $date;
 		$name = array($this->id, strtolower($name), 'items');
 		$classes = array('ui-cal-items');
-		$htmlOptions = array('ondrop'=>'dropItForDateChange(event);', 'ondragover'=>'event.preventDefault();');
+		$htmlOptions = array();
 		$options = $this->createOptions($classes, $id, $htmlOptions, $name);
 		echo CHtml::openTag('div', $options);
-
-		//associate the date string for retrieval if something is dropped on a day
-		//$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $date)."');";		
+	
 		$i = 0;
 		foreach($items as $item){
 			$this->renderItem($i, $name.'', $item);
@@ -235,7 +233,7 @@ class CalendarWidget extends CWidget {
 		$id = $job->ID;
 		$name = array($this->id, strtolower($name), 'item', $index);
 		$classes = array('ui-cal-item', $this->itemCss);
-		$htmlOptions = array('draggable'=>'true', 'ondragstart'=>'dragIt(event);');
+		$htmlOptions = array('draggable'=>'true');
 		$options = $this->createOptions($classes, $id, $htmlOptions, $name);
 		echo CHtml::openTag('div', $options);
 		$this->controller->renderPartial($this->itemView, array('item'=>$item));

@@ -17,6 +17,9 @@ class StatusProvider {
 StatusProvider::$statuses = $statuses;
 ?>
 <script type="text/javascript">
+	//gobal namespace variable
+
+
 	function statusChanged(completedStatus, canceledStatus, updateUrl, selector){
 		var status = $(selector).val(); 
 		$.ajax({
@@ -28,22 +31,13 @@ StatusProvider::$statuses = $statuses;
 		});
 	}
 </script>
-<?php Yii::app()->clientScript->registerScript('update-print-date', "" .
-		"function dropItForDateChange(event){" .
-			"dropIt(event);" .
-			"var draggedElementId = event.dataTransfer.getData('Text');" .
-			"var targetElementId = event.target.getAttribute('id');" .
-			"$.ajax({
-				url: '".CHtml::normalizeUrl(array('job/updatePrintDate'))."'," .
-				"type: 'POST'," .
-				"data: {
-						newPrintDate: targetElementId," .
-						"id: draggedElementId,
-					}
-			})
 
-		}", CClientScript::POS_END);?>
-		
+<?php Yii::app()->clientScript->registerScript('init-calendar', "" .
+		"(function init(){" .
+			"initCalendar('".CHtml::normalizeUrl(array('job/validatePrintDate'))."','".CHtml::normalizeUrl(array('job/updatePrintDate'))."');" .
+		"})();", CClientScript::POS_END);
+?>
+				
 <!--table goes here-->
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array( 

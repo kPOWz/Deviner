@@ -1,64 +1,46 @@
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
-
-	<div class="row">
-		<?php echo $form->label($model,'ID'); ?>
-		<?php echo $form->textField($model,'ID'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'CUSTOMER_ID'); ?>
-		<?php echo $form->textField($model,'CUSTOMER_ID'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'LEADER_ID'); ?>
-		<?php echo $form->textField($model,'LEADER_ID'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'DESCRIPTION'); ?>
-		<?php echo $form->textArea($model,'DESCRIPTION',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NOTES'); ?>
-		<?php echo $form->textArea($model,'NOTES',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'ISSUES'); ?>
-		<?php echo $form->textArea($model,'ISSUES',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'RUSH'); ?>
-		<?php echo $form->textField($model,'RUSH'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'SET_UP_FEE'); ?>
-		<?php echo $form->textField($model,'SET_UP_FEE',array('size'=>2,'maxlength'=>2)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'SCORE'); ?>
-		<?php echo $form->textField($model,'SCORE'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'QUOTE'); ?>
-		<?php echo $form->textField($model,'QUOTE',array('size'=>2,'maxlength'=>2)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<form id='form-job-search' class='search row' method='GET'>
+	<label>
+		<span>Search:</span>
+		  <?php echo CHtml::script("
+		      function split(val) {
+		       	return val.split(/,\s*/);
+		      }
+		    ")?>
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+		    'model'=>$model,
+			'attribute'=>'NAME',
+		    'source'=>"js:function(request, response) {
+		       $.getJSON('".$this->createUrl('job/search')."', {
+		         term: request.term
+		       }, response);
+		       }",
+		    'options'=>array(
+		      	'delay'=>300,
+		      	'minLength'=>3,
+		      	'showAnim'=>'fold',
+		      	'select'=>"js:function(event, ui) {
+			    		//set hidden value using ui.item.id
+			    		$('#search-result-job-id').val(ui.item.id);
+			    		//set form action
+			    		$('#form-job-search').attr('action', '".CHtml::normalizeUrl(array('job/searchResult'))."');
+		        	}",
+		    	'close'=>"js:function(event, ui) {
+			    		//sumbit form
+	    				$('#form-job-search').submit();
+		    		}",
+		    ),
+		    'htmlOptions'=>array(
+		      	'size'=>'40',
+		    	'class'=>'search row',
+				'id'=>'job-search-box',
+				'role'=>'search',
+	    		'placeholder'=>'job name',
+		    	'spellcheck'=>'false',
+		    	'results'=>'5',	    		
+		    	),
+		   ));?>
+	   </label>
+	   <input type="hidden" id="search-result-job-id" name="id" >
+	 
+</form>
+<!-- search-form -->

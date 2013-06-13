@@ -15,14 +15,10 @@
 				}
 			})
 		}", CClientScript::POS_BEGIN);?>
-
-<!-- PrintJob_files_0_FILE -->
-
-multiUploader.prototype._submit = function(e){
-		e.stopPropagation(); e.preventDefault();
-		self._startUpload();
-	}
-
+	
+<!--  submit form will do ajax post of form data or XMLHttpRequest of forms data to form the
+	php $_FILES / store temorarily & update progress bar
+--><!-- PrintJob_files_0_FILE -->
 <?php Yii::app()->clientScript->registerScript('submit-form', "" .
 		"function submitForm(e){
 			e.stopPropagation(); e.preventDefault();
@@ -45,14 +41,7 @@ multiUploader.prototype._submit = function(e){
 			//event listener on xhr to re-enable buttons disabled for upload
 
 		}", CClientScript::POS_BEGIN);
-
-
-
 ?>
-
-<!--  submit form will do ajax post of form data or XMLHttpRequest of forms data to form the
-	php $_FILES / store temorarily & update progress bar
--->
 
 <?php Yii::app()->clientScript->registerScript('art-delete', "" .
 		"$('.art_delete').live('click', function(event){

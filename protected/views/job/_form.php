@@ -353,9 +353,7 @@ CClientScript::POS_BEGIN);
 				})",
 		CClientScript::POS_END);
 
-			Yii::app()->clientScript->registerScript('auto-totaler', "" .
-					"$('.part, #$taxRateField').live('change keyup', autoTotal($('#$taxRateField')));",
-			CClientScript::POS_END);?>
+		?>
 	</div> <!-- <div class="row auto_quote">-->
 
 	<div class="row">

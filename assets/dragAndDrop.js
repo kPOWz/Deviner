@@ -1,4 +1,4 @@
-
+/*Implementation of HTML5 drag & drop API for GUS calendar */
 (function(){
 
 	var updatePrintDateUrl;

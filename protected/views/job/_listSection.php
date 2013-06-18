@@ -25,6 +25,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'urlExpression'=>"CHtml::normalizeUrl(array('job/view', 'id'=>\$data->ID));",
 		),
 		array(
+			'header'=>'Leader',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->LEADER->FIRST)'			
+		),
+		array(
 			'header'=>'Status',
 			'type'=>'raw',
 			'value'=>"StatusProvider::statusSelector(\$data)",

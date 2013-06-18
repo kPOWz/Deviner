@@ -947,28 +947,10 @@ class JobController extends Controller
     		),
 		));
 		
-		$canceledJobs = Job::listJobsByStatus(Job::CANCELED);
-		$canceledDataProvider = new CArrayDataProvider($canceledJobs, array(
-			'keyField'=>'ID',
-			'pagination'=>array(
-        		'pageSize'=>15,
-    		),
-		));		
-		
-		$completedJobs = Job::listJobsByStatus(Job::COMPLETED);
-		$completedDataProvider = new CArrayDataProvider($completedJobs, array(
-			'keyField'=>'ID',
-			'pagination'=>array(
-        		'pageSize'=>15,
-    		),
-		));
-		
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
 		
 		$this->render('list', array(
 			'currentDataProvider'=>$currentDataProvider,
-			'canceledDataProvider'=>$canceledDataProvider,
-			'completedDataProvider'=>$completedDataProvider,
 			'statuses'=>$statuses,
 		));
 	}

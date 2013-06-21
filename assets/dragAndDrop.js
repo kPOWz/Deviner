@@ -120,7 +120,7 @@
 						}
 				},
 				error: function(request, type, errorThrown){
-					alert('whale fail!');
+					alert('Something went wrong and we couldn\'t update the Print Date.');
 				}
 			});
 		  }

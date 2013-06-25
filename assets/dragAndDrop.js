@@ -6,6 +6,16 @@
 	var dragSrcEl = null;
 	var calendarDays;
 	var jobs;
+	var dragging = [];
+	
+	var handleDragStart = function(e) {
+		  // Target (this) element is the source node.			
+		  dragSrcEl = $(this).parent();
+		  
+		  e.dataTransfer.effectAllowed = 'move';
+		  e.dataTransfer.setData('text/html', e.target.id);
+		  dragging.push(e.target.id);
+		}
 	
 	var handleDragOver = function(e) {
 		  if (e.preventDefault) {
@@ -20,6 +30,8 @@
 	var handleDragEnter = function(e) {
 		// this / e.target is the current hover target.
 		
+		var jobId = e.dataTransfer.getData('text/html') || dragging[0];
+		
 		if (dragSrcEl[0] != this) {
 			var targetId = this.getAttribute('id');
 			target = this; //TODO: anti-pattern
@@ -32,10 +44,9 @@
 					dataType: 'json',
 					data: {
 							"newPrintDate": targetId,
-							"id": e.dataTransfer.getData('Text')
+							"id": jobId
 						},
 					success: function(data){
-						debugger;
 						if(data.VALID){
 							//if valid target date, set class to correctly qualify :drag-over selector
 							//event.stopPropagation();
@@ -58,23 +69,13 @@
 			}
 		}
 	}
-	
-	
+		
 	var handleDragLeave = function(e) {	
 		// this / e.target is previous target element.
 		this.classList.remove('valid-target');
 		//TODO: remove invalid-target
 		this.classList.remove('invalid-target');
 	}
-	
-	var handleDragStart = function(e) {
-		  // Target (this) element is the source node.			
-		  dragSrcEl = $(this).parent();
-		  
-		  e.dataTransfer.effectAllowed = 'move';
-		  e.dataTransfer.setData("Text", e.target.id);
-		  //e.dataTransfer.setData('text/html', this.innerHTML);
-		}
 	
 	var handleDrop = function(e) {
 		// this / e.target is current target element.
@@ -88,11 +89,10 @@
 	  }
 		 
 	  if (dragSrcEl != this) {
-		  	// this / e.target is current target element.
 		  	var targetId = this.getAttribute('id');
 			
 		  	//get the stored job id
-			var theJobId = e.dataTransfer.getData('Text');
+		  	var jobId = e.dataTransfer.getData('text/html') || dragging[0];
 		  
 			$.ajax({
 				url: updatePrintDateUrl,
@@ -100,7 +100,7 @@
 				dataType: 'json',
 				data: {
 						"newPrintDate" : targetId,
-						"id": theJobId,
+						"id": jobId,
 					},
 				success: function(data){
 						if(data.SAVED){
@@ -109,7 +109,7 @@
 							//add it to the drop element
 							//e.target.appendChild(theDraggedElement);
 							//get the element
-							var theDraggedElement = document.getElementById(theJobId);
+							var theDraggedElement = document.getElementById(jobId);
 							e.target.appendChild(theDraggedElement);
 							//TODO: set flash ?
 						}
@@ -128,13 +128,14 @@
 		}
 	
 	var handleDragEnd = function(e) {
-		  // this/e.target is the source node.
-	
+	    // this/e.target is the source node.
+		
 		  [].forEach.call(calendarDays, function (day) {
 		    day.classList.remove('valid-target');
 		    //TODO: remove invalid-target
 		    day.classList.remove('invalid-target');
 		  });
+		dragging.splice(dragging.indexOf(e.target.id), 1);
 		}
 	
 	

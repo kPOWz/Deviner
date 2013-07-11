@@ -142,7 +142,7 @@ class EventController extends Controller
 	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
 	 */
 	private function findWeekSchedule($employee_id, $weekOffset = 0){
-		$secondsPerWeek = 24*60*60*7;
+		$secondsPerWeek = GlobalConstants::SECONDS_IN_WEEK;
 		$lastSunday = strtotime('last sunday', time());		
 		$nextSaturday = $lastSunday + $secondsPerWeek - 1;
 		$lastSunday += $weekOffset * $secondsPerWeek;

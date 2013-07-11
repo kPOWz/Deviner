@@ -96,7 +96,7 @@ $this->widget('application.components.Menu', array(
 			'droppable'=>false,
 			'itemView'=>'//job/_eventDetail',
 			'headerView'=>'//job/_dayHeader',
-			'data'=>$calendarData[$i],
+			'calendarData'=>$calendarData[$i],
 		));?>
 	</div>
 <?php }?>

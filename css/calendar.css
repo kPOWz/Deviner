@@ -27,12 +27,19 @@
 	display: block;
 	float: left;
 	background-color: #d0d0d0; /*#f00; CC0000*/
-	color: #fff;
 	margin: 0;
 	padding:5px;
 	font-size:10px;
 	overflow: visible;
 
+}
+
+.ui-cal-item a{
+	color: #828282;
+}
+
+.ui-cal-item.ui-cal-item-mine a{
+	color: #111111;
 }
 
 .ui-cal {

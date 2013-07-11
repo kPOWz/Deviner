@@ -16,6 +16,8 @@ class GlobalConstants {
 	
 	//24*60*60*7
 	const SECONDS_IN_WEEK = 604800;
+	//60*60*24
+	const SECONDS_IN_DAY = 86400;
 	
 	
 }

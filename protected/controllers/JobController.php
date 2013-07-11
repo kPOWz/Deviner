@@ -820,9 +820,9 @@ class JobController extends Controller
 	{
 		$calendarData = array();
 		for($i = 0; $i < 4; $i++){
-			$calendarData[] = $this->formatWeekSchedule(Yii::app()->user->id, $i);
+			$calendarData[] = $this->getCalendarWeek($i);
 		}
-		$jobs = $this->findLedJobs(Yii::app()->user->id);
+		$jobs = $this->findLedJobsForWeekCurrentUser(Yii::app()->user->id);
 		$dataProvider = new CArrayDataProvider($jobs, array(
 			'keyField'=>'ID',
 		));			
@@ -837,10 +837,56 @@ class JobController extends Controller
 	}
 	
 	/**
+	 * Formats a week of jobs for a calendar widget. If no jobs found,
+	 * the data returned contains today's date and an empty array.
+	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
+	 */
+	private function getCalendarWeek($weekOffset = 0){
+		$jobsInWeek = $this->findLedJobsForWeekAll($weekOffset);
+	
+		$jobsInWeek = $this->resultToCalendarData($jobsInWeek);
+		if(count($jobsInWeek) == 0){
+			$jobsInWeek[date('l')] = array(
+					'jobs'=>array(),
+					'date'=>time() + $weekOffset * GlobalConstants::SECONDS_IN_WEEK,
+			);
+		}
+		return $jobsInWeek;
+	}
+	
+	/**
+	 * Gets the list of jobs for an entire week, with a week offset of zero meaning
+	 * that the jobs for the current week (sunday - saturday) should be retreived,
+	 * an offset of one meaning the next week, and so on.
+	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
+	 */
+	private function findLedJobsForWeekAll($weekOffset = 0){
+	
+		$lastSunday = strtotime('last sunday', time());
+		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
+	
+		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
+		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
+	
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('LEADER_ID IS NOT NULL');
+		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
+		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
+		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
+		$criteria->addCondition('`event_log`.`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
+	
+		$jobsThisWeek = Job::model()->findAllByAttributes(array(
+				'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),
+		), $criteria);
+		return $jobsThisWeek;
+	}
+	
+	/**
 	 * Gets an employee's schedule, appropriate for a calendar widget. If there is nothing
 	 * on the schedule, the data returned will simply contain today's date.
 	 * @param string $employee_id The ID of the employee whose schedule should be retrieved.
 	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
+	 * TODO: remove unused method
 	 */
 	private function findWeekSchedule($employee_id, $weekOffset = 0){
 		$lastSunday = strtotime('last sunday', time());				
@@ -855,57 +901,45 @@ class JobController extends Controller
 		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
 		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');
 		
-		$jobsThisWeek = EventLog::model()->findAllByAttributes(array(
+		$jobsInWeek = EventLog::model()->findAllByAttributes(array(
 			'USER_ASSIGNED'=>$employee_id,
 			'OBJECT_TYPE'=>'Job',		
 			'EVENT_ID'=>EventLog::JOB_PRINT,	
 		), '`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
 		
-		return $jobsThisWeek;
+		return $jobsInWeek;
 	}
+		
+	private function findLedJobsForWeekCurrentUser($employee_id, $weekOffset = 0){
 	
-	/**
-	 * Gets the list of jobs for which the given user is listed as a leader. An entire week
-	 * of jobs is retrieved, with a week offset of zero meaning that the jobs for the current
-	 * week (sunday - saturday) should be retreived, an offset of one meaning the next week, and
-	 * so on.
-	 * @param string $employee_id The ID of the employee whose schedule should be retrieved.
-	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
-	 */
-	private function findLedJobs($employee_id, $weekOffset = 0){
-
-		$lastSunday = strtotime('last sunday', time());		
-		
+		$lastSunday = strtotime('last sunday', time());
 		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
-		
+	
 		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
-		
 		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
-		
+	
 		$criteria = new CDbCriteria;
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
-		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PICKUP);
+		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
 		$criteria->addCondition('`event_log`.`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
-		
+	
 		$jobsThisWeek = Job::model()->findAllByAttributes(array(
-			'LEADER_ID'=>$employee_id,
-			'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),	
+				'LEADER_ID'=>$employee_id,
+				'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),
 		), $criteria);
 		return $jobsThisWeek;
 	}
 	
-	private function formatWeekSchedule($employee_id, $weekOffset = 0){
-		$currentWeek = $this->findWeekSchedule($employee_id, $weekOffset);
-		
-		$currentWeek = $this->resultToCalendarData($currentWeek);
-		if(count($currentWeek) == 0){
-			$currentWeek[date('l')] = array(
-				'items'=>array(),
-				'date'=>time() + $weekOffset * GlobalConstants::SECONDS_IN_WEEK,
-			);
+	private function resultToCalendarData($jobs){
+		$calendarData = array();
+		foreach($jobs as $job){
+			$eventDate = strtotime($job->printDate);
+			$dayName = date('l', $eventDate);
+			$calendarData[$dayName]['date'] = $eventDate;
+			$calendarData[$dayName]['jobs'][] = $job;
 		}
-		return $currentWeek;
+		return $calendarData;
 	}
 	
 	/**
@@ -1025,17 +1059,6 @@ class JobController extends Controller
 		Yii::trace('new print date not valid', 'application.controllers.job');
 		echo CJSON::encode(array("VALID"=>false));
 		Yii::app()->end();
-	}
-	
-	private function resultToCalendarData($result){
-		$calendarData = array();
-		foreach($result as $event){
-			$eventDate = strtotime($event->DATE);
-			$dayName = date('l', $eventDate);
-			$calendarData[$dayName]['date'] = $eventDate;
-			$calendarData[$dayName]['items'][] = $event;
-		}
-		return $calendarData;
 	}
 
 	/**

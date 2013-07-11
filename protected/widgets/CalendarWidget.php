@@ -2,8 +2,8 @@
 class CalendarWidget extends CWidget {
 	/**
 	 * Name of the view which will be used to render each item contained in
-	 * each day. When rendering, this view will be supplied with an $item variable
-	 * containing the item to render. Note that this content will be rendered inside
+	 * each day. When rendering, this view will be supplied with an $job variable
+	 * containing the job representation to render. Note that this content will be rendered inside
 	 * an element with the itemCss class.
 	 */
 	public $itemView;
@@ -20,7 +20,7 @@ class CalendarWidget extends CWidget {
 	 * The data for each day shall be an array of items to display (key "items") and a 
 	 * date value containing the date to render (key "date").
 	 */
-	public $data;
+	public $calendarData;
 	/**
 	 * True if draggable items can be dropped on days, otherwise false. Draggable items must have
 	 * the $itemCss class associated with them to be dropped.
@@ -90,25 +90,25 @@ class CalendarWidget extends CWidget {
 	 * next Saturday.
 	 */ 
 	public function init() {
-	 	if($this->data === null){
-	 		$this->data = array();
+	 	if($this->calendarData === null){
+	 		$this->calendarData = array();
 	 	}
 	 	$normalizedDate = array();
 	 	$minDate = PHP_INT_MAX;
-	 	$secondsPerDay = 24 * 60 * 60;
+	 	$secondsPerDay = GlobalConstants::SECONDS_IN_DAY;
 	 	$baseDate = $secondsPerDay * 4; //epoch was a Thursday
 	 	for($i = 0; $i < 7; $i++){
 	 		$date = $baseDate + $secondsPerDay * $i;
 	 		$dayName = $this->getWeekdayName($date);
-	 		if(!isset($this->data[$dayName])){
-	 			$normalizedData[$dayName] = array('items'=>array(),
+	 		if(!isset($this->calendarData[$dayName])){
+	 			$normalizedData[$dayName] = array('jobs'=>array(),
 	 											  'date'=>$date,
 	 			);
 	 		} else {
-	 			$normalizedData[$dayName] = $this->data[$dayName];
+	 			$normalizedData[$dayName] = $this->calendarData[$dayName];
 	 			$day = $normalizedData[$dayName];
-	 			if(!isset($day['items'])){
-	 				$day['items'] = array();
+	 			if(!isset($day['jobs'])){
+	 				$day['jobs'] = array();
 	 			}
 	 			if(!isset($day['date'])){
 	 				$day['date'] = $date;
@@ -130,7 +130,7 @@ class CalendarWidget extends CWidget {
 	 		}
 	 	}
 	 	
-	 	$this->data = $normalizedData;
+	 	$this->calendarData = $normalizedData;
 	 	
 	 	Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/calendar.css');
 	}
@@ -149,20 +149,20 @@ class CalendarWidget extends CWidget {
 		
 		//render each day. a base style should be associated with each but extended by the dayCss and hoverCss classes.
 		//TODO add the base style
-		foreach($this->data as $dayName=>$info){
+		foreach($this->calendarData as $dayName=>$calendarData){
 			$classes = array('ui-cal-day', $this->dayCss);
-			if(date('Y-m-d') == date('Y-m-d', $info['date'])){
+			if(date('Y-m-d') == date('Y-m-d', $calendarData['date'])){
 				$classes[] = $this->todayCss;
 			}			
 			$id = array($this->id, strtolower($dayName)); //$id is array
 			$options = $this->createOptions($classes, $id, $others=array(), null);
 			
 			//associate the date string for retrieval if something is dropped on a day
-			//$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $info['date'])."');";
+			//$this->scripts[] = "\$('#".$options['id']."').data('date', '".date('m/d/Y', $calendarData['date'])."');";
 				
 			echo CHtml::openTag('div', $options);
 			
-			$this->renderDay($dayName, $info['items'], $info['date']);
+			$this->renderDay($dayName, $calendarData['jobs'], $calendarData['date']);
 			
 			echo CHtml::closeTag('div');
 		}
@@ -193,7 +193,7 @@ class CalendarWidget extends CWidget {
 	 * @param array $items The array of items to render.
 	 * @param date $date The date to render.
 	 */
-	protected function renderDay($name, $items, $date){
+	protected function renderDay($name, $jobs, $date){
 		$classes = array('ui-cal-header', $this->headerCss);
 		$id = array($this->id, strtolower($name), 'header');
 				
@@ -203,7 +203,7 @@ class CalendarWidget extends CWidget {
 		$this->controller->renderPartial($this->headerView, array(
 			'name'=>$name,
 			'date'=>$date,
-			'items'=>$items,
+			'items'=>$jobs,
 		));
 		
 		echo CHtml::closeTag('div');
@@ -216,8 +216,8 @@ class CalendarWidget extends CWidget {
 		echo CHtml::openTag('div', $options);
 	
 		$i = 0;
-		foreach($items as $item){
-			$this->renderItem($i, $name.'', $item);
+		foreach($jobs as $job){
+			$this->renderItem($i, $name.'', $job);
 			$i++;
 		}
 		echo CHtml::closeTag('div');
@@ -228,15 +228,17 @@ class CalendarWidget extends CWidget {
 	 * @param mixed $item The item to render.
 	 * @param integer $index The index of the item to render.
 	 */
-	protected function renderItem($index, $name, $item){
-		$job = $item->getAssocObject();
+	protected function renderItem($index, $name, $job){
 		$id = $job->ID;
 		$name = array($this->id, strtolower($name), 'item', $index);
 		$classes = array('ui-cal-item', $this->itemCss);
+		if($job->LEADER_ID == Yii::app()->user->id || $job->PRINTER_ID == Yii::app()->user->id) {
+			array_push($classes, 'ui-cal-item-mine'); 
+		}
 		$htmlOptions = array('draggable'=>'true');
 		$options = $this->createOptions($classes, $id, $htmlOptions, $name);
 		echo CHtml::openTag('div', $options);
-		$this->controller->renderPartial($this->itemView, array('item'=>$item));
+		$this->controller->renderPartial($this->itemView, array('job'=>$job));
 		echo CHtml::closeTag('div');
 	}
 	
@@ -306,8 +308,7 @@ class CalendarWidget extends CWidget {
 	}
 	
 	private function droppableScript($id, $selector){
-		$secondsPerDay = 60*60*24;
-		for($date = 0, $i = 0; $i < 7; $i++, $date+=$secondsPerDay){
+		for($date = 0, $i = 0; $i < 7; $i++, $date+=GlobalConstants::SECONDS_IN_DAY){
 			$droppableID = $id . '-' . strtolower($this->getWeekdayName($date)) . '-items';
 		
 			$script = "$('#".$droppableID."').droppable({accept: '." . $selector . "', tolerance: 'pointer'," .
@@ -318,8 +319,7 @@ class CalendarWidget extends CWidget {
 	}
 	
 	private function sortableScript($id, $selector){
-		$secondsPerDay = 60*60*24;
-		for($date = 0, $i = 0; $i < 7; $i++, $date+=$secondsPerDay){
+		for($date = 0, $i = 0; $i < 7; $i++, $date+=GlobalConstants::SECONDS_IN_DAY){
 			$sortableID = $id . '-' . strtolower($this->getWeekdayName($date)) . '-items';
 			
 			$script = "$('#".$sortableID." .".$selector."').sortable({revert: true});";

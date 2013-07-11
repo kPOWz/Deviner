@@ -1,42 +1,34 @@
 <?php
-$this->pageTitle = Yii::app()->user->name . ' - ' . 'Dashboard';
-Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/job_dashboard.css');
-Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dragAndDrop.js', CClientScript::POS_END);
-
-//it doesn't make sense to me either, but the yii framework doesn't let me add extra variables
-//to expressions in the grid view. so this is what I have to do...
-class StatusProvider {
-	public static $statuses;
+	$this->pageTitle = Yii::app()->user->name . ' | ' . 'Dashboard | GUS';
+	Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/job_dashboard.css');
+	Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dragAndDrop.js', CClientScript::POS_END);
 	
-	public static function statusSelector($model){
-		return CHtml::activeDropDownList($model, 'STATUS', StatusProvider::$statuses, array(
-			'onchange'=>"statusChanged(".Job::COMPLETED.", ".Job::CANCELED.", '".CHtml::normalizeUrl(array('job/status', 'id'=>$model->ID))."', this);"
-		));
+	//it doesn't make sense to me either, but the yii framework doesn't let me add extra variables
+	//to expressions in the grid view. so this is what I have to do...
+	class StatusProvider {
+		public static $statuses;
+		
+		public static function statusSelector($model){
+			return CHtml::activeDropDownList($model, 'STATUS', StatusProvider::$statuses, array(
+				'onchange'=>"statusChanged(".Job::COMPLETED.", ".Job::CANCELED.", '".CHtml::normalizeUrl(array('job/status', 'id'=>$model->ID))."', this);"
+			));
+		}
 	}
-}
-StatusProvider::$statuses = $statuses;
+	StatusProvider::$statuses = $statuses;
 ?>
 <script type="text/javascript">
-	//gobal namespace variable
-
-
 	function statusChanged(completedStatus, canceledStatus, updateUrl, selector){
-		var status = $(selector).val(); 
-		$.ajax({
-			url: updateUrl,
-			data: {
-				status: status,
-			},
-			type: 'POST',
-		});
-	}
+			var status = $(selector).val(); 
+			$.ajax({
+				url: updateUrl,
+				data: {
+					status: status,
+				},
+				type: 'POST',
+			});
+		}
 </script>
 
-<?php Yii::app()->clientScript->registerScript('init-calendar', "" .
-		"(function init(){" .
-			"initCalendar('".CHtml::normalizeUrl(array('job/validatePrintDate'))."','".CHtml::normalizeUrl(array('job/updatePrintDate'))."');" .
-		"})();", CClientScript::POS_END);
-?>
 				
 <!--table goes here-->
 <?php 
@@ -89,14 +81,3 @@ $this->widget('application.components.Menu', array(
 	'id'=>'job_menu',
 ));
 ?>
-<h6>Calendar</h6>
-<?php for($i = 0; $i < 4; $i++){?>
-	<div id="cal<?php echo $i;?>" class="cal_container">
-		<?php $this->widget('application.widgets.CalendarWidget', array(
-			'droppable'=>false,
-			'itemView'=>'//job/_eventDetail',
-			'headerView'=>'//job/_dayHeader',
-			'calendarData'=>$calendarData[$i],
-		));?>
-	</div>
-<?php }?>

@@ -52,7 +52,7 @@
 						//array('label'=>'Create Order', 'url'=>array('/order/create')),
 						array('label'=>'New Invoice', 'url'=>array('/invoice/create')),
 						array('label'=>'All Invoices', 'url'=>array('/invoice/index')),
-						array('label'=>'Calendar', 'url'=>array('/event/schedule')),
+						array('label'=>'Calendar', 'url'=>array('/job/calendar')),
 						array('label'=>'Logout', 'url'=>array('/site/logout')),
 					),
 					'themeCssFile'=>$this->styleDirectory . 'dropdown/default.css',

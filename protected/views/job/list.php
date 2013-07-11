@@ -48,7 +48,7 @@ function statusChanged(updateUrl, selector){
 }
 </script>
 
-<h3>Jobs by status</h3>
+<h1>Jobs by Status</h1>
 <?php 
 	$this->widget('zii.widgets.jui.CJuiTabs', array(
 		'id'=>'job-tabs',

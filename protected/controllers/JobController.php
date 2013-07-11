@@ -814,25 +814,33 @@ class JobController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists all models related to current user.
 	 */
 	public function actionIndex()
+	{
+		$jobs = $this->findLedJobsCurrentUser();
+		$dataProvider = new CArrayDataProvider($jobs, array(
+			'keyField'=>'ID',
+		));					
+		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
+			
+		$this->render('dashboard',array(
+			'dataProvider'=>$dataProvider,
+			'statuses'=>$statuses
+		));
+	}
+	
+	/**
+	 * Lists all models data for calendar widget.
+	 */
+	public function actionCalendar()
 	{
 		$calendarData = array();
 		for($i = 0; $i < 4; $i++){
 			$calendarData[] = $this->getCalendarWeek($i);
 		}
-		$jobs = $this->findLedJobsCurrentUser();
-		$dataProvider = new CArrayDataProvider($jobs, array(
-			'keyField'=>'ID',
-		));			
-		
-		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-			
-		$this->render('dashboard',array(
-			'dataProvider'=>$dataProvider,
-			'calendarData'=>$calendarData,
-			'statuses'=>$statuses,
+		$this->render('calendar',array(
+				'calendarData'=>$calendarData,
 		));
 	}
 	

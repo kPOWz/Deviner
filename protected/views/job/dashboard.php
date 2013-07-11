@@ -29,7 +29,7 @@
 		}
 </script>
 
-				
+<h1>My Jobs</h1>				
 <!--table goes here-->
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array( 

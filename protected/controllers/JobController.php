@@ -822,7 +822,7 @@ class JobController extends Controller
 		for($i = 0; $i < 4; $i++){
 			$calendarData[] = $this->getCalendarWeek($i);
 		}
-		$jobs = $this->findLedJobsForWeekCurrentUser(Yii::app()->user->id);
+		$jobs = $this->findLedJobsCurrentUser();
 		$dataProvider = new CArrayDataProvider($jobs, array(
 			'keyField'=>'ID',
 		));			
@@ -860,8 +860,7 @@ class JobController extends Controller
 	 * an offset of one meaning the next week, and so on.
 	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
 	 */
-	private function findLedJobsForWeekAll($weekOffset = 0){
-	
+	private function findLedJobsForWeekAll($weekOffset = 0){	
 		$lastSunday = strtotime('last sunday', time());
 		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
 	
@@ -880,52 +879,18 @@ class JobController extends Controller
 		), $criteria);
 		return $jobsThisWeek;
 	}
-	
-	/**
-	 * Gets an employee's schedule, appropriate for a calendar widget. If there is nothing
-	 * on the schedule, the data returned will simply contain today's date.
-	 * @param string $employee_id The ID of the employee whose schedule should be retrieved.
-	 * @param int $weekOffset The number of weeks from the current week to find in the schedule.
-	 * TODO: remove unused method
-	 */
-	private function findWeekSchedule($employee_id, $weekOffset = 0){
-		$lastSunday = strtotime('last sunday', time());				
-		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
+
+	private function findLedJobsCurrentUser($weekOffset = 0){			
+		//TODO: if no leader role, just return an info message
 		
-		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
-		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');		
-		
-		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;		
-		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
-		
-		Yii::trace('lastSunday '. $lastSunday .' at week-offset ' . $weekOffset, 'application.controllers.job');
-		Yii::trace('nextSaturday' . $nextSaturday . ' at week-offset ' . $weekOffset, 'application.controllers.job');
-		
-		$jobsInWeek = EventLog::model()->findAllByAttributes(array(
-			'USER_ASSIGNED'=>$employee_id,
-			'OBJECT_TYPE'=>'Job',		
-			'EVENT_ID'=>EventLog::JOB_PRINT,	
-		), '`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
-		
-		return $jobsInWeek;
-	}
-		
-	private function findLedJobsForWeekCurrentUser($employee_id, $weekOffset = 0){
-	
-		$lastSunday = strtotime('last sunday', time());
-		$nextSaturday = $lastSunday + GlobalConstants::SECONDS_IN_WEEK - 1;
-	
-		$lastSunday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
-		$nextSaturday += $weekOffset * GlobalConstants::SECONDS_IN_WEEK;
-	
 		$criteria = new CDbCriteria;
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
 		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
-		$criteria->addCondition('`event_log`.`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
-	
+		$criteria->order ='`event_log`.`DATE` DESC';
+		
 		$jobsThisWeek = Job::model()->findAllByAttributes(array(
-				'LEADER_ID'=>$employee_id,
+				'LEADER_ID'=>Yii::app()->user->id,
 				'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),
 		), $criteria);
 		return $jobsThisWeek;

@@ -895,7 +895,7 @@ class JobController extends Controller
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
 		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
-		$criteria->order ='`event_log`.`DATE` DESC';
+		$criteria->order ='`NAME`ASC';
 		
 		$jobsThisWeek = Job::model()->findAllByAttributes(array(
 				'LEADER_ID'=>Yii::app()->user->id,

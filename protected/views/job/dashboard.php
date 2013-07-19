@@ -37,47 +37,30 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'formatter'=>new CFormatter,
 	'columns'=>array(
 		array(
-		'header'=>'Due',
-		'name'=>'dueDate',
-		'value'=>"(strtotime(\$data->pickUpDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->pickUpDate));"
-		),
-		array(
 			'class'=>'CLinkColumn',
 			'header'=>'	Job',
 			'labelExpression'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
-			'urlExpression'=>"CHtml::normalizeUrl(array('job/update', 'id'=>\$data->ID));",
+			'urlExpression'=>"CHtml::normalizeUrl(array('job/update', 'id'=>\$data->ID));"
 		),
 		array(
-			'header'=>'Status',
-			'type'=>'raw',
-			'value'=>"StatusProvider::statusSelector(\$data)",
+			'header'=>'Leader',
+			'value'=>"\$data->LEADER->FIRST"
+		),
+		array(
+			'header'=>'Due',
+			'name'=>'dueDate',
+			'value'=>"(strtotime(\$data->dueDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->dueDate));"
 		),
 		array(
 			'header'=>'Print',
 			'name'=>'printDate',
 			'value'=>"(strtotime(\$data->printDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->printDate));",
 		),
-		'totalPasses::Passes',
 		array(
-			'header'=>'Art',
-			'value'=>"CHtml::image(Yii::app()->request->baseUrl . '/images/' . (\$data->hasArt ? 'checked.png' : 'unchecked.png'));",
+			'header'=>'Status',
 			'type'=>'raw',
-		),
-		array(
-			'header'=>'Sizes',
-			'value'=>"CHtml::image(Yii::app()->request->baseUrl . '/images/' . (\$data->hasSizes ? 'checked.png' : 'unchecked.png'));",
-			'type'=>'raw',
-		)
+			'value'=>"StatusProvider::statusSelector(\$data)",
+		)		
 	)
-));
-?>
-<?php 
-$this->widget('application.components.Menu', array(
-	'items'=>array(
-		array('label'=>'+ New Job', 'url'=>array('job/create')),
-		array('label'=>'All Jobs', 'url'=>array('job/list')),
-		array('label'=>'Past Jobs', 'url'=>array('job/archive')),
-	),
-	'id'=>'job_menu',
 ));
 ?>

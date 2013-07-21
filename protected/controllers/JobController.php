@@ -471,6 +471,12 @@ class JobController extends Controller
 		//on job create, default the due date to today
 		$model->formattedDueDate = isset($model->formattedDueDate) ? $model->formattedDueDate : date('l, M j, Y');
 		
+		//If the logged-in user has the role of 'Lead' 
+		// select that user as the default Leader choice
+		if(Yii::app()->user->getState('isLead')){
+			$model->LEADER_ID = Yii::app()->user->id;
+		}
+		
 		$customer = new Customer;
 		$existingCustomers = Customer::model()->findAll();
 		$leaders = User::listUsersWithRole(User::LEAD_ROLE);

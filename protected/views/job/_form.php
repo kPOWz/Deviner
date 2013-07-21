@@ -126,15 +126,8 @@ CClientScript::POS_BEGIN);
 		<div class="row">
 			<div class="grid_2 alpha">
 				<?php echo $form->labelEx($model, 'LEADER_ID');?>
-				<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'input_full')); ?>
+				<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'input_full', 'prompt'=>'-- Select --')); ?>
 				<?php echo $form->error($model, 'LEADER_ID');?>
-			</div>
-			<div class="grid_2 push_1 omega">
-				<?php /* js: hide printer fields
-				<?php echo $form->labelEx($model, 'PRINTER_ID');?>
-				<?php echo $form->dropDownList($model, 'PRINTER_ID', $printerList, array('class'=>'input_full'));?>
-				<?php echo $form->error($model, 'PRINTER_ID');?>
-				*/ ?>
 			</div>
 			<div class="clear"></div>
 		</div>

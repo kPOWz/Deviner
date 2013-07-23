@@ -944,7 +944,7 @@ class JobController extends Controller
     		),
 		));
 		
-		$this->renderPartial('_listSection', array(
+		$this->renderPartial('_list', array(
 			'dataProvider'=>$dataProvider,
 			'statuses'=> CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT'),
 			'tabId'=>'job-tab-'.$list, //must uniquely ID tabs or pagination will not render correctly

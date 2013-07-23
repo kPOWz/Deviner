@@ -1,7 +1,8 @@
 <?php
-Yii::app()->clientScript->registerCoreScript('jquery');
-$this->pageTitle = Yii::app()->user->name . ' | ' . 'Calendar | GUS';
-Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dragAndDrop.js', CClientScript::POS_END);
+	Yii::app()->clientScript->registerCoreScript('jquery');
+	$this->pageTitle = Yii::app()->user->name . ' | ' . 'Calendar | GUS';
+	Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/job_dashboard.css');
+	Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dragAndDrop.js', CClientScript::POS_END);
 ?>
 
 

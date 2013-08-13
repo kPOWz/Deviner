@@ -44,7 +44,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header'=>'Status',
 			'type'=>'raw',
 			'value'=>"StatusProvider::statusSelector(\$data)",
-		)
+		),array(            
+            'class'=>'CButtonColumn',
+			'template'=>'{update}'
+				
+        )
 	)
 ));
 ?>

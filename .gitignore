@@ -5,7 +5,6 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
-*.json
 
 ## yii application log files to ignore
 *log

@@ -2,7 +2,6 @@
 
 class JobController extends Controller
 {
-
 	/**
 	 * @return array action filters
 	 */

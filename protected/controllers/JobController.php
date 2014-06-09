@@ -2,7 +2,6 @@
 
 class JobController extends Controller
 {
-
 	/**
 	 * @return array action filters
 	 */
@@ -829,12 +828,43 @@ class JobController extends Controller
 			'keyField'=>'ID',
 		));					
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-			
+		$sales = $this->calculateMonthSales();
 		$this->render('dashboard',array(
 			'dataProvider'=>$dataProvider,
-			'statuses'=>$statuses
+			'statuses'=>$statuses,
+			'monthSales'=>$sales,
+			'formatter'=>new Formatter
 		));
 	}
+
+	/**
+	 * Calculates all sales in current calendar month for current user where user has leader role.
+	 */
+	private function calculateMonthSales()
+	{
+	  $monthSales = 0;
+	 	if(Yii::app()->user->getState('isLead')){
+		  	Yii::log('hello action sales : logged in user is lead!', CLogger::LEVEL_TRACE, 'application.controllers.job');
+		  	$beginOfCurrentMonth = date('2012-m-01 00:00:00');
+		  	$endOfCurrentMonth = date('2012-m-t 23:59:59');
+		  	$criteria = new CDbCriteria;
+		  	$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
+		  	$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
+		  	$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
+	  		$criteria->addCondition('(`event_log`.`DATE` BETWEEN \''.$beginOfCurrentMonth.'\' AND \''.$endOfCurrentMonth. '\')');
+
+	      	$jobsCompletedThisMonth = Job::model()->findAllByAttributes(array(
+	              'LEADER_ID'=> Yii::app()->user->id,
+	              'STATUS'=>array(Job::COMPLETED),
+	       	), $criteria);
+
+	      	foreach($jobsCompletedThisMonth as $job){
+	              $job = $this->loadModel($job->ID);
+	              $monthSales += $job->total;
+	       	}
+   		}
+      return $monthSales;
+ 	}
 	
 	/**
 	 * Lists all models data for calendar widget.
@@ -1106,9 +1136,6 @@ class JobController extends Controller
 					), false, true);	
 		}
 		
-		//Yii::log('here checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
-		//Yii::log(CVarDumper::dump($_POST[data]).'checkedIds', CLogger::LEVEL_INFO, 'application.controllers.job');
-			
 		if(isset($_POST)) //TODO check is ajax
 		{
 			Yii::log('hello action export POST', CLogger::LEVEL_INFO, 'application.controllers.job');

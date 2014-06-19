@@ -3,6 +3,8 @@
 .project
 .settings
 .DS_Store
+
+## ST2 editor files
 sftp-config.json
 *.sublime-project
 *.sublime-workspace

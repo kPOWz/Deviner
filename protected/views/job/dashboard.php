@@ -4,7 +4,7 @@
 
 <h1>My Jobs</h1>
 <?php if(Yii::app()->user->isLead){?>
-	<h3>Month's Sales : <?php echo CHtml::encode($formatter->formatCurrency($monthSales)); ?></h3>
+	<h3>Month's Sales : &nbsp;<?php echo CHtml::encode($formatter->formatCurrency($monthSales)); ?></h3>
 <?php }?>
 
 <?php 

@@ -828,8 +828,9 @@ class JobController extends Controller
 			'keyField'=>'ID',
 		));					
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-		$sales = $this->calculateMonthSales()[0];
-		$costOfGoodsSoldPercentage = $sales > 0 ? $this->calculateMonthSales()[1] / $sales : 0;
+		$salesNumbers = $this->calculateMonthSales();
+		$sales = $salesNumbers[0];
+		$costOfGoodsSoldPercentage = $sales > 0 ? $salesNumbers[1] / $sales : 0;
 		$this->render('dashboard',array(
 			'dataProvider'=>$dataProvider,
 			'statuses'=>$statuses,

@@ -828,25 +828,27 @@ class JobController extends Controller
 			'keyField'=>'ID',
 		));					
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-		$sales = $this->calculateMonthSales();
+		$sales = $this->calculateMonthSales()[0];
+		$costOfGoodsSoldPercentage = $sales > 0 ? $this->calculateMonthSales()[1] / $sales : 0;
 		$this->render('dashboard',array(
 			'dataProvider'=>$dataProvider,
 			'statuses'=>$statuses,
 			'monthSales'=>$sales,
+			'monthCostOfGoodsSoldPercentage'=> $costOfGoodsSoldPercentage,
 			'formatter'=>new Formatter
 		));
 	}
 
 	/**
-	 * Calculates all sales in current calendar month for current user where user has leader role.
+	 * Calculates all sales and cost of goods sold in current calendar month 
+	 * for current user where user has leader role.
 	 */
 	private function calculateMonthSales()
 	{
-	  $monthSales = 0;
+	  $monthSales = $monthCostOfGoodsSold = 0;
 	 	if(Yii::app()->user->getState('isLead')){
-		  	Yii::log('hello action sales : logged in user is lead!', CLogger::LEVEL_TRACE, 'application.controllers.job');
-		  	$beginOfCurrentMonth = date('2012-m-01 00:00:00');
-		  	$endOfCurrentMonth = date('2012-m-t 23:59:59');
+		  	$beginOfCurrentMonth = date('Y-m-01 00:00:00');
+		  	$endOfCurrentMonth = date('Y-m-t 23:59:59');
 		  	$criteria = new CDbCriteria;
 		  	$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		  	$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
@@ -861,9 +863,10 @@ class JobController extends Controller
 	      	foreach($jobsCompletedThisMonth as $job){
 	              $job = $this->loadModel($job->ID);
 	              $monthSales += $job->total;
+	              $monthCostOfGoodsSold += $job->garmentTotal;
 	       	}
    		}
-      return $monthSales;
+      return [$monthSales, $monthCostOfGoodsSold];
  	}
 	
 	/**

@@ -867,7 +867,7 @@ class JobController extends Controller
 	              $monthCostOfGoodsSold += $job->garmentTotal;
 	       	}
    		}
-      return [$monthSales, $monthCostOfGoodsSold];
+      return array($monthSales, $monthCostOfGoodsSold);
  	}
 	
 	/**

@@ -1003,9 +1003,17 @@ class JobController extends Controller
 	}
 	
 	public function actionStatus($id){
-		$model = $this->loadModel($id);
-		$model->STATUS = $_POST['status'];
+		$newStatus = $_POST['status'];
+		$model = $this->loadModel($id);		
+		$model->STATUS = $newStatus;
 		$model->save();
+
+		$updatedMonthSales = $this->calculateMonthSales();
+		$sales = $updatedMonthSales[0];
+		$costOfGoodsSoldPercentage = $sales > 0 ? $updatedMonthSales[1] / $sales : 0;
+		echo CJSON::encode(array('sales'=> Yii::app()->numberFormatter->formatCurrency($sales, 'USD')
+								,'cogsPercentage'=>Yii::app()->numberFormatter->formatPercentage($costOfGoodsSoldPercentage, 'USD')
+						));
 	}
 	
 	public function actionUpdatePrintDate(){		

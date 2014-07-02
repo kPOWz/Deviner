@@ -58,11 +58,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			var status = $(selector).val(); 
 			$.ajax({
 				url: updateUrl,
+				dataType: "json",
 				data: {
 					status: status,
 				},
 				type: 'POST',
 				success: function(data){
+					$('#salesNumber').text(data.sales);
+					$('#salesPercentage').text(data.cogsPercentage);
 					/*var tabControl = $(selector).parentsUntil('.ui-tabs').parent();
 					
 					switch(1 * status){

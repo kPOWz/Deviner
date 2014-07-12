@@ -46,8 +46,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>"StatusProvider::statusSelector(\$data)",
 		),array(            
             'class'=>'CButtonColumn',
-			'template'=>'{update}'
+			'template'=>'{update}',
+			'updateButtonLabel' => 'Update job',
 				
+        ),array(            
+            'class'=>'CButtonColumn',
+			'template'=>'{delete}',
+			'deleteButtonLabel' => 'Delete job permanently',
+			'deleteConfirmation'=>"js:'Job \''+$(this).parent().parent().children(':first-child').text()+'\' will be deleted! Continue?'"			
         )
 	)
 ));

@@ -514,6 +514,17 @@ class Job extends CActiveRecord
 		}
 		return $garmentTotal;
 	}
+	 /**
+	   * Gets the total cost of goods sold.
+	   * TODO: analize job lines beforehand & throw duplicate product error (when same product and color ?& price?)
+	   */
+   	public function getCostOfGoodsSold(){
+       $costOfGoodsSold = 0;
+       foreach($this->jobLines as $line){
+               $costOfGoodsSold += $line->product->COST * $line->garmentCount;
+       }
+       return $costOfGoodsSold; 
+  	}
 	
 	/**
 	 * Gets the total auto-generated cost (for the customer) for each garment.

@@ -864,7 +864,7 @@ class JobController extends Controller
 	      	foreach($jobsCompletedThisMonth as $job){
 	              $job = $this->loadModel($job->ID);
 	              $monthSales += $job->total;
-	              $monthCostOfGoodsSold += $job->garmentTotal;
+	              $monthCostOfGoodsSold += $job->costOfGoodsSold;
 	       	}
    		}
       return array($monthSales, $monthCostOfGoodsSold);

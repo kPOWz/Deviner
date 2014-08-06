@@ -18,13 +18,7 @@
 	
 <!--  submit form will do ajax post of form data or XMLHttpRequest of forms data to form the
 	php $_FILES / store temorarily & update progress bar
---><!-- PrintJob_files_0_FILE -->
-<?php Yii::app()->clientScript->registerScript('submit-form', "" .
-		"function submitForm(e){
-			e.stopPropagation(); e.preventDefault();
-			self._startUpload();
-
-			//disable all submit buttons on page
+	//disable all submit buttons on page
 
 			//check that xhr will work, file types, file size OK
 
@@ -40,6 +34,11 @@
 
 			//event listener on xhr to re-enable buttons disabled for upload
 
+--><!-- PrintJob_files_0_FILE -->
+<?php Yii::app()->clientScript->registerScript('submit-form', "" .
+		"function submitForm(e){
+			e.stopPropagation(); e.preventDefault();
+			self._startUpload();			
 		}", CClientScript::POS_BEGIN);
 ?>
 

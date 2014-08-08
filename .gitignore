@@ -1,9 +1,6 @@
-## generic files to ignore
-.buildpath
-.project
-.settings
-.DS_Store
-.htaccess*
+## hidden files to ignore
+.*
+!/.gitignore
 
 ## ST2 editor files
 sftp-config.json

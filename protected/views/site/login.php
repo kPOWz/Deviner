@@ -1,13 +1,18 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
+	$this->pageTitle=Yii::app()->name . ' - Login';
+	$this->breadcrumbs=array(
+		'Login',
+	);
 ?>
 
 <h1>GUS</h1>
 
-<div class="form">
+<!-- comments above the login form indicate we may want to use BS Justified button groups...
+<!-- class="btn-group btn-group-justified" -->
+<!-- <a class="btn btn-default" role="button">Middle</a> -->
+<!-- <div class="btn-group">
+<button type="button" class="btn btn-default">Middle</button>
+</div> -->
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -16,27 +21,15 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
+	<?php echo $form->textField($model,'username', array('placeholder'=>'email*',)); ?>
+	<?php echo $form->error($model,'username'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-	</div>
+	<?php echo $form->passwordField($model,'password', array('placeholder'=>'password*',)); ?>
+	<?php echo $form->error($model,'password'); ?>
 
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
+	<?php echo CHtml::submitButton('login'); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
-
+	<?php echo $form->checkBox($model,'rememberMe'); ?>
+	<?php echo $form->label($model,'rememberMe'); ?>
+	<?php echo $form->error($model,'rememberMe'); ?>
 <?php $this->endWidget(); ?>
-</div><!-- form -->

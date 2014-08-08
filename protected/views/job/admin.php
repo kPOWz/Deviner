@@ -48,14 +48,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'DESCRIPTION',
 		'NOTES',
 		'ISSUES',
-		/*
-		'RUSH',
-		'SET_UP_FEE',
-		'SCORE',
-		'QUOTE',
-		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
+			'updateButtonLabel' => 'View/Update job',
+			'deleteButtonLabel' => 'Delete job permanently'
 		),
 	),
 )); ?>

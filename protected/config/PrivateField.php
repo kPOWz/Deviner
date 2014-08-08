@@ -16,7 +16,7 @@ class PrivateField {
 	
 	private static function getLocal($id){
 		$config = array(
-				'dbPass'=>'',
+				'dbPass'=>'Fbrv50s1',
 				'hashkey'=>'rockOnBUDDY!', //changing this will prevent any existing users from logging in
 				'email'=>'justin@eightsevencentral.com',
 				'connectionString' => 'mysql:host=localhost;dbname=gus',

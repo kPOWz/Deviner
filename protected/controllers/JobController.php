@@ -87,7 +87,7 @@ class JobController extends Controller
 		echo Yii::log('reached search result action', CLogger::LEVEL_TRACE, 'application.controllers.Job');
 		if(isset($_GET['id']) ){			
 			echo Yii::log('reached search result action - had id', CLogger::LEVEL_TRACE, 'application.controllers.Job');
-			$this->redirect(array('view','id'=>$_GET['id']));
+			$this->redirect(array('update','id'=>$_GET['id']));
 		}
 	}
 	
@@ -193,7 +193,7 @@ class JobController extends Controller
 			$view = '//jobLine/_multiForm';			
 		}
 		
-		//per request of Ben, will be including three "standard" styles under radio buttons.
+		//per request of Ben, will be including three "standard" styles under radio buttons. [M.T.]
 		$standardStyles = array(
 			Product::STANDARD=>'Standard',
 			Product::DELUXE=>'Deluxe',
@@ -461,7 +461,7 @@ class JobController extends Controller
 
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser will be redirected to the 'update' page.
 	 */
 	public function actionCreate()
 	{
@@ -572,7 +572,7 @@ class JobController extends Controller
 			if($saved){
 				//if saved, redirect
 				Yii::app()->user->setFlash('success', 'Success! New job created.');
-				$this->redirect(array('view', 'id'=>$model->ID));
+				$this->redirect(array('update', 'id'=>$model->ID));
 			} else {
 				//otherwise, delete everything
 				if(!$model->isNewRecord) {$model->delete();}
@@ -599,7 +599,7 @@ class JobController extends Controller
 
 	/**
 	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * If update is successful, the browser will be redirected to the 'update' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -697,7 +697,7 @@ class JobController extends Controller
 			if($saved){
 				//if saved, redirect
 				Yii::app()->user->setFlash('success', 'Success! Job changes saved.');
-				$this->redirect(array('view', 'id'=>$model->ID));
+				$this->redirect(array('update', 'id'=>$model->ID));
 			}
 		}
 
@@ -835,7 +835,7 @@ class JobController extends Controller
 			'dataProvider'=>$dataProvider,
 			'statuses'=>$statuses,
 			'monthSales'=>$sales,
-			'monthCostOfGoodsSoldPercentage'=> $costOfGoodsSoldPercentage,
+			'monthCostOfGoodsSoldPercentage'=>$costOfGoodsSoldPercentage,
 			'formatter'=>new Formatter
 		));
 	}

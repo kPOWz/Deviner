@@ -27,29 +27,14 @@
 	<div class="grid_2" id="menu">
 		
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-		<?php $isAdmin = Yii::app()->user->getState('isAdmin');//Yii::app()->user->isAdmin; //should be more complex?>
-			<?php $isCustomer = Yii::app()->user->getState('isCustomer');//Yii::app()->user->isCustomer;?>
-			<?php if(Yii::app()->user->isGuest){?>
-				<?php $this->widget('application.extensions.emenu.EMenu',array(
-					'items'=>array(
-						array('label'=>'Home', 'url'=>array('/site/index')),
-						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-						array('label'=>'Contact', 'url'=>array('/site/contact')),
-						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-					),
-					'themeCssFile'=>$this->styleDirectory . 'dropdown/default.css',
-					'lastItemCssClass'=>'lastmenu',
-					'vertical'=>true,
-				)); ?>
-			<?php } else {?>
+			<?php $isAdmin = Yii::app()->user->getState('isAdmin');?>
+
+			<?php if(!Yii::app()->user->isGuest){?>
 				<?php $this->widget('application.extensions.emenu.EMenu', array(
 					'items'=>array(
 						array('label'=>'My Jobs', 'url'=>array('/job/index')),
 						array('label'=>'New Job', 'url'=>array('/job/create')),
 						array('label'=>'All Jobs', 'url'=>array('/job/list')),
-						//array('label'=>'Check In', 'url'=>array('/order/index'), 'visible'=>$isAdmin),
-						//array('label'=>'Create Order', 'url'=>array('/order/create')),
 						array('label'=>'New Invoice', 'url'=>array('/invoice/create')),
 						array('label'=>'All Invoices', 'url'=>array('/invoice/index')),
 						array('label'=>'Calendar', 'url'=>array('/job/calendar')),

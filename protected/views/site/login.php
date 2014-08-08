@@ -7,7 +7,7 @@
 
 <h1>GUS</h1>
 
-<!-- comments above the login form indicate we may want to use BS Justified button groups...
+<!-- comments above the login form indicate we may want to use a BS Justified button group...
 <!-- class="btn-group btn-group-justified" -->
 <!-- <a class="btn btn-default" role="button">Middle</a> -->
 <!-- <div class="btn-group">

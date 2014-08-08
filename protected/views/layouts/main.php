@@ -24,19 +24,17 @@
 <?php Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'flashMessages.js', CClientScript::POS_END);?>
 
 <div id="wrapper" class="container_12 clearfix">
-	<div class="grid_2" id="menu">
-		
+	<div class="grid_2" id="menu">		
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 			<?php $isAdmin = Yii::app()->user->getState('isAdmin');?>
 
+			<nav>
 			<?php if(!Yii::app()->user->isGuest){?>
 				<?php $this->widget('application.extensions.emenu.EMenu', array(
 					'items'=>array(
-						array('label'=>'My Jobs', 'url'=>array('/job/index')),
 						array('label'=>'New Job', 'url'=>array('/job/create')),
+						array('label'=>'My Jobs', 'url'=>array('/job/index')),					
 						array('label'=>'All Jobs', 'url'=>array('/job/list')),
-						array('label'=>'New Invoice', 'url'=>array('/invoice/create')),
-						array('label'=>'All Invoices', 'url'=>array('/invoice/index')),
 						array('label'=>'Calendar', 'url'=>array('/job/calendar')),
 						array('label'=>'Logout', 'url'=>array('/site/logout')),
 					),
@@ -48,14 +46,14 @@
 					if($isAdmin){
 						$this->widget('application.extensions.emenu.EMenu', array(
 							'items'=>array(
-								array('label'=>'Add Product', 'url'=>array('/product/create')),
-								array('label'=>'Add Vendor', 'url'=>array('/vendor/create')),
-								array('label'=>'Add User', 'url'=>array('/user/create')),
-								array('label'=>'View Products', 'url'=>array('/product/index'), 'items'=>$this->products),
+								array('label'=>'Colors, Etc.', 'url'=>array('/lookup/index', 'Color'=>1, 'Style'=>1, 'Size'=>1)),
 								array('label'=>'View Vendors', 'url'=>array('/vendor/index')),
 								array('label'=>'View Customers', 'url'=>array('/customer/index')),
+								array('label'=>'View Products', 'url'=>array('/product/index'), 'items'=>$this->products),
+								array('label'=>'Add Vendor', 'url'=>array('/vendor/create')),
+								array('label'=>'Add User', 'url'=>array('/user/create')),
 								array('label'=>'View Users', 'url'=>array('/user/index')),
-								array('label'=>'Colors, Etc.', 'url'=>array('/lookup/index', 'Color'=>1, 'Style'=>1, 'Size'=>1)),
+								array('label'=>'Add Product', 'url'=>array('/product/create')),
 								array('label'=>'Dashboard', 'url'=>array('/dashboard'))
 							),
 							'themeCssFile'=>$this->styleDirectory . 'dropdown/default.css',
@@ -65,6 +63,16 @@
 					}
 				?>
 			<?php }?>
+			</nav>
+			<a>Hey, <?php echo Yii::app()->user->name;?>!</a> <!-- when functional, this will toggle the admin menu/nav and the logout option for all user types -->
+			<div>
+				$00,000
+				Monthly Sales
+			</div>
+			<div>
+				00%
+				Monthly COG
+			</div>
 	</div>
 	<div class="grid_10" id="main">
 	<?php if(!Yii::app()->user->isGuest){?>

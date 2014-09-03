@@ -65,14 +65,10 @@
 			<?php }?>
 			</nav>
 			<a>Hey, <?php echo Yii::app()->user->name;?>!</a> <!-- when functional, this will toggle the admin menu/nav and the logout option for all user types -->
-			<div>
-				$00,000
-				Monthly Sales
-			</div>
-			<div>
-				00%
-				Monthly COG
-			</div>
+			<?php 
+				if(Yii::app()->user->getState('isLead'))
+					$this->widget('application.widgets.SalesReportWidget'); 
+			?>
 	</div>
 	<div class="grid_10" id="main">
 	<?php if(!Yii::app()->user->isGuest){?>

@@ -70,8 +70,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				},
 				type: 'POST',
 				success: function(data){
-					$('#salesNumber').text(data.sales);
-					$('#salesPercentage').text(data.cogsPercentage);
+					$('[name=salesNumber]').text(data.sales);
+					$('[name=salesPercentage]').text(data.cogsPercentage);
 					/*var tabControl = $(selector).parentsUntil('.ui-tabs').parent();
 					
 					switch(1 * status){

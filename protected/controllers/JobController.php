@@ -1,4 +1,5 @@
 <?php
+Yii::import('application.widgets.SalesReportWidget');
 
 class JobController extends Controller
 {
@@ -828,47 +829,13 @@ class JobController extends Controller
 			'keyField'=>'ID',
 		));					
 		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-		$salesNumbers = $this->calculateMonthSales();
-		$sales = $salesNumbers[0];
-		$costOfGoodsSoldPercentage = $sales > 0 ? $salesNumbers[1] / $sales : 0;
+
 		$this->render('dashboard',array(
 			'dataProvider'=>$dataProvider,
 			'statuses'=>$statuses,
-			'monthSales'=>$sales,
-			'monthCostOfGoodsSoldPercentage'=>$costOfGoodsSoldPercentage,
 			'formatter'=>new Formatter
 		));
 	}
-
-	/**
-	 * Calculates all sales and cost of goods sold in current calendar month 
-	 * for current user where user has leader role.
-	 */
-	private function calculateMonthSales()
-	{
-	  $monthSales = $monthCostOfGoodsSold = 0;
-	 	if(Yii::app()->user->getState('isLead')){
-		  	$beginOfCurrentMonth = date('Y-m-01 00:00:00');
-		  	$endOfCurrentMonth = date('Y-m-t 23:59:59');
-		  	$criteria = new CDbCriteria;
-		  	$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
-		  	$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
-		  	$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
-	  		$criteria->addCondition('(`event_log`.`DATE` BETWEEN \''.$beginOfCurrentMonth.'\' AND \''.$endOfCurrentMonth. '\')');
-
-	      	$jobsCompletedThisMonth = Job::model()->findAllByAttributes(array(
-	              'LEADER_ID'=> Yii::app()->user->id,
-	              'STATUS'=>array(Job::COMPLETED),
-	       	), $criteria);
-
-	      	foreach($jobsCompletedThisMonth as $job){
-	              $job = $this->loadModel($job->ID);
-	              $monthSales += $job->total;
-	              $monthCostOfGoodsSold += $job->costOfGoodsSold;
-	       	}
-   		}
-      return array($monthSales, $monthCostOfGoodsSold);
- 	}
 	
 	/**
 	 * Lists all models data for calendar widget.
@@ -1008,9 +975,8 @@ class JobController extends Controller
 		$model->STATUS = $newStatus;
 		$model->save();
 
-		$updatedMonthSales = $this->calculateMonthSales();
-		$sales = $updatedMonthSales[0];
-		$costOfGoodsSoldPercentage = $sales > 0 ? $updatedMonthSales[1] / $sales : 0;
+		$sales = SalesReportWidget::getSales();
+		$costOfGoodsSoldPercentage = SalesReportWidget::getCostOfGoodsSoldPercentage();
 		echo CJSON::encode(array('sales'=> Yii::app()->numberFormatter->formatCurrency($sales, 'USD')
 								,'cogsPercentage'=>Yii::app()->numberFormatter->formatPercentage($costOfGoodsSoldPercentage, 'USD')
 						));

@@ -76,9 +76,11 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		'name'=>$namePrefix . "[$startIndex]" . '[PRODUCT_COLOR]',
 	));?>
 	
-	<?php Yii::app()->clientScript->registerScript('initial-color-data' . $startIndex, "" .
+	<?php 
+		Yii::app()->clientScript->registerScript('initial-color-data' . $startIndex, "" .
 			"$('#".$colorSelect."').data('products', ".($products['product'] ? $products['product'] : 'null').").data('sizes', ".$products['sizes'].");", 
-	CClientScript::POS_END);?>
+			CClientScript::POS_END);
+	?>
 	
 	<?php /*need an update function for recalculating totals, field for unit price (editable), total price (hidden), calculated price (link)*/?>
 	<?php 

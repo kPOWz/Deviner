@@ -510,7 +510,7 @@ class JobController extends Controller
 		$products['approved'] = false;
 		$products['saved'] = false;
 		$products['product'] = null;
-		$products['sizes'] = array();
+		$products['sizes'] = '{}';
 		$lineData[] = $products;
 		
 		/*

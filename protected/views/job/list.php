@@ -1,7 +1,6 @@
 <?php 
 Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
-Yii::app()->clientScript->registerCssFile($this->styleDirectory . 'job_list.css');
 ?>
 
 <?php  $this->renderPartial('_search',array(

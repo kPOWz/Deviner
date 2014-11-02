@@ -17,33 +17,34 @@
 			)
 		));
 		
-		$ac->options['select'] = "js:function(event, ui){" .
+		$ac->options['select'] = new CJavaScriptExpression(
+			"function(event, ui){" .
 				"var value = ui.item.value;" .
 				"var label = ui.item.label;" .
-				"var id = '#".CHtml::getActiveId($newCustomer, 'ID')."';" .
+				"var id = '#".CHtml::activeId($newCustomer, 'ID')."';" .
 				"$(id).val(value);" .
 				"$('#".$ac->id."').val(label);" .
-				"\$.ajax({
-									url: '".CHtml::normalizeUrl(array('customer/retrieve'))."'," .
-									"type: 'POST'," .
-									"data: {
-										id: $(id).val(),
-									}," .
-									"success: function(data){
-										$('#".CHtml::getActiveId($newCustomer, 'FIRST')."').val(data.FIRST);" .
-										"$('#".CHtml::getActiveId($newCustomer, 'LAST')."').val(data.LAST);" .
-										"$('#".CHtml::getActiveId($newCustomer, 'EMAIL')."').val(data.EMAIL);" .
-										"$('#".CHtml::getActiveId($newCustomer, 'COMPANY')."').val(data.COMPANY);" .
-										"$('#".CHtml::getActiveId($newCustomer, 'PHONE')."').val(data.PHONE);
-									}," .
-									"error: function(){
-										$(id).val('');
-									}," .
-									"dataType: 'json',
-								});" .
-								"event.stopImmediatePropagation();" .
-								"return false;" .
-								"}";
+				"$.ajax({
+					url: '".CHtml::normalizeUrl(array('customer/retrieve'))."'," .
+					"type: 'POST'," .
+					"data: {
+						id: $(id).val(),
+					}," .
+					"success: function(data){
+						$('#".CHtml::activeId($newCustomer, 'FIRST')."').val(data.FIRST);" .
+						"$('#".CHtml::activeId($newCustomer, 'LAST')."').val(data.LAST);" .
+						"$('#".CHtml::activeId($newCustomer, 'EMAIL')."').val(data.EMAIL);" .
+						"$('#".CHtml::activeId($newCustomer, 'COMPANY')."').val(data.COMPANY);" .
+						"$('#".CHtml::activeId($newCustomer, 'PHONE')."').val(data.PHONE);
+					}," .
+					"error: function(){
+						$(id).val('');
+					}," .
+					"dataType: 'json',
+				});" .
+				"event.stopImmediatePropagation();" .
+				"return false;" .
+			"}");
 								
 		$this->endWidget();?>
 		<?php echo CHtml::activeHiddenField($newCustomer, 'ID')?>

@@ -224,8 +224,10 @@ CClientScript::POS_BEGIN);
 		<?php echo CHtml::textField('garment_qty', $garmentCount, array(
 			'id'=>'garment_qty',
 			'readonly'=>'readonly',
-			'onchange'=>"js:\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());",
-			'onkeyup'=>"js:\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());"
+			'onchange'=>new CJavaScriptExpression(
+				"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
+			'onkeyup'=>new CJavaScriptExpression(
+				"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
 		));?>
 	</div>
 
@@ -275,59 +277,9 @@ CClientScript::POS_BEGIN);
 		<?php }?>
 		</div>
 
-	<?php /* js: hide auto quote
-		<!-- Auto Quote Group-->
-		<div class="grid_6 alpha">
-			<h4>Auto Quote</h4>
-			<div class="grid_3 alpha">
-				<?php echo CHtml::label('Sub Total', 'auto_total');?>
-				<?php echo CHtml::textField('auto_total', $model->total, array('readonly'=>'readonly', 'id'=>'auto_total'));?>
 
-				<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'] / 100;
-				$taxRateField = CHtml::getIdByName('Job[additionalFees]['.Job::FEE_TAX_RATE.']');?>
-				<?php echo CHtml::label('Total Tax', 'auto_tax');?>
-				<?php echo CHtml::textField('auto_tax', $model->total * $taxRate, array('readonly'=>'readonly', 'id'=>'auto_tax'));?>
-
-				<?php echo CHtml::label('Grand Total', 'auto_grand');?>
-				<?php echo CHtml::textField('auto_grand', $model->total * (1 + $taxRate), array('readonly'=>'readonly', 'id'=>'auto_grand'));?>
-			</div>
-			<div class="grid_3 omega">
-				<?php echo CHtml::label('Sub Total Per Garment', 'auto_total_each');?>
-				<?php echo CHtml::textField('auto_total_each', $model->garmentPrice, array('readonly'=>'readonly', 'id'=>'auto_total_each'));?>
-				<?php echo CHtml::label('Total Tax Per Garment', 'auto_tax_each');?>
-
-				<?php echo CHtml::textField('auto_tax_each', $model->garmentPrice * $taxRate, array('readonly'=>'readonly', 'id'=>'auto_tax_each'));?>
-				<?php echo CHtml::label('Grand Total Per Garment', 'auto_grand_each');?>
-				<?php echo CHtml::textField('auto_grand_each', $model->garmentPrice * (1 + $taxRate), array('readonly'=>'readonly', 'id'=>'auto_grand_each'));?>
-			</div>
-		</div>
-
-		<!-- Quoted Group-->
-		<div class="grid_4 omega">
-			<h4>Quoted</h4>
-
-			<?php echo CHtml::label('Total Per Garment', 'item_total');?>
-			<?php echo CHtml::textField('item_total', ($garmentCount == 0) ? 0 : $model->QUOTE / $garmentCount, array(
-				'id'=>'item_total',
-				'onchange'=>"\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#garment_qty').val());",
-				'onkeyup'=>"\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#garment_qty').val());"
-			));?>
-			<?php echo $form->labelEx($model,'QUOTE'); ?>
-			<?php echo $form->textField($model,'QUOTE',array(
-				'size'=>7,
-				'maxlength'=>7,
-				'onchange'=>"\$('#item_total').val($(this).val() / $('#garment_qty').val());",
-				'onkeyup'=>"\$('#item_total').val($(this).val() / $('#garment_qty').val());"
-			)); ?>
-			<?php echo $form->error($model,'QUOTE'); ?>
-		</div>
-		<p id="qty_warning" class="note" style="display: none;">The quote estimator only supports price quotation for up to two hundred (200) garments.</p>
-		*/ ?>
 		<div class="clear"></div>
 		<div class="separator"></div>
-
-
-
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
 				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){
 					var qty = 0;" .

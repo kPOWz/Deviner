@@ -114,13 +114,6 @@ $line = $products['model'];?>
 		));?>		
 	</div>	
 	
-	
-
-	
-	
-	
-	
-	
 	<?php 
 		$priceSelect = CHtml::getIdByName($namePrefix . $startIndex . 'price');
 		$garmentEstimate = $line->product ? $line->product->COST : 0;
@@ -156,9 +149,8 @@ $line = $products['model'];?>
 		$continue = false;
 		foreach($dataLine as $key=>$dataLineValue){
 			if($key == 'productLine') $productLine = $dataLineValue;
-			if($key == 'line') $sizeLine = $dataLineValue;
-			$continue = $sizeLine && $productLine;
-		}	//beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
+			if($key == 'line') $sizeLine = $dataLineValue;		
+		}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
 		if($continue){
 			$this->renderPartial('//jobLineSize/_estimate', array(
 				'product'=>$productLine,

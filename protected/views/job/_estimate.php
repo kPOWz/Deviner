@@ -201,8 +201,8 @@ CClientScript::POS_BEGIN);?>
 		<?php echo CHtml::textField('garment_qty', $garmentCount, array(
 			'id'=>'garment_qty',
 			'readonly'=>'readonly',
-			'onchange'=>"js:\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());",
-			'onkeyup'=>"js:\$('#".CHtml::getActiveId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());"
+			'onchange'=>new CJavaScriptExpression("$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());"),
+			'onkeyup'=>new CJavaScriptExpression("$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());"),
 		));?>
 	</div>
 

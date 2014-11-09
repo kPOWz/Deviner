@@ -12,8 +12,8 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 	'aliases'=>array(
-		'yiistrap' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..'. '/extensions/yiistrap',
 		'vendor' => realpath(__DIR__ . '/../../vendor'),
+		'yiistrap' => 'vendor.crisu83.yiistrap',
 	),
 
 	// autoloading model and component classes
@@ -24,11 +24,12 @@ return array(
 		'application.config.PrivateField',
 		'zii.widgets.jui.*',
 		'zii.widgets.*',
-		'yiistrap.behaviors.*',
-	    'yiistrap.components.*',
-	    'yiistrap.form.*',
-	    'yiistrap.helpers.*',
-	    'yiistrap.widgets.*',
+		//'vendor.crisu83.yiistrap.helpers.TbHtml',
+		'vendor.crisu83.yiistrap.behaviors.*',
+        'vendor.crisu83.yiistrap.components.*',
+        'vendor.crisu83.yiistrap.form.*',
+        'vendor.crisu83.yiistrap.helpers.*',
+        'vendor.crisu83.yiistrap.widgets.*',
 	),
 
 	'modules'=>array(

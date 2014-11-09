@@ -11,6 +11,10 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array('log'),
+	'aliases'=>array(
+		'yiistrap' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..'. '/extensions/yiistrap',
+		'vendor' => realpath(__DIR__ . '/../../vendor'),
+	),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -20,6 +24,11 @@ return array(
 		'application.config.PrivateField',
 		'zii.widgets.jui.*',
 		'zii.widgets.*',
+		'yiistrap.behaviors.*',
+	    'yiistrap.components.*',
+	    'yiistrap.form.*',
+	    'yiistrap.helpers.*',
+	    'yiistrap.widgets.*',
 	),
 
 	'modules'=>array(
@@ -52,6 +61,9 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		'yiistrap' => array(
+            'class' => 'yiistrap.components.TbApi',   
+        ),
 		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',

@@ -100,5 +100,8 @@
 	</div>
 
 </div><!-- #wrapper -->
+<footer>
+	<?php Yii::app()->yiistrap->register(); ?>
+</footer>
 </body>
 </html>

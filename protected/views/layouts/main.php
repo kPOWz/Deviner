@@ -32,7 +32,7 @@
 			<?php if(!Yii::app()->user->isGuest){?>
 				<?php $this->widget('application.extensions.emenu.EMenu', array(
 					'items'=>array(
-						array('label'=>'New Job', 'url'=>array('/job/create')),
+						array('label'=>'<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Job', 'url'=>array('/job/create')),
 						array('label'=>'My Jobs', 'url'=>array('/job/index')),					
 						array('label'=>'All Jobs', 'url'=>array('/job/list')),
 						array('label'=>'Calendar', 'url'=>array('/job/calendar')),
@@ -45,16 +45,16 @@
 				<?php 
 					if($isAdmin){
 						$this->widget('application.extensions.emenu.EMenu', array(
+							'htmlOptions'=>array( 'id'=>'admin-nav'),
 							'items'=>array(
 								array('label'=>'Colors, Etc.', 'url'=>array('/lookup/index', 'Color'=>1, 'Style'=>1, 'Size'=>1)),
 								array('label'=>'View Vendors', 'url'=>array('/vendor/index')),
 								array('label'=>'View Customers', 'url'=>array('/customer/index')),
+								array('label'=>'View Users', 'url'=>array('/user/index')),
 								array('label'=>'View Products', 'url'=>array('/product/index'), 'items'=>$this->products),
 								array('label'=>'Add Vendor', 'url'=>array('/vendor/create')),
 								array('label'=>'Add User', 'url'=>array('/user/create')),
-								array('label'=>'View Users', 'url'=>array('/user/index')),
 								array('label'=>'Add Product', 'url'=>array('/product/create')),
-								array('label'=>'Dashboard', 'url'=>array('/dashboard'))
 							),
 							'themeCssFile'=>$this->styleDirectory . 'dropdown/default.css',
 							'lastItemCssClass'=>'lastmenu',
@@ -64,7 +64,11 @@
 				?>
 			<?php }?>
 			</nav>
-			<a>Hey, <?php echo Yii::app()->user->name;?>!</a> <!-- when functional, this will toggle the admin menu/nav and the logout option for all user types -->
+			
+			Hey, <?php echo Yii::app()->user->name;?>!
+			<button id="cog" type="button" class="btn btn-default btn-inline" title='access admin tasks'>
+				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+			</button> 
 			<?php 
 				if(Yii::app()->user->getState('isLead'))
 					$this->widget('application.widgets.SalesReportWidget'); 
@@ -102,6 +106,15 @@
 </div><!-- #wrapper -->
 <footer>
 	<?php Yii::app()->yiistrap->register(); ?>
+	<script>
+		var cog = document.getElementById('cog');
+		if(cog)
+			cog.addEventListener('click', function(event) {
+				var adminNav = document.getElementById('admin-nav');
+				if(adminNav)					
+					$(adminNav).toggleClass('target');
+			});
+	</script>
 </footer>
 </body>
 </html>

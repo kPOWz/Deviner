@@ -21,6 +21,8 @@ class EMenu extends CMenu
     //to use a personal theme. if set, $theme will be ignored
     public $themeCssFile = '';
 
+    public $baseCss;
+
     public function init()
     {
         $class=array('dropdown');
@@ -42,10 +44,8 @@ class EMenu extends CMenu
         else{
             $class[] = 'dropdown-horizontal';
             $cssFile = 'dropdown.css';
-        }
-        
-        $this->htmlOptions['class']=implode(' ',$class);
-                        
+        }      
+        $this->baseCss = implode(' ',$class);                   
         $basedir = dirname(__FILE__). '/free-css-drop-down-menu';
         $baseUrl = Yii::app()->getAssetManager()->publish($basedir);
 
@@ -88,7 +88,8 @@ class EMenu extends CMenu
           //ToDo: these should added just for IE7, i don't know how to do this
 //            Yii::app()->getClientScript()->registerCoreScript('jquery')
 //                                            ->registerScriptFile($baseUrl.'/js/jquery.dropdown.js');
-        parent::init();
+        $customCss = isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '';
+        $this->htmlOptions['class']=$this->baseCss . ' ' . $customCss;
     }
 
     /**

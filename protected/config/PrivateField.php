@@ -7,7 +7,7 @@ class PrivateField {
 		if($baseUri === "/gus.87c.us/"){
 			return self::getLive($id) ;
 		}
-		else if($baseUri === "testgus.87c.us"){			
+		else if($baseUri === "testgus.87c.us" || $baseUri === "gus1pt0.87c.us"){			
 			return self::getTest($id);
 		}
 		
@@ -16,7 +16,7 @@ class PrivateField {
 	
 	private static function getLocal($id){
 		$config = array(
-				'dbPass'=>'Fbrv50s1',
+				'dbPass'=>'your local password here',
 				'hashkey'=>'rockOnBUDDY!', //changing this will prevent any existing users from logging in
 				'email'=>'justin@eightsevencentral.com',
 				'connectionString' => 'mysql:host=localhost;dbname=gus',

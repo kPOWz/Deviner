@@ -65,8 +65,7 @@ class SiteController extends Controller
 			if($model->validate() && $model->login())
 				$this->redirect(array('job/index'));//$this->redirect(Yii::app()->user->returnUrl);
 		}
-		// display the login form with no layout
-		$this->renderPartial('login', array('model'=>$model));
+		$this->render('login', array('model'=>$model));
 	}
 
 	/**

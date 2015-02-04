@@ -1,4 +1,5 @@
 <?php
+	$this->layout = 'default';
 	$this->pageTitle=Yii::app()->name . ' - Login';
 	$this->breadcrumbs=array(
 		'Login',

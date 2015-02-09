@@ -20,3 +20,6 @@ protected/files*
 assets/*
 !assets/*.js
 protected/files/*
+
+## Composer-loaded Extensions
+vendor/*

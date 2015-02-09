@@ -6,8 +6,10 @@
 	);
 ?>
 
-<h1>GUS</h1>
 
+
+<main class="row center-block-vertical">
+<h1 class="text-center text-primary">GUS</h1>
 <!-- comments above the login form indicate we may want to use a BS Justified button group...
 <!-- class="btn-group btn-group-justified" -->
 <!-- <a class="btn btn-default" role="button">Middle</a> -->
@@ -19,18 +21,30 @@
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
+		'errorCssClass'=>'has-error',
 	),
+	'htmlOptions'=>array(
+		'class'=>'col-md-4 center-block container-fluid'
+	),
+	'errorMessageCssClass'=>'control-label',
 )); ?>
 
-	<?php echo $form->textField($model,'username', array('placeholder'=>'email*',)); ?>
-	<?php echo $form->error($model,'username'); ?>
-
-	<?php echo $form->passwordField($model,'password', array('placeholder'=>'password*',)); ?>
-	<?php echo $form->error($model,'password'); ?>
-
-	<?php echo CHtml::submitButton('login'); ?>
-
-	<?php echo $form->checkBox($model,'rememberMe'); ?>
-	<?php echo $form->label($model,'rememberMe'); ?>
-	<?php echo $form->error($model,'rememberMe'); ?>
+	<div class="row form-group">
+		<?php echo $form->emailField($model,'username', array('placeholder'=>'email*', 'class'=>'col-md-12 form-control input-lg')); ?>
+		<?php echo $form->error($model,'username'); ?>
+	</div>
+	<div class="row form-group">
+		<?php echo $form->passwordField($model,'password', array('placeholder'=>'password*', 'class'=>'col-md-12 form-control input-lg')); ?>
+		<?php echo $form->error($model,'password'); ?>
+	</div>
+	<div class="row form-group">
+		<?php echo CHtml::submitButton('login', array('class'=>'text-center col-md-12 btn btn-inverse text-primary input-lg')); ?>
+	</div>
+	<div class="row checkbox">
+		<?php $label =  $form->label($model,'rememberMe', array('class'=>'text-muted')); ?>
+		<?php echo TbHtml::checkBox('rememberMe', false, array('label' => 'Rememeber me next time'
+			, 'labelOptions'=>array('class'=>'text-muted'))); ?>
+		<?php echo $form->error($model,'rememberMe'); ?>
+	</div>
 <?php $this->endWidget(); ?>
+</main>

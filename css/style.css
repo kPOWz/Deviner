@@ -1,4 +1,17 @@
 @import 'boilerplate.css';
-@import 'formalize.css';
 @import 'structure.css';
 @import 'suprcore.css';
+
+html,body{
+	height: 100%;
+}
+
+.container-fluid.center-block-vertical{
+	display: table;
+	width: 100%;
+}
+
+.container-fluid .center-block-vertical{
+	display: table-cell;
+	vertical-align: middle;
+}

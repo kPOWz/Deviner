@@ -11,7 +11,6 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	
 	<script type="text/javascript" src="http://use.typekit.com/skq5ysu.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

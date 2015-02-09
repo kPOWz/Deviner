@@ -14,7 +14,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
-        "crisu83/yiistrap": "dev-bs3"
+        "crisu83/yiistrap": "dev-bs3",
+        "kpowz/gus-bootstrap": "3.2.*@dev"
 
     }
 }

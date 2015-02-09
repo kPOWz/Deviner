@@ -5,12 +5,10 @@
 html,body{
 	height: 100%;
 }
-
 .container-fluid.center-block-vertical{
 	display: table;
 	width: 100%;
 }
-
 .container-fluid .center-block-vertical{
 	display: table-cell;
 	vertical-align: middle;

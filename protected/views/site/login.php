@@ -9,7 +9,7 @@
 
 
 <main class="row center-block-vertical">
-<h1 class="text-center text-primary">GUS</h1>
+<h1 class="text-center text-primary" id='gus-identity'>GUS</h1>
 <!-- comments above the login form indicate we may want to use a BS Justified button group...
 <!-- class="btn-group btn-group-justified" -->
 <!-- <a class="btn btn-default" role="button">Middle</a> -->

@@ -13,3 +13,7 @@ html,body{
 	display: table-cell;
 	vertical-align: middle;
 }
+
+#gus-identity{
+	margin-bottom: 3rem;
+}

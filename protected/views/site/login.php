@@ -19,6 +19,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
+	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 		'errorCssClass'=>'has-error',
@@ -41,7 +42,6 @@
 		<?php echo CHtml::submitButton('login', array('class'=>'text-center col-md-12 btn btn-inverse text-primary input-lg')); ?>
 	</div>
 	<div class="row checkbox">
-		<?php $label =  $form->label($model,'rememberMe', array('class'=>'text-muted')); ?>
 		<?php echo TbHtml::checkBox('rememberMe', false, array('label' => 'Rememeber me next time'
 			, 'labelOptions'=>array('class'=>'text-muted'))); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>

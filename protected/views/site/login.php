@@ -39,12 +39,15 @@
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 	<div class="row form-group">
-		<?php echo CHtml::submitButton('login', array('class'=>'text-center col-md-12 btn btn-inverse text-primary input-lg')); ?>
+		<?php echo CHtml::submitButton('login', array('class'=>'btn text-center col-md-12 btn-lg btn-inverse text-primary')); ?>
 	</div>
-	<div class="row checkbox">
-		<?php echo TbHtml::checkBox('rememberMe', false, array('label' => 'Rememeber me next time'
-			, 'labelOptions'=>array('class'=>'text-muted'))); ?>
+	<div class="row checkbox ">
+		<span class="pull-right">
+		<?php echo $form->checkBox($model,'rememberMe', array('id'=>'cb-remember-me')); ?>
+		<label id="cb-remember-me-custom" for="cb-remember-me" aria-checked="false" role='checkbox' tabindex="0" ></label>		
+		<?php echo $form->label($model,'rememberMe', array('for'=>'cb-remember-me-custom', 'class'=>'text-muted')); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
+		</span>
 	</div>
 <?php $this->endWidget(); ?>
 </main>

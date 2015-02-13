@@ -1,10 +1,25 @@
-@import 'boilerplate.css';
-@import 'structure.css';
-@import 'suprcore.css';
 
+@import 'structure.css';
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
 html,body{
 	height: 100%;
 }
+/*body {
+    margin: 0 0 100px; // bottom = footer height
+}*/
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+   /*	height: 100px; // set footer height after content established  */
+    width: 100%;
+}
+
 .container-fluid.center-block-vertical{
 	display: table;
 	width: 100%;
@@ -16,4 +31,39 @@ html,body{
 
 #gus-identity{
 	margin-bottom: 3rem;
+}
+
+section.gus-nav{
+    padding: 0;
+    text-align: center;   
+}
+.gus-nav li{
+    text-transform: uppercase;
+}
+.gus-nav .row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+ul.nav ul {
+ width: 124px;
+ margin-top: 0px;
+ background-color: #D1D2D4;
+ padding-bottom: 0px;
+ padding-top: 0px;
+}
+
+ul.nav li:hover > ul {
+ visibility: visible;
+ top: 1px;
+ left: 99%;
+}
+
+ul.nav ul {
+ visibility: hidden;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ z-index: 598;
+ width: 100%;
 }

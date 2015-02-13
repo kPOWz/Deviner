@@ -1,5 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="container last">
+<div class="">
 	<div id="content">
 		<?php echo $content; ?>
 	</div><!-- content -->

@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kPOWz/gus-bootstrap.git",
-                "reference": "356ab014e9dc3f8e7ed8677dd7cfd9fa580a75d8"
+                "reference": "449ef4a06b44863ba74dd23ed20f521637c24031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kPOWz/gus-bootstrap/zipball/356ab014e9dc3f8e7ed8677dd7cfd9fa580a75d8",
-                "reference": "356ab014e9dc3f8e7ed8677dd7cfd9fa580a75d8",
+                "url": "https://api.github.com/repos/kPOWz/gus-bootstrap/zipball/449ef4a06b44863ba74dd23ed20f521637c24031",
+                "reference": "449ef4a06b44863ba74dd23ed20f521637c24031",
                 "shasum": ""
             },
             "type": "library",
@@ -113,7 +113,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-11 21:56:38"
+            "time": "2015-02-13 02:07:46"
         },
         {
             "name": "twbs/bootstrap",

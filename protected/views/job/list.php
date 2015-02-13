@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui');
     'model'=>new Job('search'),
 )); ?>
 
-<h1>Jobs by Status</h1>
+<h1>All Jobs</h1>
 <?php 
 	$this->widget('zii.widgets.jui.CJuiTabs', array(
 		'id'=>'job-tabs',

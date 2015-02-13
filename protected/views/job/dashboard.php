@@ -2,12 +2,22 @@
 	$this->pageTitle = Yii::app()->user->name . ' | ' . 'My Jobs | GUS';
 ?>
 
-<h1>My Jobs</h1>
+<div class="alert alert-info">
+	<span class="greeting">Welcome, <?php echo Yii::app()->user->name;?>!</span>&nbsp;
+	You have X jobs.
+	<?php if(Yii::app()->user->isLead){?>
+		Here are your monthly sales: $X,XXX. Your Cost of Goods percentage for this month is X%.
+	<?php }?>
+	Keep doin' whatcha do!
+	<!--<div class="messages">
+		<?php foreach($this->messages as $message){?>
+			<strong><?php echo $message;?></strong>
+			<br/>
+		<?php }?>
+	</div>-->
+</div>
 
-<?php
-	if(Yii::app()->user->getState('isLead'))
-		$this->widget('application.widgets.SalesReportWidget'); 
-?>
+<h1>My Jobs</h1>
 
 <?php 
 	$this->renderPartial('_list', array(

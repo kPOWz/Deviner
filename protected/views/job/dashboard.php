@@ -9,7 +9,7 @@
 		<span class="sr-only">Close</span>
 	</button>
 	<span>Welcome, <?php echo Yii::app()->user->name;?>!</span>&nbsp;
-	You have <span class="text-inverse"> <?php echo count($dataProvider) ?> job(s)</span>.
+	You have <span class="text-inverse"> <?php echo $dataProvider->totalItemCount ?> job(s)</span>.
 	<?php if(Yii::app()->user->isLead){?>
 		Here are your monthly sales: <span class="text-inverse" name='salesNumber'>
 			<?php echo CHtml::encode(Yii::app()->numberFormatter->formatCurrency($srw->sales, "$")); ?>

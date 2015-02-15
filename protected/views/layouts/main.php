@@ -55,10 +55,11 @@
 					<div class="row">
 						Hey, <?php echo Yii::app()->user->name;?>!
 						<?php if($isAdmin){?>
-							<button id="cog" type="button" class="btn btn-inverse btn-inline" title='access admin tasks'
-								data-toggle="collapse" data-target="#nav-admin">
+							<a id="cog" title='access admin tasks'
+								aria-expanded="false" aria-controls="nav-admin"
+								data-toggle="collapse" href="#nav-admin">
 								<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
-							</button>
+							</a>
 						<?php }?>
 					</div>
 					<div class="row gray" id="sales">

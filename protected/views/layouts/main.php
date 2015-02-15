@@ -15,11 +15,10 @@
 			<nav id='nav-main' class='collapse navbar-collapse'>			
 				<?php $this->widget('zii.widgets.CMenu', array(
 					'items'=>array(
-						array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Job', 'url'=>array('/job/create')),
+						array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-plus text-primary" aria-hidden="true"></span> New Job', 'url'=>array('/job/create')),
 						array('label'=>'My Jobs', 'url'=>array('/job/index')),					
 						array('label'=>'All Jobs', 'url'=>array('/job/list')),
 						array('label'=>'Calendar', 'url'=>array('/job/calendar')),
-						array('label'=>'Logout', 'url'=>array('/site/logout')),
 					),
 					'htmlOptions'=>array('class'=>'nav navbar-nav'),
 					'lastItemCssClass'=>'lastmenu',
@@ -43,6 +42,16 @@
 									array('label'=>'Add Vendor', 'url'=>array('/vendor/create')),
 									array('label'=>'Add User', 'url'=>array('/user/create')),
 									array('label'=>'Add Product', 'url'=>array('/product/create')),
+									array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-off text-primary" aria-hidden="true"></span> Logout', 'url'=>array('/site/logout')),
+								),
+								'htmlOptions'=>array('class'=>'nav navbar-nav'),
+								'lastItemCssClass'=>'lastmenu',
+							));
+						}else{
+							$this->widget('zii.widgets.CMenu', array(
+								'htmlOptions'=>array( 'id'=>'admin-nav'),
+								'items'=>array(
+									array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-off text-primary" aria-hidden="true"></span> Logout', 'url'=>array('/site/logout')),
 								),
 								'htmlOptions'=>array('class'=>'nav navbar-nav'),
 								'lastItemCssClass'=>'lastmenu',
@@ -54,13 +63,11 @@
 				<div id="nav-footer" >
 					<div class="row">
 						Hey, <?php echo Yii::app()->user->name;?>!
-						<?php if($isAdmin){?>
-							<a id="cog" title='access admin tasks'
-								aria-expanded="false" aria-controls="nav-admin"
-								data-toggle="collapse" href="#nav-admin">
-								<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
-							</a>
-						<?php }?>
+						<a id="cog" title='access admin tasks'
+							aria-expanded="false" aria-controls="nav-admin"
+							data-toggle="collapse" href="#nav-admin">
+							<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
+						</a>
 					</div>
 					<div class="row gray" id="sales">
 						<?php $this->widget('application.widgets.SalesReportWidget'); ?>

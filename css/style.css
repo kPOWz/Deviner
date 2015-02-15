@@ -7,9 +7,9 @@ html {
 html,body{
 	height: 100%;
 }
-/*body {
-    margin: 0 0 100px; // bottom = footer height
-}*/
+body {
+   /* margin: 0 0 100px; // bottom = footer height */
+}
 footer {
     position: absolute;
     left: 0;
@@ -31,16 +31,27 @@ footer {
 	margin-bottom: 3rem;
 }
 
-section.gus-nav{
-    padding: 0;
-    text-align: center;   
+#nav-bottom{
+    position: absolute;
+    bottom:    0;
+    left: 0;
+    right: 0;
 }
-.gus-nav li{
+
+section.gus-nav-container{
+    padding: 0;
+    text-align: center;
+    height: 100vh;
+}
+.gus-nav-container li{
     text-transform: uppercase;
 }
-.gus-nav .row{
+.gus-nav-container .row{
     margin-right: 0;
     margin-left: 0;
+}
+.gus-nav{
+    height: 100vh;
 }
 
 ul.nav ul {
@@ -52,6 +63,7 @@ ul.nav ul {
 }
 
 ul.nav li:hover > ul {
+ display: block;
  visibility: visible;
  top: 1px;
  left: 99%;
@@ -59,6 +71,7 @@ ul.nav li:hover > ul {
 
 ul.nav ul {
  visibility: hidden;
+ display: none;
  position: absolute;
  top: 100%;
  left: 0;

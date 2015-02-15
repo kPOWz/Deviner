@@ -53,6 +53,18 @@ section.gus-nav-container{
 .gus-nav{
     height: 100vh;
 }
+#sales div:first-child{
+    border-right: 1px solid #1a1f26;
+    padding: 1rem 0 1rem 0;
+}
+#sales div:last-child{
+    border-left: 1px solid #1a1f26;
+    padding: 1rem 0 1rem 0;
+}
+#nav-footer div:first-child{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
 
 ul.nav ul {
  width: 124px;

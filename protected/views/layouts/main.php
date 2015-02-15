@@ -51,23 +51,24 @@
 					?>
 				</nav>
 				<?php }?>
-				
-				<div class="row">
-					Hey, <?php echo Yii::app()->user->name;?>!
-					<?php if($isAdmin){?>
-						<button id="cog" type="button" class="btn btn-inverse btn-inline" title='access admin tasks'
-							data-toggle="collapse" data-target="#nav-admin">
-							<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
-						</button>
-					<?php }?>
-				</div>
-				<div class="row gray">
-					<?php $this->widget('application.widgets.SalesReportWidget'); ?>
-				</div>			
+				<div id="nav-footer" >
+					<div class="row">
+						Hey, <?php echo Yii::app()->user->name;?>!
+						<?php if($isAdmin){?>
+							<button id="cog" type="button" class="btn btn-inverse btn-inline" title='access admin tasks'
+								data-toggle="collapse" data-target="#nav-admin">
+								<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
+							</button>
+						<?php }?>
+					</div>
+					<div class="row gray" id="sales">
+						<?php $this->widget('application.widgets.SalesReportWidget'); ?>
+					</div>	
+				</div>		
 			</div>
 		</nav>
 	</section>
-	
+
 	<main class="col-md-10" id="main">		
 		<?php if(Yii::app()->user->hasFlash('success')){?>
 			<div class="flash-success" id="flash-success" >

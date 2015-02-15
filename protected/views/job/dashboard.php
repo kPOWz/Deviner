@@ -2,8 +2,12 @@
 	$this->pageTitle = Yii::app()->user->name . ' | ' . 'My Jobs | GUS';
 ?>
 
-<div class="alert alert-info">
-	<span class="greeting">Welcome, <?php echo Yii::app()->user->name;?>!</span>&nbsp;
+<div class="alert alert-info alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert">
+		<span aria-hidden="true">&times;</span>
+		<span class="sr-only">Close</span>
+	</button>
+	<span>Welcome, <?php echo Yii::app()->user->name;?>!</span>&nbsp;
 	You have X jobs.
 	<?php if(Yii::app()->user->isLead){?>
 		Here are your monthly sales: $X,XXX. Your Cost of Goods percentage for this month is X%.

@@ -13,6 +13,8 @@ class SalesReportWidget extends CWidget
 
 	public static $jobs=array();
 
+	public $raw = false;
+
 	//validate & introduce CClip
 
 	public function init() {
@@ -27,7 +29,6 @@ class SalesReportWidget extends CWidget
 	private static function setJobsForReport(){
 		if(is_null(self::$timeSpreadBegin)) self::$timeSpreadBegin =  date('Y-m-01 00:00:00');
 		if(is_null(self::$timeSpreadEnd)) self::$timeSpreadEnd =  date('Y-m-t 23:59:59');
-
 		$criteria = new CDbCriteria;
 	  	$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 	  	$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
@@ -72,11 +73,12 @@ class SalesReportWidget extends CWidget
 	}
 
  	public function run()
-	{	    
+	{	  
 		$this->render('salesReportWidget', array(
 			'sales'=>self::getSales(),
 			'cog'=>self::getCostOfGoodsSoldPercentage(),
-			'formatter'=>new Formatter
+			'formatter'=>new Formatter,
+			'raw'=>$this->raw
 		));
 	}
 }

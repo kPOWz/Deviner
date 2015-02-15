@@ -90,3 +90,7 @@ ul.nav ul {
  z-index: 598;
  width: 100%;
 }
+
+.alert .text-inverse{
+    color: #fff;
+}

@@ -1,4 +1,4 @@
-<?php if(Yii::app()->user->isLead){?>
+<?php if(Yii::app()->user->isLead && !$raw){?>
 	<div class="col-md-6 " title="Dollar value of completed jobs for current calendar month">
 		<strong class="text-primary" name='salesNumber'><?php echo CHtml::encode($formatter->formatCurrency($sales)); ?></strong>
 		<br />

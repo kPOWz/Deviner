@@ -3,11 +3,10 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
 ?>
 
+<h1>All Jobs</h1>
 <?php  $this->renderPartial('_search',array(
     'model'=>new Job('search'),
 )); ?>
-
-<h1>All Jobs</h1>
 <?php 
 	$this->widget('zii.widgets.jui.CJuiTabs', array(
 		'id'=>'job-tabs',

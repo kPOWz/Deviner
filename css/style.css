@@ -91,10 +91,16 @@ ul.nav ul {
  width: 100%;
 }
 
+/*//alerts*/
 .alert .text-inverse{
     color: #fff;
 }
 
 #main .alert:first-child {
     margin-top: 1em;
+}
+
+/*//forms*/
+.gus-input-search * {
+    border-radius: 0 !important;
 }

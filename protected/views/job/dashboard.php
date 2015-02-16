@@ -23,7 +23,9 @@
 	</div>
 <?php }?>
 <h1>My Jobs</h1>
-
+<?php  $this->renderPartial('_search',array(
+    'model'=>new Job('search'),
+)); ?>
 <?php 
 	$this->renderPartial('_list', array(
 		'statuses'=>$statuses,

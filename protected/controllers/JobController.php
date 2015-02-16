@@ -1026,6 +1026,9 @@ class JobController extends Controller
 		}
 	}
 	
+	/*
+	* A valid print date cannot be after the set due date. 
+	*/
 	public function actionValidatePrintDate(){
 		if(isset($_GET['id']) && isset($_GET['newPrintDate'])){
 			$id = $_GET['id'];
@@ -1147,7 +1150,7 @@ class JobController extends Controller
 	{
 		$model=Job::model()->findByPk((int)$id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested page does not exist.'.$id);
 		return $model;
 	}
 	

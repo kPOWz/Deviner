@@ -13,7 +13,7 @@
 		  dragSrcEl = $(this).parent();
 		  
 		  e.dataTransfer.effectAllowed = 'move';
-		  e.dataTransfer.setData('text/html', e.target.id);
+		  e.dataTransfer.setData('text/plain', e.target.id);
 		  dragging.push(e.target.id);
 		}
 	
@@ -29,8 +29,7 @@
 	
 	var handleDragEnter = function(e) {
 		// this / e.target is the current hover target.
-		
-		var jobId = e.dataTransfer.getData('text/html') || dragging[0];
+		var jobId = e.dataTransfer.getData('text/plain') || dragging[0];
 		
 		if (dragSrcEl[0] != this) {
 			var targetId = this.getAttribute('id');
@@ -92,7 +91,7 @@
 		  	var targetId = this.getAttribute('id');
 			
 		  	//get the stored job id
-		  	var jobId = e.dataTransfer.getData('text/html') || dragging[0];
+		  	var jobId = e.dataTransfer.getData('text/plain') || dragging[0];
 		  
 			$.ajax({
 				url: updatePrintDateUrl,

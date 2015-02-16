@@ -79,15 +79,14 @@
 
 	<main class="col-md-10" id="main">		
 		<?php if(Yii::app()->user->hasFlash('success')){?>
-			<div class="flash-success" id="flash-success" >
+			<div class="alert alert-success" role="alert" id="flash-success" >
 				<?php echo Yii::app()->user->getFlash('success');?>
 			</div>
 		<?php } else if(Yii::app()->user->hasFlash('failure')){?>
-			<div class="flash-error" id="flash-error" >
+			<div class="alert alert-danger" role="alert" id="flash-error" >
 				<?php echo Yii::app()->user->getFlash('failure');?>
 			</div>
 		<?php }?>
-
 		<?php echo $content; ?>
 	</main>
 

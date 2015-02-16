@@ -2,7 +2,7 @@
 	<div class="form-group">
 	<?php echo TbHtml::textField('appendInputButton', '', array(
 		'append'=> TbHtml::button(TbHtml::icon(TbHtml::ICON_SEARCH), array('color'=> TbHtml::BUTTON_COLOR_PRIMARY))
-		, 'placeholder'=>'Search by client name'
+		, 'placeholder'=>'Search by client or company name'
 		, 'addOnOptions'=>array('class'=>'input-group-lg')
 		))
 	?>

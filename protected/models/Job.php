@@ -230,8 +230,10 @@ class Job extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 		$criteria->compare('NAME', $this->NAME, true, 'OR');
-	 	$criteria->with = array('CUSTOMER');
+		$criteria->with = array('CUSTOMER', 'CUSTOMER.USER');
 		$criteria->compare('CUSTOMER.COMPANY', $this->customer_search, true, 'OR');
+		$criteria->compare('USER.FIRST', $this->customer_search, true, 'OR');
+		$criteria->compare('USER.LAST', $this->customer_search, true, 'OR');
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

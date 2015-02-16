@@ -63,10 +63,15 @@ class JobController extends Controller
 			$results = $model->search();
 
 			$juiResults = array();	
-			//TODO: matches for both company and customer name		
+	
 			foreach($results->data as $result){
-				$client = $result->CUSTOMER->COMPANY;
-				if(strlen($client) < 1) $client = $result->CUSTOMER->USER->FIRST .' '.$result->CUSTOMER->USER->LAST; 
+				$company = $result->CUSTOMER->COMPANY;
+				$clientName = $result->CUSTOMER->USER->FIRST .' '.$result->CUSTOMER->USER->LAST;
+
+				$client = strlen($company) > 0 ? 
+							strlen($clientName) > 0 ? $company.' ('.$clientName.')': $company
+								:  $clientName;
+
 				$label = strlen($client) > 0 ? 'Client: '.$client . ' - Job: ' . $result->NAME : 'Job: '.$result->NAME;
 				$juiResults[] = array(
 						'label'=> $label,

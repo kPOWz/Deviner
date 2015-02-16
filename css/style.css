@@ -94,3 +94,7 @@ ul.nav ul {
 .alert .text-inverse{
     color: #fff;
 }
+
+#main .alert:first-child {
+    margin-top: 1em;
+}

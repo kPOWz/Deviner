@@ -60,6 +60,26 @@ class Job extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function statusListData(){
+		$statusesArray =CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
+		$statusListData=array();
+        foreach ($statusesArray as $statusId=>$statusText)
+        {
+            $statusListData[]=array('label'=>$statusText,'url'=>$statusId);
+        }
+        return $statusListData;
+	}
+
+	public static function statusButtonData(){
+		$statusesArray =CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
+		$statusListData=array();
+        foreach ($statusesArray as $statusId=>$statusText)
+        {
+            $statusListData[]=array('label'=>$statusText,'url'=>$statusId);
+        }
+        return $statusListData;
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -241,6 +261,33 @@ class Job extends CActiveRecord
 						'pageSize'=>25,
 				),
 		));
+	}
+
+	/* 
+	 * Gets a paged list of jobs with the given status value.
+	 * @param mixed $status The status value, or array of status values, by which to filter.
+	 * @return CActiveDataProvider The set of jobs with the given status(es).
+	 */
+	public function searchByStatus($status)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->compare('STATUS', $status, false, 'OR');
+		return new CActiveDataProvider(get_class($this), array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+						'pageSize'=>15,
+				),
+		));
+
+		//option 2  (slower, but can handle status array)
+		// $activeData = $this->listJobsByStatus($status);
+		// $dataProvider =  new CActiveDataProvider(get_class($this), array(
+		// 		'pagination'=>array(
+		// 				'pageSize'=>15,
+		// 		),
+		// 	));
+		// $dataProvider->setData($activeData);
+		// return $dataProvider;
 	}
 	
 	/**

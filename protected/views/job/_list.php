@@ -1,25 +1,15 @@
 <?php 
-//it doesn't make sense to me either, but the yii framework doesn't let me add extra variables
-//to expressions in the grid view. so this is what I have to do...
-class StatusProvider {
-	public static $statuses;
-	
-	public static function statusSelector($model){
-		return CHtml::activeDropDownList($model, 'STATUS', StatusProvider::$statuses, array(
-			'onchange'=>"statusChanged('".CHtml::normalizeUrl(array('job/status', 'id'=>$model->ID))."', this);"
-					
-		));
-	}
-}
+$model = new Job();
 
-StatusProvider::$statuses = $statuses;
-
-$this->widget('zii.widgets.grid.CGridView', array( 
-	'dataProvider'=>$dataProvider,
-	'id'=>$tabId,
-	'formatter'=>new Formatter,
-	'columns'=>array(
-		array(
+$this->widget('yiistrap.widgets.TbGridView', array(
+	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
+   	'columns' => array(
+   		array(
+			'header'=>'Client',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->CUSTOMER->COMPANY)'			
+		),
+        array(
 			'class'=>'CLinkColumn',
 			'header'=>'Job',
 			'labelExpression'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
@@ -36,26 +26,25 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>"(strtotime(\$data->dueDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->dueDate));",
 		),
 		array(
-			'header'=>'Print',
-			'name'=>'printDate',
-			'value'=>"(strtotime(\$data->printDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->printDate));",
-		),
-		array(
 			'header'=>'Status',
 			'type'=>'raw',
-			'value'=>"StatusProvider::statusSelector(\$data)",
-		),array(            
-            'class'=>'CButtonColumn',
-			'template'=>'{update}',
-			'updateButtonLabel' => 'Update job',
-				
-        ),array(            
+			'value'=>'TbHtml::activeDropDownList($data, "STATUS", Job::statusListData())',
+		),
+		array(            
             'class'=>'CButtonColumn',
 			'template'=>'{delete}',
 			'deleteButtonLabel' => 'Delete job permanently',
-			'deleteConfirmation'=>"js:'Job \''+$(this).parent().parent().children(':first-child').text()+'\' will be deleted! Continue?'"			
-        )
-	)
+			'deleteConfirmation'=>"js:'Job \''+$(this).parent().parent().children(':nth-child(2)').text()+'\' will be deleted! Continue?'",
+			'buttons'=>array(
+					'delete' => array
+			        (
+			            'options'=>array('class'=>'btn btn-default', 'type'=>'button'),
+			            'label'=>'<span class="glyphicon glyphicon-remove text-danger"><span>',
+			            'imageUrl'=>NULL,
+			        ),
+				)			
+        ),
+    ),
 ));
 ?>
 

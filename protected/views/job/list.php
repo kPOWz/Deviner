@@ -8,28 +8,61 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui');
     'model'=>new Job('search'),
 )); ?>
 <?php 
-	$this->widget('zii.widgets.jui.CJuiTabs', array(
-		'id'=>'job-tabs',
-		'tabs'=>array(
-			'Created'=>array('ajax'=>array('job/loadList', 'list'=>'created'),
-				
-				'content'=>$this->renderPartial('_list', array(
-					'statuses'=>$statuses,
-					'dataProvider'=>$currentDataProvider,
-					'tabId'=>'job-tab-current',
-				), true),
-			),
-			'Ordered'=>array('ajax'=>array('job/loadList', 'list'=>'ordered')),
-			'Counted'=>array('ajax'=>array('job/loadList', 'list'=>'counted')),
-			'Printed'=>array('ajax'=>array('job/loadList', 'list'=>'printed')),
-			'Invoiced'=>array('ajax'=>array('job/loadList', 'list'=>'invoiced')),
-			'Completed'=>array('ajax'=>array('job/loadList', 'list'=>'completed')),
-			'Canceled'=>array('ajax'=>array('job/loadList', 'list'=>'canceled')),
-		),
-		'options'=>array(
-			'ajaxOptions'=>array(
-				'cache'=>false,
-			),
-		),
-	));
+$this->widget('yiistrap.widgets.TbTabs', array(
+	'id'=>'job-tabs',
+    'tabs'=>array(
+        array(
+            'id'=>'job-tab-created',
+            'active'=>true,
+            'label'=>'1. Created',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::CREATED,
+                ), true),          
+        ),
+        array(
+            'id'=>'job-tab-ordered',
+            'active'=>false,
+            'label'=>'2. Ordered',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::ORDERED,
+                ), true),          
+        ),
+
+        array(
+            'id'=>'job-tab-counted',
+            'active'=>false,
+            'label'=>'3. Counted',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::COUNTED,
+                ), true),
+        ),
+
+        array(
+            'id'=>'job-tab-printed',
+            'active'=>false,
+            'label'=>'4. Printed',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::PRINTED,
+                ), true),
+        ),
+
+        array(
+            'id'=>'job-tab-invoiced',
+            'active'=>false,
+            'label'=>'5. Invoiced',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::INVOICED,
+                ), true),
+        ),
+
+        array(
+            'id'=>'job-tab-completed',
+            'active'=>false,
+            'label'=>'6. Completed',
+            'content'=>$this->renderPartial('_list', array(
+                'statusId'=>Job::COMPLETED,
+                ), true),
+        ),      
+    ),
+));
 ?>

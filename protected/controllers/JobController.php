@@ -831,16 +831,8 @@ class JobController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$jobs = $this->findLedJobsCurrentUser();
-		$dataProvider = new CArrayDataProvider($jobs, array(
-			'keyField'=>'ID',
-		));					
-		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-
 		$this->render('dashboard',array(
-			'dataProvider'=>$dataProvider,
-			'statuses'=>$statuses,
-			'formatter'=>new Formatter
+			'dataProvider'=>$this->findLedJobsCurrentUser()
 		));
 	}
 	
@@ -902,20 +894,23 @@ class JobController extends Controller
 		return $jobsThisWeek;
 	}
 
-	private function findLedJobsCurrentUser($weekOffset = 0){			
+	private function findLedJobsCurrentUser(){			
 		//TODO: if no leader role, just return an info message
-		
-		$criteria = new CDbCriteria;
+		$statuses = array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED);
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('LEADER_ID', Yii::app()->user->id, false, 'AND'); 
+		$criteria->compare('STATUS', $statuses, false, 'AND');
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
 		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
 		$criteria->order ='`NAME`ASC';
-		
-		$jobsThisWeek = Job::model()->findAllByAttributes(array(
-				'LEADER_ID'=>Yii::app()->user->id,
-				'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),
-		), $criteria);
-		return $jobsThisWeek;
+		return new CActiveDataProvider('Job', array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+						'pageSize'=>15,
+				),
+		));
 	}
 	
 	private function resultToCalendarData($jobs){
@@ -929,51 +924,8 @@ class JobController extends Controller
 		return $calendarData;
 	}
 	
-	/**
-	 * Loads the contents of a job listing tab.
-	 * @param string $list The type of list to load. Valid values are "current", "canceled", and "completed"
-	 */
-	public function actionLoadList($list){
-		switch($list){
-			case 'created' : $filter = Job::CREATED; break;
-			case 'ordered' : $filter =  Job::ORDERED; break;
-			case 'counted' : $filter =  Job::COUNTED; break;
-			case 'printed' : $filter =  Job::PRINTED; break;
-			case 'invoiced' : $filter =  Job::INVOICED; break;
-			case 'canceled' : $filter = Job::CANCELED; break;
-			case 'completed' : $filter = Job::COMPLETED; break;
-			default : $filter = null; break;
-		}
-		$jobs = Job::listJobsByStatus($filter);
-		$dataProvider = new CArrayDataProvider($jobs, array(
-			'keyField'=>'ID',
-			'pagination'=>array(
-        		'pageSize'=>15,
-    		),
-		));
-		
-		$this->renderPartial('_list', array(
-			'dataProvider'=>$dataProvider,
-			'statuses'=> CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT'),
-			'tabId'=>'job-tab-'.$list, //must uniquely ID tabs or pagination will not render correctly
-		), false, true);
-	}
-	
 	public function actionList(){		
-		$currentJobs = Job::listJobsByStatus(array(Job::CREATED, JOB::SCHEDULED, Job::INVOICED, Job::PAID, Job::ORDERED, Job::COUNTED, Job::PRINTED));
-		$currentDataProvider = new CArrayDataProvider($currentJobs, array(
-			'keyField'=>'ID',
-			'pagination'=>array(
-        		'pageSize'=>15,
-    		),
-		));
-		
-		$statuses = CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-		
-		$this->render('list', array(
-			'currentDataProvider'=>$currentDataProvider,
-			'statuses'=>$statuses,
-		));
+		$this->render('list');
 	}
 	
 	public function actionStatus($id){

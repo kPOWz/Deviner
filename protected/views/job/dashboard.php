@@ -28,8 +28,8 @@
 )); ?>
 <?php 
 	$this->renderPartial('_list', array(
-		'statuses'=>$statuses,
 		'dataProvider'=>$dataProvider,
 		'tabId'=>'job-tab-current'));
+
 	Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'dashboard.js', CClientScript::POS_BEGIN);
 ?>

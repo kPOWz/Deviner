@@ -28,7 +28,7 @@ $this->widget('yiistrap.widgets.TbGridView', array(
 		array(
 			'header'=>'Status',
 			'type'=>'raw',
-			'value'=>'TbHtml::activeDropDownList($data, "STATUS", Job::statusListData())',
+			'value'=>'TbHtml::activeDropDownList($data, "STATUS", Job::statusListData(), array("onchange"=>"statusChanged(this,$data->ID)"))',
 		),
 		array(            
             'class'=>'CButtonColumn',
@@ -49,13 +49,14 @@ $this->widget('yiistrap.widgets.TbGridView', array(
 ?>
 
 <script type="text/javascript">
-	function statusChanged(updateUrl, selector){
+	function statusChanged(selector,jobId){
 			var status = $(selector).val(); 
 			$.ajax({
-				url: updateUrl,
+				url: 'status',
 				dataType: "json",
 				data: {
 					status: status,
+					id: jobId,
 				},
 				type: 'POST',
 				success: function(data){

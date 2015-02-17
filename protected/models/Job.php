@@ -62,12 +62,13 @@ class Job extends CActiveRecord
 
 	public static function statusListData(){
 		$statusesArray =CHtml::listData(Lookup::listItems('JobStatus'), 'ID', 'TEXT');
-		$statusListData=array();
-        foreach ($statusesArray as $statusId=>$statusText)
-        {
-            $statusListData[]=array('label'=>$statusText,'url'=>$statusId);
-        }
-        return $statusListData;
+		// $statusListData=array();
+  //       foreach ($statusesArray as $statusId=>$statusText)
+  //       {
+  //           $statusListData[]=array('label'=>$statusText,'url'=>$statusId);
+  //       }
+  //       return $statusListData;
+		return $statusesArray;
 	}
 
 	public static function statusButtonData(){

@@ -928,8 +928,9 @@ class JobController extends Controller
 		$this->render('list');
 	}
 	
-	public function actionStatus($id){
+	public function actionStatus(){
 		$newStatus = $_POST['status'];
+		$id = $_POST['id'];
 		$model = $this->loadModel($id);		
 		$model->STATUS = $newStatus;
 		$model->save();

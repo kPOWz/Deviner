@@ -3,6 +3,7 @@ $model = new Job();
 
 $this->widget('yiistrap.widgets.TbGridView', array(
 	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
+	'itemsCssClass'=>'table-primary',
    	'columns' => array(
    		array(
 			'header'=>'Client',

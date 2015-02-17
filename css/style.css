@@ -92,7 +92,6 @@ ul.nav ul {
 }
 
 /*//tabs*/
-/* todo: first and last child remove/add padding*/
 /* todo: remove browser select/active/focus styling */
 .nav-tabs>li {
     border-bottom: 3px solid #09f;
@@ -110,9 +109,16 @@ ul.nav ul {
     color: #e3e7ed;
 }
 
+#job-tabs .table>thead>tr>th{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
 #job-tabs>ul.nav-tabs{
     padding-bottom: 2em;
     border-bottom: 2px solid #ddd;
+    margin-right: inherit;
+    margin-left: inherit;
 }
 
 /*//alerts*/

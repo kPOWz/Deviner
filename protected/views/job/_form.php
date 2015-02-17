@@ -122,7 +122,6 @@ CClientScript::POS_BEGIN);
 
 	<hr />
 
-	<div class="separator"></div>
 	<h5 class="heading-primary">Product Details</h5>
 	<?php $this->renderPartial('//print/_jobForm', array(
 		'model'=> $print,

@@ -1,6 +1,6 @@
 <form id='form-job-search' class='gus-input-search' method='GET'>
 	<div class="form-group">
-		<div class="input-group-lg input-group">
+		<div class="input-group-lg input-group gus-input-group">
 		
 		  <?php echo CHtml::script("
 		      function split(val) {
@@ -40,12 +40,9 @@
 		    	'results'=>'5',	    		
 		    	),
 		   ));?>
-	   	
-		   <span class="input-group-btn">
-			   	<button class="btn btn-primary" name="yt0" type="button">
+	   		<span class="bg-primary input-group-addon">
 			   	<span class="glyphicon glyphicon-search"></span>
-			   	</button>
-		   </span>
+	   		</span>
 	   	</div>
 	   <input type="hidden" id="search-result-job-id" name="id" >
 	</div>

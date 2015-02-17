@@ -14,18 +14,21 @@ $xlTotalJS = '#' . $xlTotal;
 ?>
 <div class="jobLine <?php echo ($line->JOB_LINE_ID == null) ? 'hidden-size' : '';?> <?php echo $div.$product->SIZE;?>" id="<?php echo $eachDiv;?>">
 	<?php echo CHtml::errorSummary($line); ?>
-	<?php echo CHtml::label($product->size->TEXT, CHtml::getIdByName($namePrefix . '[QUANTITY]'));?>
+	<?php 
+		$sizeLabel = $product->size->TEXT;
+		if($line->isExtraLarge) $sizeLabel = $sizeLabel . ' <span class="text-muted">*</span>';
+		echo CHtml::label($sizeLabel, CHtml::getIdByName($namePrefix . '[QUANTITY]'));
+	?>
 	<?php echo CHtml::activeTextField($line, 'QUANTITY', array(
 		'name'=>$namePrefix . '[QUANTITY]',
 		'onkeyup'=>"$('".$totalJS."').val((1 * $('".$qtyJS."').val()) * $('".$costJS."').val()).change(); $('$xlTotalJS').val($('$qtyJS').val() * 1 * $('$xlJS').val()).change(); ".$onQuantityUpdate,
-		'class'=>'score_part item_qty',
+		'class'=>'score_part item_qty form-control',
 		'size'=>5,
 		'disabled'=>($line->JOB_LINE_ID == null) || $approved, //only disable if the product doesn't seem to exist.
 	));?>
 	
 	<?php $xlFee = $line->isExtraLarge;
 	if($xlFee){?>
-		<p class="note">* A <?php echo $formatter->formatCurrency($xlFee);?> per garment fee will be added to the total for this size.</p>
 		<?php echo CHtml::hiddenField($xl, $xlFee, array(
 			'id'=>$xl,
 		));?>

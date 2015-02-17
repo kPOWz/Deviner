@@ -59,30 +59,30 @@
 CClientScript::POS_END);?>
 
 <div id="print" class="form">
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<?php echo CHtml::errorSummary($model); ?>
 
 	<div class="row">
-
-		<?php //echo CHtml::activeLabelEx($model,'FRONT_PASS'); ?>
-
-		<label>Ink Colors (Front/Back/Sleve)</label>
-		<?php echo CHtml::activeDropDownList($model,'FRONT_PASS', $passes, array('class'=>'pass_part front_pass')); ?>
+		<div class='col-md-3'>
 		<?php echo CHtml::error($model,'FRONT_PASS'); ?>
-
-		<?php //echo CHtml::activeLabelEx($model,'BACK_PASS'); ?>
-		<?php echo CHtml::activeDropDownList($model,'BACK_PASS', $passes, array('class'=>'pass_part back_pass')); ?>
 		<?php echo CHtml::error($model,'BACK_PASS'); ?>
-		<?php //echo CHtml::activeLabelEx($model,'SLEEVE_PASS'); ?>
-		<?php echo CHtml::activeDropDownList($model,'SLEEVE_PASS', $passes, array('class'=>'pass_part sleeve_pass')); ?>
 		<?php echo CHtml::error($model,'SLEEVE_PASS'); ?>
+
+		<div class="row">
+			<div class="btn-group col-md-4">
+				<?php echo TbHtml::activeDropDownList($model,'FRONT_PASS', $passes, array('class'=>'pass_part front_pass')); ?>
+			</div><div class="btn-group col-md-4">		
+				<?php echo TbHtml::activeDropDownList($model,'BACK_PASS', $passes, array('class'=>'pass_part back_pass')); ?>
+			</div><div class="btn-group col-md-4">
+				<?php echo TbHtml::activeDropDownList($model,'SLEEVE_PASS', $passes, array('class'=>'pass_part sleeve_pass')); ?>
+			</div>
+		</div>
+		<label>Ink Colors (Front/Back/Sleve)</label>
+		</div>
 	</div>
 
 	<?php echo CHtml::hiddenField('score_pass',$model->pass, array('class'=>'score_pass')); ?>
 
-	<div class="row art">
+	<div class="row art hidden">
 		<?php echo CHtml::hiddenField('PrintJob_fileCount', count($model->files) - 1, array(
 			'class'=>'art_count',
 		));?>

@@ -137,3 +137,9 @@ ul.nav ul {
 .gus-form .form-control{
     border-radius: 0;
 }
+
+.hidden-size{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}

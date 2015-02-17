@@ -134,3 +134,6 @@ ul.nav ul {
 .gus-input-search * {
     border-radius: 0 !important;
 }
+.gus-form .form-control{
+    border-radius: 0;
+}

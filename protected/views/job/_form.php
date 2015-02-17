@@ -65,25 +65,42 @@ Yii::app()->clientScript->registerScript('calculate-setup-fee', "" .
 CClientScript::POS_BEGIN);
 ?>
 
-<div class="form">
+
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'job-form',
 	'enableAjaxValidation'=>false,
 	'htmlOptions'=>array(
 		'enctype'=>'multipart/form-data',
+		'class'=>'gus-form',
 	),
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<div class="grid_3 alpha">
+	<h5 class="heading-primary">Client Details</h5>
+	<?php
+		$this->renderPartial('//customer/_jobForm', array(
+			'customerList'=>$customerList,
+			'newCustomer'=>$newCustomer,
+		));
+	?>
+	<hr />
+
+	<h5 class="heading-primary">Job Details</h5>
+	<fieldset class="row">
+		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
+		<div class="col-md-4 form-group">
 			<?php echo $form->labelEx($model, 'NAME');?>
-			<?php echo $form->textField($model, 'NAME');?>
+			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client'));?>
 			<?php echo $form->error($model, 'NAME');?>
 		</div>
-		<div class="grid_3 omega">
+		<div class="col-md-4 form-group">
+			<?php echo $form->labelEx($model, 'LEADER_ID');?>
+			<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'form-control', 'prompt'=>'-- Select leader --')); ?>
+			<?php echo $form->error($model, 'LEADER_ID');?>
+		</div>
+		<div class="col-md-4 form-group">
 			<?php echo $form->labelEx($model, 'formattedDueDate');?>
 			<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				'name'=>'Job[formattedDueDate]',
@@ -96,53 +113,17 @@ CClientScript::POS_BEGIN);
 					'defaultDate'=> $model->formattedDueDate
 				),
 				'htmlOptions'=>array(
-						'class'=>'input_full'
+						'class'=>'form-control'
 				),
 			));?>
 			<?php echo $form->error($model, 'formattedDueDate'); ?>
-		</div>
-	<!-- <div class="grid_3 omega"> -->
-			<?php /*echo $form->labelEx($model, 'formattedPrintDate'); */?>
-			<?php /*$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				'name'=>'Job[formattedPrintDate]',
-				'model'=>$model,
-				'attribute'=>'formattedPrintDate',
-				'htmlOptions'=>array(
-					'class'=>'input_full'
-				),
-				'options'=>array(
-					'showAnim'=>'fold',
-					'dateFormat'=>'DD, MM d, yy',
-				),
-			));*/?>
-			<?php /* echo $form->error($model, 'formattedPrintDate'); */ ?>
-		<!-- </div> -->
+		</div>		
+	</fieldset>
 
-		<div class="clear"></div>
-
-		<?php $printerList = CHtml::listData($printers, 'ID', 'FIRST');?>
-		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
-
-		<div class="row">
-			<div class="grid_2 alpha">
-				<?php echo $form->labelEx($model, 'LEADER_ID');?>
-				<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'input_full', 'prompt'=>'-- Select --')); ?>
-				<?php echo $form->error($model, 'LEADER_ID');?>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+	<hr />
 
 	<div class="separator"></div>
-
-	<?php
-		$this->renderPartial('//customer/_jobForm', array(
-			'customerList'=>$customerList,
-			'newCustomer'=>$newCustomer,
-		));
-	?>
-
-	<div class="separator"></div>
+	<h5 class="heading-primary">Product Details</h5>
 	<?php $this->renderPartial('//print/_jobForm', array(
 		'model'=> $print,
 		'job'=>$model,
@@ -231,9 +212,10 @@ CClientScript::POS_BEGIN);
 		));?>
 	</div>
 
-	<div class="separator"></div>
+	<hr />
 
 
+	<h5 class="heading-primary">Pricing Details</h5>
 	<div class="row auto_quote">
 		<!-- Rush Charge Group-->
 		<div class="row">
@@ -321,7 +303,7 @@ CClientScript::POS_BEGIN);
 		CClientScript::POS_END);?>
 	</div>
 
-
+	<hr />
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'NOTES'); ?>
@@ -337,4 +319,3 @@ CClientScript::POS_BEGIN);
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->

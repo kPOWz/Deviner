@@ -10,7 +10,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>New Job</h1>
+<h2>Create Job</h2>
 
 <?php echo $this->renderPartial('_form', array(
 	'model'=>$model,

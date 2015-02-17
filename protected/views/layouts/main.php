@@ -15,7 +15,7 @@
 			<nav id='nav-main' class='collapse navbar-collapse'>			
 				<?php $this->widget('zii.widgets.CMenu', array(
 					'items'=>array(
-						array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-plus text-primary" aria-hidden="true"></span> New Job', 'url'=>array('/job/create')),
+						array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-plus text-primary" aria-hidden="true"></span> Create Job', 'url'=>array('/job/create')),
 						array('label'=>'My Jobs', 'url'=>array('/job/index')),					
 						array('label'=>'All Jobs', 'url'=>array('/job/list')),
 						array('label'=>'Calendar', 'url'=>array('/job/calendar')),

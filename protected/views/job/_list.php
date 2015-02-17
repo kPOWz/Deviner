@@ -7,7 +7,7 @@ $this->widget('yiistrap.widgets.TbGridView', array(
    		array(
 			'header'=>'Client',
             'type' => 'raw',
-            'value' => 'CHtml::encode($data->CUSTOMER->COMPANY)'			
+            'value' => 'CHtml::encode($data->CUSTOMER->COMPANY == NULL ? $data->CUSTOMER->USER->FIRST ." ".$data->CUSTOMER->USER->LAST : $data->CUSTOMER->COMPANY)'			
 		),
         array(
 			'class'=>'CLinkColumn',

@@ -91,6 +91,25 @@ ul.nav ul {
  width: 100%;
 }
 
+/*//tabs*/
+/* todo: first and last child remove/add padding*/
+/* todo: remove browser selected styling */
+.nav-tabs>li {
+    border-bottom: 3px solid #09f;
+}
+.nav-tabs>li>a {
+    color: #1a1f26;
+}
+#job-tabs .nav>li>a:hover, #job-tabs .nav>li>a:focus{
+    background: none;
+}
+.nav-tabs>li.active ~ li  {
+    border-bottom: 3px solid #e3e7ed;
+}
+.nav-tabs>li.active ~ li>a{
+    color: #e3e7ed;
+}
+
 /*//alerts*/
 .alert .text-inverse{
     color: #fff;

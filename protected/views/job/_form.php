@@ -44,7 +44,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 							".addClass('col-md-2')" .
 							".children('.score_part').removeAttr('disabled');
 						}" .
-						"\$('#' + div_id).children('.hidden-style').val(ui.item.id);
+						"\$('#' + div_id +' .row div[name=\"style-group\"]').find('.hidden-style').val(ui.item.id);
 					});
 				}," .
 				"'source': '".CHtml::normalizeUrl(array('product/findProduct', 'response'=>'juijson'))."'

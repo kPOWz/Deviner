@@ -32,7 +32,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		<?php }?>
 	</div>
 	<div class="row">
-		<div class="col-md-4 form-group search-customer">
+		<div class="col-md-4 form-group" name="style-group">
 			<label>Style</label>
 			<div class="input-group gus-input-group">
 				<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -76,7 +76,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 										".addClass('col-md-2')" .
 										".children('.score_part').removeAttr('disabled');
 									}" .
-									"\$('#$div').children('.hidden-style').val(ui.item.id);
+									"\$('#$div .row div[name=\"style-group\"]').find('.hidden-style').val(ui.item.id);
 								});
 						}"
 					),

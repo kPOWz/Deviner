@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 		"success: function(data){
 			$(sender).parents('.gus-form').children('#lines').children().last().after(data);" .
 			"var div_id = \$(data).attr('id');" .
-			"\$('#' + div_id).children('.item-select').autocomplete({
+			"\$('#' + div_id).find('.item-select').autocomplete({
 				'select': function(event, ui){
 					\$.getJSON(
 					'".CHtml::normalizeUrl(array('product/allowedOptions'))."'," .
@@ -29,18 +29,19 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						"var cost = data.productCost;" .
 						"var colorOptions = $('<select></select>')" .
 							"\n.attr('name', 'color-select')" .
-							".attr('class', 'color-select');" .
+							".attr('class', 'color-select form-control');" .
 						"for(var color in colors){
 							colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
 						}" .
 						"colorOptions.attr('name', \$('#' + div_id).children('.color-select').attr('name'));" .
-						"\$('#' + div_id).children('.color-select').replaceWith(colorOptions);\n" .
-						"\$('#' + div_id).children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);" .
-						"\$('#' + div_id).children('.jobLine').children('.hidden_cost').val(cost);" .
+						"\$('#' + div_id + ' .row div[name=\"color-group\"]').children('.color-select').replaceWith(colorOptions);\n" .
+						"\$('#' + div_id + ' .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);" .
+						"\$('#' + div_id + ' .row').children('.jobLine').children('.hidden_cost').val(cost);" .
 						"onGarmentCostUpdate($('#' + div_id).find('.product-cost'), cost, $('#' + div_id).find('.editable-price'), $('#' + div_id).find('.hidden-price'), $('#' + div_id).find('.garment_part'));" .
 						"for(var size in sizes){
-							\$('#' + div_id).children('.' + div_id + sizes[size].ID)" .
+							\$('#' + div_id + ' .row').children('.' + div_id + sizes[size].ID)" .
 							".removeClass('hidden-size')" .
+							".addClass('col-md-2')" .
 							".children('.score_part').removeAttr('disabled');
 						}" .
 						"\$('#' + div_id).children('.hidden-style').val(ui.item.id);

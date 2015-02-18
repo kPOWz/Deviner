@@ -61,12 +61,12 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 									"var cost = data.productCost;" .
 									"var colorOptions = $('<select></select>')" .
 										".attr('name', 'color-select')" .
-										".attr('class', 'color-select');" .
+										".attr('class', 'color-select form-control');" .
 									"for(var color in colors){
 										colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
 									}" .
 									"colorOptions.attr('name', \$('#$div').children('.color-select').attr('name'));" .
-									"\$('#".$div." .row').children('.color-select').replaceWith(colorOptions);" .
+									"\$('#".$div." .row div[name=\"color-group\"]').children('.color-select').replaceWith(colorOptions);" .
 									"\$('#".$div." .row').children('.jobLine').children('.hidden_cost').val(cost);" .
 									"onGarmentCostUpdate($('#$div').find('.product-cost'), cost, $('#$div').find('.unit_price'), $('#$div').find('.hidden-price'), $('#$div').find('.garment_part'));" .
 									"\$('#".$div." .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);" .
@@ -99,7 +99,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		   		</span>
 			</div>
 		</div>
-		<div class="col-md-4 form-group">
+		<div class="col-md-4 form-group" name="color-group">
 				<?php $colorSelect = CHtml::getIdByName($namePrefix . $startIndex . 'colors');?> 	
 				<label>Color</label>
 				<?php echo CHtml::activeDropDownList($line, 'PRODUCT_COLOR', $products['availableColors'], array(

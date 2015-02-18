@@ -130,6 +130,11 @@ ul.nav ul {
     margin-top: 1em;
 }
 
+/* buttons */
+.gus-btn{
+    text-transform: uppercase;
+}
+
 /*//forms*/
 .gus-input-group * {
     border-radius: 0 !important;

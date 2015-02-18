@@ -42,7 +42,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 						'class'=>'item-select form-control',
 						'disabled'=>$approved,
 						'value'=>$products['style'],
-						'placeholder'=>'Search existing garment styles'
+						'placeholder'=>'Search existing product styles'
 					),
 					'options'=>array(
 						'select'=>"js:function(event, ui){" .
@@ -108,7 +108,6 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					'class'=>'color-select form-control',
 					'name'=>$namePrefix . "[$startIndex]" . '[PRODUCT_COLOR]',
 				));?>
-				
 				<?php 
 					Yii::app()->clientScript->registerScript('initial-color-data' . $startIndex, "" .
 						"$('#".$colorSelect."').data('products', ".($products['product'] ? $products['product'] : 'null').").data('sizes', ".$products['sizes'].");", 

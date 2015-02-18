@@ -78,7 +78,7 @@ CClientScript::POS_BEGIN);
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<h5 class="heading-primary">Client Details</h5>
+	<h4 class="heading-primary">Client Details</h4>
 	<?php
 		$this->renderPartial('//customer/_jobForm', array(
 			'customerList'=>$customerList,
@@ -87,7 +87,7 @@ CClientScript::POS_BEGIN);
 	?>
 	<hr />
 
-	<h5 class="heading-primary">Job Details</h5>
+	<h4 class="heading-primary">Job Details</h4>
 	<fieldset class="row">
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
 		<div class="col-md-4 form-group">
@@ -122,7 +122,7 @@ CClientScript::POS_BEGIN);
 
 	<hr />
 
-	<h5 class="heading-primary">Product Details</h5>
+	<h4 class="heading-primary">Product Details</h4>
 	<div id="lines">
 		<?php
 		$index = 0;
@@ -143,16 +143,16 @@ CClientScript::POS_BEGIN);
 	
 	<div class="row">
 		<div class='col-md-6'>
-			<?php echo TbHtml::button('Add product to job', array(
+			<?php echo TbHtml::button('Additional product', array(
 				'onclick'=>"addLine(this, '".CHtml::activeName($model, 'jobLines')."');",
 				'icon'=>'plus',
 				'iconOptions'=>array('class'=>'text-primary'),
-				'color'=>'inverse',
+				'color'=>'inverse gus-btn',
 				'class'=>'form-control',
 				
 			));?>
 		</div>
-		<div class='col-md-3 form-group'>
+		<div class='col-md-3 form-group form-group-calculated'>
 			<?php $garmentCount = $model->garmentCount;?>
 			<?php echo CHtml::textField('garment_qty', $garmentCount, array(
 				'id'=>'garment_qty',
@@ -163,7 +163,7 @@ CClientScript::POS_BEGIN);
 				'onkeyup'=>new CJavaScriptExpression(
 					"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
 			));?>
-			<?php echo CHtml::label('Garment Count', 'garment_qty');?>
+			<?php echo CHtml::label('Product Count', 'garment_qty');?>
 		</div>
 	</div>
 
@@ -176,7 +176,7 @@ CClientScript::POS_BEGIN);
 	<hr />
 
 
-	<h5 class="heading-primary">Pricing Details</h5>
+	<h4 class="heading-primary">Pricing Details</h4>
 	<div class="row auto_quote">
 		<!-- Rush Charge Group-->
 		<div class="row">

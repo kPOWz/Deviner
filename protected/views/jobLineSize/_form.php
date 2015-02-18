@@ -14,11 +14,7 @@ $xlTotalJS = '#' . $xlTotal;
 ?>
 <div class="jobLine <?php echo ($line->JOB_LINE_ID == null) ? 'hidden-size' : '';?> <?php echo $div.$product->SIZE;?>" id="<?php echo $eachDiv;?>">
 	<?php echo CHtml::errorSummary($line); ?>
-	<?php 
-		$sizeLabel = $product->size->TEXT;
-		if($line->isExtraLarge) $sizeLabel = $sizeLabel . ' <span class="text-muted">*</span>';
-		echo CHtml::label($sizeLabel, CHtml::getIdByName($namePrefix . '[QUANTITY]'));
-	?>
+
 	<?php echo CHtml::activeTextField($line, 'QUANTITY', array(
 		'name'=>$namePrefix . '[QUANTITY]',
 		'onkeyup'=>"$('".$totalJS."').val((1 * $('".$qtyJS."').val()) * $('".$costJS."').val()).change(); $('$xlTotalJS').val($('$qtyJS').val() * 1 * $('$xlJS').val()).change(); ".$onQuantityUpdate,
@@ -26,6 +22,11 @@ $xlTotalJS = '#' . $xlTotal;
 		'size'=>5,
 		'disabled'=>($line->JOB_LINE_ID == null) || $approved, //only disable if the product doesn't seem to exist.
 	));?>
+	<?php 
+		$sizeLabel = $product->size->TEXT;
+		if($line->isExtraLarge) $sizeLabel = $sizeLabel . ' <span class="text-muted">*</span>';
+		echo CHtml::label($sizeLabel, CHtml::getIdByName($namePrefix . '[QUANTITY]'));
+	?>
 	
 	<?php $xlFee = $line->isExtraLarge;
 	if($xlFee){?>

@@ -134,7 +134,9 @@ ul.nav ul {
 .gus-input-group * {
     border-radius: 0 !important;
 }
-.gus-form .form-control{
+.gus-form .form-control,
+.gus-form .btn,
+.gus-form .well{
     border-radius: 0;
 }
 
@@ -142,4 +144,13 @@ ul.nav ul {
     visibility: hidden;
     height: 0;
     width: 0;
+}
+
+#lines .well{
+    position: relative;
+}
+#lines .well>.row>.line_delete{
+    position: absolute;
+    right: 0;
+    top: 0;
 }

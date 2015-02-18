@@ -218,8 +218,9 @@ class JobController extends Controller
 		$products['approved'] = false;
 		$products['saved'] = false;
 		$products['product'] = null;
-		$products['sizes'] = array();
+		$products['sizes'] = '{}';
 		
+		Yii::log('newLine count ' . $count, CLogger::LEVEL_TRACE, 'application.controllers.job');
 		$this->renderPartial($view, array(
 			'namePrefix'=>$namePrefix,
 			'startIndex'=>$count,

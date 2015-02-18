@@ -3,7 +3,7 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobOperations.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, namePrefix){
-	var count = $(sender).parent().children('.jobLines').children('.jobLine').children('.part').size();" .
+	var count = $(sender).parents('.row').prev('#lines').children('.jobLines').children('div[name=\"sizes\"]').children('.jobLine').children('.part').size();" .
 	"$.ajax({
 		url: '".CHtml::normalizeUrl(array('job/newLine'))."'," .
 		"type: 'POST'," .
@@ -12,7 +12,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			"count: count,
 		}," .
 		"success: function(data){
-			$(sender).before(data);" .
+			$(sender).parents('.gus-form').children('#lines').children().last().after(data);" .
 			"var div_id = \$(data).attr('id');" .
 			"\$('#' + div_id).children('.item-select').autocomplete({
 				'select': function(event, ui){

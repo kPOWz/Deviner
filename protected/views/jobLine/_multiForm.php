@@ -46,7 +46,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					),
 					'options'=>array(
 						'select'=>"js:function(event, ui){" .
-							"var count = $('.jobLines').children('.jobLine').children('.item_qty').size();
+							"var count = $('.jobLines').children('div[name=\"sizes\"]').children('.jobLine').children('.item_qty').size();
 							\$.getJSON(
 								'".CHtml::normalizeUrl(array('product/allowedOptions'))."'," .
 								"{
@@ -146,7 +146,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 				<?php echo CHtml::hiddenField('product-cost', $line->product ? $line->product->COST : 0, array('class'=>'product-cost'));?>
 		</div>
 	</div>
-	<div class="row">	
+	<div class="row" name="sizes">	
 		<?php
 		$index = 0;
 		

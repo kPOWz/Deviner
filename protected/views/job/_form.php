@@ -3,6 +3,8 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobOperations.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, namePrefix){
+	var btn = $(sender);
+	btn.button('loading');
 	var count = $(sender).parents('.row').prev('#lines').children('.jobLines').children('div[name=\"sizes\"]').children('.jobLine').children('.part').size();" .
 	"$.ajax({
 		url: '".CHtml::normalizeUrl(array('job/newLine'))."'," .
@@ -50,7 +52,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 				"'source': '".CHtml::normalizeUrl(array('product/findProduct', 'response'=>'juijson'))."'
 			});
 		},
-	});
+	}).always(function(){ btn.button('reset'); });
 }", CClientScript::POS_BEGIN);
 
 Yii::app()->clientScript->registerScript('calculate-total', "" .
@@ -150,6 +152,7 @@ CClientScript::POS_BEGIN);
 				'iconOptions'=>array('class'=>'text-primary'),
 				'color'=>'inverse gus-btn',
 				'class'=>'form-control',
+				'data-loading-text'=>"Adding...",
 				
 			));?>
 		</div>

@@ -273,8 +273,9 @@ CClientScript::POS_END);?>
 CClientScript::POS_END);?>
 <?php Yii::app()->clientScript->registerScript('line-delete', "" .
 		"$('.line_delete').live('click', function(event){
-			var div = $(event.target).parent();" .
-			"$(div).children('.jobLine').each(function(){
+			var productContainer = $(this).parents('.jobLines');
+			var jobLineContainer = productContainer.children('div[name=\"sizes\"]');" .
+			"$(jobLineContainer).children('.jobLine').each(function(){
 				var childDiv = this;" .
 				"$.ajax({
 					'url': '".CHtml::normalizeUrl(array('job/deleteLine'))."'," .
@@ -285,6 +286,6 @@ CClientScript::POS_END);?>
 					},
 				});
 			});" .
-			"$(div).remove();
+			"$(productContainer).remove();
 		})",
 CClientScript::POS_END);?>

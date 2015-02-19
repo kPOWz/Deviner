@@ -14,7 +14,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			"count: count,
 		}," .
 		"success: function(data){
-			$(sender).parents('.gus-form').children('#lines').children().last().after(data);" .
+			var productsContainer = $(sender).parents('.gus-form').children('#lines');
+			$(data).appendTo(productsContainer);" .
 			"var div_id = \$(data).attr('id');" .
 			"\$('#' + div_id).find('.item-select').autocomplete({
 				'select': function(event, ui){
@@ -139,11 +140,8 @@ CClientScript::POS_BEGIN);
 			));
 			$index += count($lines);
 		}?>
+	</div><!-- end add product/garment style-->
 
-
-	</div><!-- end add garment -->
-
-	
 	<div class="row">
 		<div class='col-md-6'>
 			<?php echo TbHtml::button('Additional product', array(

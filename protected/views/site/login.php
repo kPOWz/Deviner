@@ -30,18 +30,18 @@
 	'errorMessageCssClass'=>'control-label',
 )); ?>
 
-	<div class="row form-group">
+	<div class="row form-group gus-input-group">
 		<?php echo $form->emailField($model,'username', array('placeholder'=>'email*', 'class'=>'col-md-12 form-control input-lg')); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
-	<div class="row form-group">
+	<div class="row form-group gus-input-group">
 		<?php echo $form->passwordField($model,'password', array('placeholder'=>'password*', 'class'=>'col-md-12 form-control input-lg')); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
-	<div class="row form-group">
-		<?php echo CHtml::submitButton('login', array('class'=>'btn text-center col-md-12 btn-lg btn-inverse text-primary')); ?>
+	<div class="row form-group gus-input-group">
+		<?php echo CHtml::submitButton('login', array('class'=>'btn text-center col-md-12 btn-lg btn-inverse text-primary gus-btn')); ?>
 	</div>
-	<div class="row checkbox ">
+	<div class="row checkbox">
 		<span class="pull-right">
 		<?php echo $form->checkBox($model,'rememberMe', array('id'=>'cb-remember-me')); ?>
 		<label id="cb-remember-me-custom" for="cb-remember-me" aria-checked="false" role='checkbox' tabindex="0" ></label>		

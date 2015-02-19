@@ -114,7 +114,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 						CClientScript::POS_END);
 				?>
 		</div>
-		<div class="col-md-4 form-group">
+		<div class="col-md-4 form-group" name="price-group">
 				<?php /*need an update function for recalculating totals, field for unit price (editable), total price (hidden), calculated price (link)*/?>
 				<?php 
 					$priceSelect = CHtml::getIdByName($namePrefix . $startIndex . 'price');
@@ -124,24 +124,34 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 						$line->PRICE = $unitEstimate;
 					}
 				?>
-				<div class="price-select-container"> <!-- Don't remove this container. Needed for some JS stuff.-->
-					<label>Price per product</label>
-					<?php echo CHtml::activeTextField($line, 'PRICE', array(
-						'id'=>$priceSelect,
-						'disabled'=>$approved,
-						'class'=>'unit_price form-control',
-						'name'=>$namePrefix."[$startIndex]".'[PRICE]',
-						'onkeyup'=>"recalculateTotal(this, $(this).parent().children('a'), $(this).parent().children('.garment_part'));",
-					));?>
-					<?php /*when the link is clicked, we want to hide the link and set the value of the input field 
-					to the value of the hidden field within the link*/?>
-					<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> onclick="$(this).parent().children('#<?php echo $priceSelect;?>').val($(this).children('.hidden-price').val()).keyup(); $(this).hide(); return false;">
-						<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
-						<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>
-					</a>
-					<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'total-price'), $line->total - $line->extraLargeFee, array(
-						'class'=>'part garment_part',
-					));?>
+				
+				<label>Price per product</label>
+				<div class="price-select-container form-horizontal">
+					<div class="form-group">
+						<div class="col-md-10">
+							<?php echo CHtml::activeTextField($line, 'PRICE', array(
+								'id'=>$priceSelect,
+								'disabled'=>$approved,
+								'class'=>'unit_price form-control',
+								'name'=>$namePrefix."[$startIndex]".'[PRICE]',
+								'onkeyup'=>"recalculateTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
+							));?>
+						</div>
+						<div class="col-md-2">
+							<label class="control-label">
+							<!-- when the link is clicked, we want to hide the link and set the value of the input field 
+								to the value of the hidden field within the link -->
+								<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> 
+									onclick="$(this).parents('.price-select-container').find('#<?php echo $priceSelect;?>').val($(this).children('.hidden-price').val()).keyup(); $(this).hide(); return false;">
+									<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
+									<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>
+								</a>
+							</label>
+						</div>
+						<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'total-price'), $line->total - $line->extraLargeFee, array(
+							'class'=>'part garment_part',
+						));?>
+					</div>
 				</div>
 				<?php echo CHtml::hiddenField('product-cost', $line->product ? $line->product->COST : 0, array('class'=>'product-cost'));?>
 		</div>
@@ -170,7 +180,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					'eachDiv'=>CHtml::getIdByName($namePrefix.'['.$startIndex.']'.'[sizes]'.'item'),
 					'div'=>$div,
 					'approved'=>$approved,
-					'onQuantityUpdate'=>"updateLineTotal('".CHtml::normalizeUrl(array('job/garmentCost'))."', $('#$priceSelect'), $('#$priceSelect').parent().children('a'), $('#$priceSelect').parent().children('.garment_part'), $('#$priceSelect').parentsUntil('.jobLines').parent().find('.product-cost'));",
+					'onQuantityUpdate'=>"updateLineTotal('".CHtml::normalizeUrl(array('job/garmentCost'))."', $('#$priceSelect'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.estimate-price'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.garment_part'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.product-cost'));",
 					'formatter'=>$formatter,
 				));
 				$index++;

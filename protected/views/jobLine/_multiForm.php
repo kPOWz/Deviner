@@ -129,7 +129,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 				<div class="price-select-container form-horizontal">
 					<div class="form-group">
 						<div class="col-md-10">
-							<div class="input-group">
+							<div class="input-group gus-input-group">
 								<span class="input-group-addon">$</span>
 								<?php echo CHtml::activeNumberField($line, 'PRICE', array(
 									'id'=>$priceSelect,

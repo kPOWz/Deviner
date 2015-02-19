@@ -61,8 +61,7 @@ CClientScript::POS_END);?>
 <div id="print" class="form">
 	<?php echo CHtml::errorSummary($model); ?>
 
-	<div class="row">
-		<div class='col-md-3'>
+
 		<?php echo CHtml::error($model,'FRONT_PASS'); ?>
 		<?php echo CHtml::error($model,'BACK_PASS'); ?>
 		<?php echo CHtml::error($model,'SLEEVE_PASS'); ?>
@@ -77,8 +76,7 @@ CClientScript::POS_END);?>
 			</div>
 		</div>
 		<label>Ink Colors (Front/Back/Sleve)</label>
-		</div>
-	</div>
+
 
 	<?php echo CHtml::hiddenField('score_pass',$model->pass, array('class'=>'score_pass')); ?>
 

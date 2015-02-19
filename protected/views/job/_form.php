@@ -167,14 +167,16 @@ CClientScript::POS_BEGIN);
 			));?>
 			<?php echo CHtml::label('Product Count', 'garment_qty');?>
 		</div>
+		<div class='col-md-3'>
+			<?php $this->renderPartial('//print/_jobForm', array(
+				'model'=> $print,
+				'job'=>$model,
+				'fileTypes'=>$fileTypes,
+				'passes'=>$passes,
+			));?>
+		</div>
 	</div>
 
-	<?php $this->renderPartial('//print/_jobForm', array(
-		'model'=> $print,
-		'job'=>$model,
-		'fileTypes'=>$fileTypes,
-		'passes'=>$passes,
-	));?>
 	<hr />
 
 

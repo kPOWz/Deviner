@@ -55,7 +55,7 @@ function getGarmentCount(estimate){
 }
 
 function refreshEstimate(editVal, estimateVal, estimate){	
-	$(estimate).children('span').html(estimateVal);
+	$(estimate).children('span').html('$'+estimateVal);
 	$(estimate).children('.hidden-price').val(estimateVal);
 	if(estimateVal == editVal){
 		$(estimate).hide();
@@ -117,15 +117,6 @@ function updateSetupCost(url, editable, hidden, garmentCount){
 		}
 		refreshSetupFee(editVal, newCost, hidden);
 	});
-}
-
-function preprocessLine(form, line){
-	//$(line).children('.hidden-size').remove();
-}
-
-function preprocessForm(form){
-	$(form).find('.hidden-size').remove();
-	$(form).submit();
 }
 
 //returns a function which totals up all of the parts of a job

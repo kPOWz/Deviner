@@ -125,23 +125,30 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					}
 				?>
 				
-				<label>Price per product</label>
+				<label>Price per product</label><span class="text-danger">*</span>
 				<div class="price-select-container form-horizontal">
 					<div class="form-group">
 						<div class="col-md-10">
-							<?php echo CHtml::activeTextField($line, 'PRICE', array(
-								'id'=>$priceSelect,
-								'disabled'=>$approved,
-								'class'=>'unit_price form-control',
-								'name'=>$namePrefix."[$startIndex]".'[PRICE]',
-								'onkeyup'=>"recalculateTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
-							));?>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<?php echo CHtml::activeNumberField($line, 'PRICE', array(
+									'id'=>$priceSelect,
+									'required'=>'required',
+									'step'=>'any',
+									'min'=>'0.01',
+									'disabled'=>$approved,
+									'class'=>'unit_price form-control',
+									'name'=>$namePrefix."[$startIndex]".'[PRICE]',
+									'onkeyup'=>"recalculateTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
+								));?>
+							</div>
 						</div>
 						<div class="col-md-2">
 							<label class="control-label">
 							<!-- when the link is clicked, we want to hide the link and set the value of the input field 
 								to the value of the hidden field within the link -->
 								<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> 
+									title="Click to choose suggested price"
 									onclick="$(this).parents('.price-select-container').find('#<?php echo $priceSelect;?>').val($(this).children('.hidden-price').val()).keyup(); $(this).hide(); return false;">
 									<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
 									<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>

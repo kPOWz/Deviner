@@ -276,7 +276,7 @@ CClientScript::POS_BEGIN);
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-			'onclick'=>"preprocessForm($(this).parent().parent()); return false;"
+			
 		)); ?>
 	</div>
 

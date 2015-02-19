@@ -12,7 +12,7 @@ $costJS = '#'.$cost;
 $xlJS = '#'.$xl;
 $xlTotalJS = '#' . $xlTotal;
 ?>
-<div class="jobLine <?php echo ($line->JOB_LINE_ID == null) ? 'hidden-size' : '';?> <?php echo $div.$product->SIZE;?>" id="<?php echo $eachDiv;?>">
+<div class="jobLine <?php echo ($line->JOB_LINE_ID == null) ? 'hidden-size' : 'col-md-2';?> <?php echo $div.$product->SIZE;?>" id="<?php echo $eachDiv;?>">
 	<?php echo CHtml::errorSummary($line); ?>
 
 	<?php echo CHtml::activeTextField($line, 'QUANTITY', array(

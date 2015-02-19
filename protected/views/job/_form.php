@@ -117,7 +117,7 @@ CClientScript::POS_BEGIN);
 					'defaultDate'=> $model->formattedDueDate
 				),
 				'htmlOptions'=>array(
-						'class'=>'form-control'
+						'class'=>'form-control gus-datepicker'
 				),
 			));?>
 			<?php echo $form->error($model, 'formattedDueDate'); ?>

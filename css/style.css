@@ -146,6 +146,14 @@ ul.nav ul {
     border-radius: 0;
 }
 
+/* bootstrap input groups get set to a z-index of 2, causing overlap with jQuery UI datepicker. 
+* solution : associated element's non-statically positioned z-index is incremented by 1 by plugin
+*/
+.gus-datepicker{
+    position: relative;
+    z-index: 2;
+}
+
 .hidden-size{
     visibility: hidden;
     height: 0;

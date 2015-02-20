@@ -13,7 +13,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Job <?php echo $model->NAME; ?></h1>
+<h1>Update Job <small><?php echo $model->NAME; ?></small></h1>
 
 <?php echo $this->renderPartial('_form', array(
 	'model'=>$model,

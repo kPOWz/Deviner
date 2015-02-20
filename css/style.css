@@ -19,6 +19,7 @@ footer {
     width: 100%;
 }
 
+/* util */
 .container-fluid.center-block-vertical{
 	display: table;
 	width: 100%;
@@ -28,6 +29,12 @@ footer {
 	vertical-align: middle;
 }
 
+/* scaffolding */
+main h1{
+    margin-bottom: 3rem;
+}
+
+/* nav */
 #gus-identity{
 	margin-bottom: 3rem;
 }

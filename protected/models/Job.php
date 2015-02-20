@@ -76,7 +76,7 @@ class Job extends CActiveRecord
 		$statusListData=array();
         foreach ($statusesArray as $statusId=>$statusText)
         {
-            $statusListData[]=array('label'=>$statusText,'url'=>$statusId);
+            $statusListData[]=array('label'=>$statusText, 'url'=>'#jobStatusDropdown', 'data-status-id'=>$statusId);
         }
         return $statusListData;
 	}

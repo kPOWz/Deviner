@@ -321,21 +321,29 @@ CClientScript::POS_BEGIN);
 		</div>
 		<div class="col-md-6">
 			<div class="input-group">  
-			    <label class="form-control">Job Status: 
-			    	<span class="selection"><?php echo $model->isNewRecord ? '--' : $model->status->TEXT ?></span>
+			    <label id="jobStatusDisplay" class="form-control gus-btn" readonly>Job Status: 
+			    	<span class="selection text-primary h5 heading-primary"><?php echo $model->isNewRecord ? '--' : $model->status->TEXT ?></span>
 			    </label> 
 			    <div class="input-group-btn">
-			    	<?php echo TbHtml::buttonDropdown('', Job::statusListData()); ?>
+			    	<?php echo TbHtml::buttonDropdown('', Job::statusButtonData()
+			    		, array(
+			    				'type'=> TbHtml::BUTTON_TYPE_HTML
+			    				,'data-target'=>'#'
+			    				,'href'=>''
+			    				,'class'=>'text-primary'
+			    				,'groupOptions'=>array('class'=>'dropdown', 'id'=>'jobStatusDropdown')
+			    				,'menuOptions'=>array('class'=>'dropdown-menu-right'))); 
+			    	?>
 			        <?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok text-success"/>', array(
-						'onclick'=>"preprocessForm(); return false;",
 						'class'=> 'btn btn-default',
-						'type'=>'submit'
+						'type'=>'submit',
+						'title'=>'save'
 					)); ?>
 			    </div>
 		 	</div>
-	 	</div>
+		</div>
 	</div>
+	
 	<hr />
-
 <?php $this->endWidget(); ?>
 

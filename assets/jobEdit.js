@@ -32,3 +32,10 @@ function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
 	});
 	$(total).val(editVal * garmentCount).change();
 }
+
+$( document ).ready(function() {
+	$('#jobStatusDropdown .dropdown-toggle').attr('href', '#jobStatusDropdown');
+	$("#jobStatusDropdown .dropdown-menu li a").click(function(){
+	  $(this).parents(".input-group").find('.selection').text($(this).text());
+	});
+});

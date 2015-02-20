@@ -168,3 +168,8 @@ ul.nav ul {
     right: 0;
     top: 0;
 }
+
+/* job form */
+#jobStatusDisplay{
+    text-align: center;
+}

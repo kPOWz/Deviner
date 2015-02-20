@@ -183,7 +183,7 @@ CClientScript::POS_BEGIN);
 
 
 	<h4 class="heading-primary">Pricing Details</h4>
-	<div class="auto_quote">
+	<fieldset class="auto_quote">
 
 		<div class="row">
 			<!-- Rush Charge Group-->
@@ -253,7 +253,7 @@ CClientScript::POS_BEGIN);
 			</div>
 		</div>
 
-		<!-- Additional Fees Group-->
+		<!-- Total Group-->
 		<div class='row'>
 			<div class="col-md-12 form-group">
 				<div class="input-group gus-input-group form-group-calculated">
@@ -269,8 +269,7 @@ CClientScript::POS_BEGIN);
 		</div>
 
 
-		<div class="clear"></div>
-		<div class="separator"></div>
+		<!-- TODO: WORKING? -->
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
 				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){
 					var qty = 0;" .
@@ -287,12 +286,12 @@ CClientScript::POS_BEGIN);
 					"$('#garment_qty').val(qty).change();" .
 					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);
 				})",
-		CClientScript::POS_END);
+		CClientScript::POS_END);?>
+	</fieldset> <!-- <div class="row auto_quote">-->
 
-		?>
-	</div> <!-- <div class="row auto_quote">-->
-
-	<div class="row">
+	<!-- Job Score Group-->
+	<!-- TODO: REMOVE -->
+	<div class="row hidden">
 		<?php echo CHtml::hiddenField('score_base', 30, array('class'=>'score_base'));?>
 		<?php /*echo $form->labelEx($model, 'SCORE');?>
 		<?php echo CHtml::textField('score', $model->score, array(
@@ -315,16 +314,28 @@ CClientScript::POS_BEGIN);
 	<hr />
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'NOTES'); ?>
-		<?php echo $form->textArea($model,'NOTES',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'NOTES'); ?>
+		<div class="col-md-6">
+			<?php echo $form->error($model,'NOTES'); ?>
+			<?php echo $form->textArea($model,'NOTES',array('rows'=>6, 'cols'=>50, 'class'=>'form-control')); ?>			
+			<?php echo $form->labelEx($model,'NOTES'); ?>
+		</div>
+		<div class="col-md-6">
+			<div class="input-group">  
+			    <label class="form-control">Job Status: 
+			    	<span class="selection"><?php echo $model->isNewRecord ? '--' : $model->status->TEXT ?></span>
+			    </label> 
+			    <div class="input-group-btn">
+			    	<?php echo TbHtml::buttonDropdown('', Job::statusListData()); ?>
+			        <?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok text-success"/>', array(
+						'onclick'=>"preprocessForm(); return false;",
+						'class'=> 'btn btn-default',
+						'type'=>'submit'
+					)); ?>
+			    </div>
+		 	</div>
+	 	</div>
 	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-			
-		)); ?>
-	</div>
+	<hr />
 
 <?php $this->endWidget(); ?>
 

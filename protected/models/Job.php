@@ -143,6 +143,7 @@ class Job extends CActiveRecord
 			'SET_UP_FEE' => 'Set Up Fee',
 			'SCORE' => 'Score',
 			'QUOTE' => 'Quoted',
+			'STATUS'=>'Status',
 			'score' => 'Auto Score',
 			'quote' => 'Auto Quote Total',
 			'totalPasses' => 'Passes',

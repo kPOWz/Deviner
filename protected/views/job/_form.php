@@ -61,12 +61,6 @@ Yii::app()->clientScript->registerScript('calculate-total', "" .
 			calculateTotalMain('".CHtml::normalizeUrl(array('job/garmentCost'))."', garments, front, back, sleeve, dest);
 		}",
 CClientScript::POS_BEGIN);
-
-Yii::app()->clientScript->registerScript('calculate-setup-fee', "" .
-		"function calculateSetupFee(garments, front, back, sleeve, dest){
-			calculateSetupFeeMain('".CHtml::normalizeUrl(array('job/setupFee'))."', garments, front, back, sleeve, dest);
-		}",
-CClientScript::POS_BEGIN);
 ?>
 
 
@@ -249,9 +243,9 @@ CClientScript::POS_BEGIN);
 			    <?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>		    	
 			</div>
 			<div class="col-md-2 form-group form-group-calculated">
-				<div class="input-group gus-input-group">
-					<span class="input-group-addon">%</span>		
+				<div class="input-group gus-input-group">							
 					<input class="form-control" readonly placeholder="not implemented"/>
+					<span class="input-group-addon">%</span>
 				</div>
 				<label>Cost of Goods</label>
 			</div>
@@ -326,7 +320,7 @@ CClientScript::POS_BEGIN);
 		<div class="col-md-6">
 			<div class="input-group">  
 			    <label id="jobStatusDisplay" class="form-control gus-btn" readonly>Job Status: 
-			    	<span class="selection text-primary h5 heading-primary"><?php echo $model->isNewRecord ? '--' : $model->status->TEXT ?></span>
+			    	<span class="selection text-primary h5 heading-primary"><?php echo $model->isNewRecord ? 'CREATED' : $model->status->TEXT ?></span>
 			    </label>
 			    <?php echo TbHtml::activeHiddenField($model, 'STATUS') ?>
 			    <div class="input-group-btn">

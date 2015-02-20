@@ -10,13 +10,10 @@ function calculateTotalCore(url, garments, front, back, sleeve, completion){
 	);
 }
 
-function calculateSetupFeeCore(url, garments, front, back, sleeve, completion){
+function calculateSetupFeeCore(url, garments, completion){
 	$.getJSON(url,
 	{
-		garments: garments,
-		front: front,
-		back: back,
-		sleeve: sleeve,
+		garments: garments
 	},
 	completion
 	);
@@ -28,8 +25,8 @@ function calculateTotalMain(url, garments, front, back, sleeve, dest){
 	});
 }
 
-function calculateSetupFeeMain(url, garments, front, back, sleeve, dest){
-	calculateSetupFeeCore(url, garments, front, back, sleeve, function(data){
+function calculateSetupFeeMain(url, garments, dest){
+	calculateSetupFeeCore(url, garments, function(data){
 		$(dest).val(data.result).change();
 	});
 }
@@ -96,26 +93,18 @@ function createStyleSelectFunction(div_id, style_id){
 	}
 }
 
-function refreshSetupFee(editVal, feeVal, hidden){
-	$(hidden).children('span').html(feeVal);
-	$(hidden).children('.hidden-value').val(feeVal);
-	if(feeVal == editVal){
-		$(hidden).hide();
-	} else {
-		$(hidden).show();
-	}
-}
-
 function updateSetupCost(url, editable, hidden, garmentCount){
-	var oldCost = $(hidden).children('.hidden-value').val() * 1;
+	var oldCost = $(hidden).val() * 1;
 	var editVal = $(editable).val() * 1;
-	calculateSetupFeeCore(url, garmentCount, getFrontPasses(), getBackPasses(), getSleevePasses(), function(data){
+	calculateSetupFeeCore(url, garmentCount, function(data){
 		var newCost = data.result;
-		if(oldCost == editVal){
-			editVal = newCost;
-			$(editable).val(editVal).change();
+		newCost > 0 ? editable.prop('checked', true) 
+			: 
+			editable.prop('checked', false);
+
+		if(oldCost != editVal){
+			editable.change();
 		}
-		refreshSetupFee(editVal, newCost, hidden);
 	});
 }
 

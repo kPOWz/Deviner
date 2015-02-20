@@ -388,8 +388,8 @@ class JobController extends Controller
 		echo CJSON::encode($result);
 	}
 	
-	public function actionSetupFee($garments, $front, $back, $sleeve){
-		$result = array('result'=>CostCalculator::calculateSetupFee($garments, $front, $back, $sleeve));
+	public function actionSetupFee($garments){
+		$result = array('result'=>CostCalculator::calculateSetupFee($garments));
 		echo CJSON::encode($result);
 	}
 	
@@ -474,7 +474,7 @@ class JobController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model= new Job;
+		$model= new Job();
 		
 		//on job create, default the due date to today
 		$model->formattedDueDate = isset($model->formattedDueDate) ? $model->formattedDueDate : date('l, M j, Y');

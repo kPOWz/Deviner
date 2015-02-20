@@ -36,6 +36,9 @@ function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
 $( document ).ready(function() {
 	$('#jobStatusDropdown .dropdown-toggle').attr('href', '#jobStatusDropdown');
 	$("#jobStatusDropdown .dropdown-menu li a").click(function(){
-	  $(this).parents(".input-group").find('.selection').text($(this).text());
+	  var group = $(this).parents(".input-group");
+	  group.find('.selection').text($(this).text());
+	  var statusId = $(this).parent().data('status-id');
+	  group.children('*[type="hidden"]').val(statusId);
 	});
 });

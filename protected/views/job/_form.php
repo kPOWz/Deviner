@@ -186,7 +186,7 @@ CClientScript::POS_BEGIN);
 	<fieldset class="auto_quote">
 
 		<div class="row">
-			<!-- Rush Charge Group-->
+			<!-- Rush Fee Group-->
 			<div class="col-md-2 form-group">
 				<?php echo $form->error($model,'RUSH'); ?>
 				<div class="input-group gus-input-group">
@@ -196,7 +196,7 @@ CClientScript::POS_BEGIN);
 				<?php echo $form->labelEx($model,'RUSH'); ?>
 			</div>
 
-			<!-- Art Charge Group-->
+			<!-- Art Fee Group-->
 			<div class="col-md-2 form-group">
 				<?php echo CHtml::error($print,'COST'); ?>
 				<div class="input-group gus-input-group">
@@ -206,6 +206,7 @@ CClientScript::POS_BEGIN);
 				<?php echo CHtml::activeLabelEx($print,'COST'); ?>
 			</div>
 
+			<!-- Shipping Fee Group-->
 			<div class="col-md-2 form-group">
 				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_SHIPPING.']'); ?>
 				<div class="input-group gus-input-group">
@@ -220,6 +221,8 @@ CClientScript::POS_BEGIN);
 				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
 					'label'=>$model->additionalFees[Job::FEE_SHIPPING]['TEXT'],));?>
 			</div>
+
+			<!-- Ink Change Fee Group-->
 			<div class="col-md-2 form-group">
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>				
@@ -227,6 +230,7 @@ CClientScript::POS_BEGIN);
 				</div>
 				<label>Ink Change Fee</label>
 			</div>
+
 			<!-- Setup Fee Group-->
 			<div class="col-md-2 form-group">
 			    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>		    	
@@ -323,7 +327,8 @@ CClientScript::POS_BEGIN);
 			<div class="input-group">  
 			    <label id="jobStatusDisplay" class="form-control gus-btn" readonly>Job Status: 
 			    	<span class="selection text-primary h5 heading-primary"><?php echo $model->isNewRecord ? '--' : $model->status->TEXT ?></span>
-			    </label> 
+			    </label>
+			    <?php echo TbHtml::activeHiddenField($model, 'STATUS') ?>
 			    <div class="input-group-btn">
 			    	<?php echo TbHtml::buttonDropdown('', Job::statusButtonData()
 			    		, array(

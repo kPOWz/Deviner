@@ -127,101 +127,145 @@ CClientScript::POS_BEGIN);
 	<hr />
 
 	<h4 class="heading-primary">Product Details</h4>
-	<div id="lines">
-		<?php
-		$index = 0;
-		foreach($lineData as $lines){
-			$this->renderPartial('//jobLine/_multiForm', array(
-				'namePrefix'=>CHtml::activeName($model, 'jobLines'),
-				'startIndex'=>$index,
-				'products'=>$lines,
-				'estimate'=>CostCalculator::calculateTotal($lines['model']->garmentCount, $print->FRONT_PASS, $print->BACK_PASS, $print->SLEEVE_PASS, 0),
-				'formatter'=>new Formatter,
-			));
-			$index += count($lines);
-		}?>
-	</div><!-- end add product/garment style-->
+	<fieldset></fieldset>
+		<div id="lines">
+			<?php
+			$index = 0;
+			foreach($lineData as $lines){
+				$this->renderPartial('//jobLine/_multiForm', array(
+					'namePrefix'=>CHtml::activeName($model, 'jobLines'),
+					'startIndex'=>$index,
+					'products'=>$lines,
+					'estimate'=>CostCalculator::calculateTotal($lines['model']->garmentCount, $print->FRONT_PASS, $print->BACK_PASS, $print->SLEEVE_PASS, 0),
+					'formatter'=>new Formatter,
+				));
+				$index += count($lines);
+			}?>
+		</div><!-- end add product/garment style-->
 
-	<div class="row">
-		<div class='col-md-6'>
-			<?php echo TbHtml::button('Additional product', array(
-				'onclick'=>"addLine(this, '".CHtml::activeName($model, 'jobLines')."');",
-				'icon'=>'plus',
-				'iconOptions'=>array('class'=>'text-primary'),
-				'color'=>'inverse gus-btn',
-				'class'=>'form-control',
-				'data-loading-text'=>"Adding...",
-				
-			));?>
+		<div class="row">
+			<div class='col-md-6'>
+				<?php echo TbHtml::button('Additional product', array(
+					'onclick'=>"addLine(this, '".CHtml::activeName($model, 'jobLines')."');",
+					'icon'=>'plus',
+					'iconOptions'=>array('class'=>'text-primary'),
+					'color'=>'inverse gus-btn',
+					'class'=>'form-control',
+					'data-loading-text'=>"Adding...",
+					
+				));?>
+			</div>
+			<div class='col-md-3 form-group form-group-calculated'>
+				<?php $garmentCount = $model->garmentCount;?>
+				<?php echo CHtml::textField('garment_qty', $garmentCount, array(
+					'id'=>'garment_qty',
+					'readonly'=>'readonly',
+					'class'=>'form-control',
+					'onchange'=>new CJavaScriptExpression(
+						"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
+					'onkeyup'=>new CJavaScriptExpression(
+						"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
+				));?>
+				<?php echo CHtml::label('Product Count', 'garment_qty');?>
+			</div>
+			<div class='col-md-3'>
+				<?php $this->renderPartial('//print/_jobForm', array(
+					'model'=> $print,
+					'job'=>$model,
+					'fileTypes'=>$fileTypes,
+					'passes'=>$passes,
+				));?>
+			</div>
 		</div>
-		<div class='col-md-3 form-group form-group-calculated'>
-			<?php $garmentCount = $model->garmentCount;?>
-			<?php echo CHtml::textField('garment_qty', $garmentCount, array(
-				'id'=>'garment_qty',
-				'readonly'=>'readonly',
-				'class'=>'form-control',
-				'onchange'=>new CJavaScriptExpression(
-					"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
-				'onkeyup'=>new CJavaScriptExpression(
-					"$('#".CHtml::activeId($model, 'QUOTE')."').val($(this).val() * $('#item_total').val());" ),
-			));?>
-			<?php echo CHtml::label('Product Count', 'garment_qty');?>
-		</div>
-		<div class='col-md-3'>
-			<?php $this->renderPartial('//print/_jobForm', array(
-				'model'=> $print,
-				'job'=>$model,
-				'fileTypes'=>$fileTypes,
-				'passes'=>$passes,
-			));?>
-		</div>
-	</div>
+	</fieldset>
 
 	<hr />
 
 
 	<h4 class="heading-primary">Pricing Details</h4>
-	<div class="row auto_quote">
-		<!-- Rush Charge Group-->
-		<div class="row">
-			<?php echo $form->labelEx($model,'RUSH'); ?>
-			<?php echo $form->textField($model,'RUSH', array('class'=>'part')); ?>
-			<?php echo $form->error($model,'RUSH'); ?>
-		</div>
+	<div class="auto_quote">
 
-		<!-- Art Charge Group-->
 		<div class="row">
-			<?php echo CHtml::activeLabelEx($print,'COST'); ?>
-			<?php echo CHtml::activeTextField($print,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part')); ?>
-			<?php echo CHtml::error($print,'COST'); ?>
-		</div>
+			<!-- Rush Charge Group-->
+			<div class="col-md-2 form-group">
+				<?php echo $form->error($model,'RUSH'); ?>
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">$</span>		
+					<?php echo $form->textField($model,'RUSH', array('class'=>'part form-control')); ?>
+				</div>
+				<?php echo $form->labelEx($model,'RUSH'); ?>
+			</div>
 
-		<!-- Setup Fee Group-->
-		<div class="row">
-			<?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>
-		    <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
-		    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
-		    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
-		    		'class'=>'part editable-fee',
-		    		'onchange'=>"$('#setup-fee-hint').text($(this).is(':checked') ? $(this).val() : 0)"
-	    		)); ?>
-	    	<span id='setup-fee-hint' class='intToUsd'><?php echo GlobalConstants::SETUP_FEE_AMOUNT_WAIVED ?></span>
-		    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>
+			<!-- Art Charge Group-->
+			<div class="col-md-2 form-group">
+				<?php echo CHtml::error($print,'COST'); ?>
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">$</span>
+					<?php echo CHtml::activeTextField($print,'COST',array('size'=>6,'maxlength'=>6, 'class'=>'part form-control')); ?>
+				</div>
+				<?php echo CHtml::activeLabelEx($print,'COST'); ?>
+			</div>
+
+			<div class="col-md-2 form-group">
+				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_SHIPPING.']'); ?>
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">$</span>			
+					<?php echo $form->textField($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
+						'value'=>$model->additionalFees[Job::FEE_SHIPPING]['VALUE'],
+						'size'=>6,
+						'maxlength'=>6,
+						'class'=>($model->additionalFees[Job::FEE_SHIPPING]['CONSTRAINTS']['part'] !== false) ? 'part form-control' : 'form-control',
+					));?>
+				</div>
+				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
+					'label'=>$model->additionalFees[Job::FEE_SHIPPING]['TEXT'],));?>
+			</div>
+			<div class="col-md-2 form-group">
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">$</span>				
+					<input placeholder="not implemented" class="form-control" />
+				</div>
+				<label>Ink Change Fee</label>
+			</div>
+			<!-- Setup Fee Group-->
+			<div class="col-md-2 form-group">
+			    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>		    	
+		    	<div class="input-group gus-input-group">
+			      <span class="input-group-addon">
+			        <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
+			    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
+			    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
+			    		'class'=>'part editable-fee',
+			    		'onchange'=>"$('#setup-fee-hint').val('$' + ($(this).is(':checked') ? $(this).val() : '0') + '.00')"
+		    		)); ?>
+			      </span>
+			      <input type="text" readonly class="form-control intToUsd" id='setup-fee-hint' 
+			      	value="<?php echo Yii::app()->numberFormatter->formatCurrency(GlobalConstants::SETUP_FEE_AMOUNT_WAIVED, '$') ?>" />
+			    </div>
+			    <?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>		    	
+			</div>
+			<div class="col-md-2 form-group form-group-calculated">
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">%</span>		
+					<input class="form-control" readonly placeholder="not implemented"/>
+				</div>
+				<label>Cost of Goods</label>
+			</div>
 		</div>
 
 		<!-- Additional Fees Group-->
 		<div class='row'>
-		<?php foreach($model->additionalFees as $key=>$fee){?>
-			<?php echo $form->labelEx($model, 'additionalFees['.$key.']', array(
-				'label'=>$fee['TEXT'],
-			));?>
-			<?php echo $form->textField($model, 'additionalFees['.$key.']', array(
-				'value'=>$fee['VALUE'],
-				'size'=>6,
-				'maxlength'=>6,
-				'class'=>($fee['CONSTRAINTS']['part'] !== false) ? 'part' : '',
-			));?>
-		<?php }?>
+			<div class="col-md-12 form-group">
+				<div class="input-group gus-input-group form-group-calculated">
+					<span class="input-group-addon">$</span>		
+					<input class="form-control" readonly placeholder="not implemented"/>
+				</div>
+				<label class="form-group-calculated gus-btn">Total</label>
+				<label class="text-muted">
+					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']', array('checked'=>'checked'));?> 
+					<?php echo $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];?>% Sales Tax
+				</label>
+			</div>
 		</div>
 
 

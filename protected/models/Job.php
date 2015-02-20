@@ -35,20 +35,20 @@ class Job extends CActiveRecord
 {
 	public $customer_search;
 	
-	//job statuses 
+	//job status IDs as constants
 	const CREATED = 26; //the job has just been created, and perhaps a quote has been given
 	const INVOICED = 31; //a formal invoice has been sent.//deprecated
 	const PAID = 27; //the invoice was received and the customer has paid for it.//deprecated
 	const SCHEDULED = 28; //the job has been scheduled on the timeline.//deprecated
 	const COMPLETED = 29; //the job has been completed.
 	const CANCELED = 30; //the job has been canceled.
-	//Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::COMPLETED, Job::CANCELED
 	const ORDERED = 268; //the garments have been ordered
 	const COUNTED = 269; //the garments have been received and counted.
 	const PRINTED = 270; //the garments have been printed.
 	
-	const FEE_TAX_RATE = 185; //identifies the tax rate field.
-	
+	// additional fee IDs as constants
+	const FEE_TAX_RATE = 185;
+	const FEE_SHIPPING = 184;
 	private $_additionalFees; //cache this value here.
 	
 	/**
@@ -139,7 +139,7 @@ class Job extends CActiveRecord
 			'DESCRIPTION' => 'Description',
 			'NOTES' => 'Notes',
 			'ISSUES' => 'Issues',
-			'RUSH' => 'Rush',
+			'RUSH' => 'Rush Fee',
 			'SET_UP_FEE' => 'Set Up Fee',
 			'SCORE' => 'Score',
 			'QUOTE' => 'Quoted',

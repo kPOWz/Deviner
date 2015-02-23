@@ -84,17 +84,17 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 	<fieldset class="row">
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
 		<div class="col-md-4 form-group">
-			<?php echo $form->labelEx($model, 'NAME');?>
-			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client'));?>
 			<?php echo $form->error($model, 'NAME');?>
+			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client'));?>			
+			<?php echo $form->labelEx($model, 'NAME');?>
 		</div>
 		<div class="col-md-4 form-group">
-			<?php echo $form->labelEx($model, 'LEADER_ID');?>
-			<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'form-control', 'prompt'=>'-- Select leader --')); ?>
 			<?php echo $form->error($model, 'LEADER_ID');?>
+			<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'form-control', 'prompt'=>'-- Select leader --')); ?>
+			<?php echo $form->labelEx($model, 'LEADER_ID');?>
 		</div>
 		<div class="col-md-4 form-group">
-			<?php echo $form->labelEx($model, 'formattedDueDate');?>
+			<?php echo $form->error($model, 'formattedDueDate'); ?>
 			<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				'name'=>'Job[formattedDueDate]',
 				'model'=>$model,
@@ -109,7 +109,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						'class'=>'form-control gus-datepicker'
 				),
 			));?>
-			<?php echo $form->error($model, 'formattedDueDate'); ?>
+			<?php echo $form->labelEx($model, 'formattedDueDate');?>			
 		</div>		
 	</fieldset>
 

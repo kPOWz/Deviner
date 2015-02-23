@@ -56,31 +56,31 @@
 	
 	<div class="row">
 		<div class="col-md-3 form-group">
-			<?php echo CHtml::activeLabelEx($newCustomer,'COMPANY'); ?>
-			<?php echo CHtml::activeTextField($newCustomer,'COMPANY',array('size'=>58,'maxlength'=>58, 'class'=>'form-control')); ?>
 			<?php echo CHtml::error($newCustomer,'COMPANY'); ?>
+			<?php echo CHtml::activeTextField($newCustomer,'COMPANY',array('size'=>58,'maxlength'=>58, 'class'=>'form-control')); ?>			
+			<?php echo CHtml::activeLabelEx($newCustomer,'COMPANY'); ?>
 		</div>
 		<div class="col-md-2 form-group">
-			<?php echo CHtml::activeLabelEx($newCustomer, 'FIRST');?>
-			<?php echo CHtml::activeTextField($newCustomer, 'FIRST',array('size'=>32, 'class'=>'form-control'));?>
 			<?php echo CHtml::error($newCustomer, 'FIRST');?>
+			<?php echo CHtml::activeTextField($newCustomer, 'FIRST',array('size'=>32, 'class'=>'form-control'));?>		
+			<?php echo CHtml::activeLabelEx($newCustomer, 'FIRST');?>
 		</div>
 		
 		<div class="col-md-2 form-group">
-			<?php echo CHtml::activeLabelEx($newCustomer, 'LAST');?>
+			<?php echo CHtml::error($newCustomer, 'LAST');?>			
 			<?php echo CHtml::activeTextField($newCustomer, 'LAST',array('size'=>32, 'class'=>'form-control'));?>
-			<?php echo CHtml::error($newCustomer, 'LAST');?>
+			<?php echo CHtml::activeLabelEx($newCustomer, 'LAST');?>
 		</div>
 		
 		<div class="col-md-3 form-group">
-			<?php echo CHtml::activeLabelEx($newCustomer, 'EMAIL'); ?>
-			<?php echo CHtml::activeTextField($newCustomer, 'EMAIL', array('class'=>'form-control')); ?>
 			<?php echo CHtml::error($newCustomer, 'EMAIL'); ?>
+			<?php echo CHtml::activeTextField($newCustomer, 'EMAIL', array('class'=>'form-control')); ?>			
+			<?php echo CHtml::activeLabelEx($newCustomer, 'EMAIL'); ?>
 		</div>
 		<div class="col-md-2 form-group">
-			<?php echo CHtml::activeLabelEx($newCustomer, 'PHONE');?>
-			<?php echo CHtml::activeTextField($newCustomer, 'PHONE', array('class'=>'form-control'));?>
 			<?php echo CHtml::error($newCustomer, 'PHONE');?>
+			<?php echo CHtml::activeTextField($newCustomer, 'PHONE', array('class'=>'form-control'));?>			
+			<?php echo CHtml::activeLabelEx($newCustomer, 'PHONE');?>
 		</div>
 	</div>
 

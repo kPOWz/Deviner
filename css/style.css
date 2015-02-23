@@ -170,7 +170,10 @@ ul.nav ul {
 #lines .well{
     position: relative;
 }
-#lines .well>.row>.line_delete{
+#lines .well>.row.line_delete{
+    margin-bottom: 2rem;
+}
+#lines .well>.row>.btn_line_delete{
     position: absolute;
     right: 0;
     top: 0;

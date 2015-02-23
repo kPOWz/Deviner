@@ -15,7 +15,7 @@ function onGarmentCostUpdate(costField, newCost, editable, estimate, total){
 	}
 }
 
-function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
+function updateLineTotal(sender, calculatorUrl, editable, estimate, total, cost){
 	var editVal = $(editable).val() * 1;
 	var costVal = $(cost).val() * 1;
 	var totalVal = 0;
@@ -28,9 +28,9 @@ function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
 			$(editable).val(editVal);
 		}
 		refreshEstimate(editVal, 1 * data.result / garmentCount + costVal, estimate);
-		$(total).val(editVal * garmentCount).change();
-	});
-	$(total).val(editVal * garmentCount).change();
+		var sizeSurChargeSum =getSizeSurChargeSum(sender);
+		$(total).val((editVal * garmentCount)+ sizeSurChargeSum).change();
+	});	
 }
 
 function chooseEstimatePrice(element, event){

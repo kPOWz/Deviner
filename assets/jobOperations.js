@@ -51,6 +51,14 @@ function getGarmentCount(estimate){
 	return garmentCount;
 }
 
+function getSizeSurChargeSum(sender) {
+	var sizeSurChargeSum =0;
+	var sizeSurChargeFields = $(sender).closest('.jobLines').children('*[name="sizes"]').children('.jobLine[class*="col-"]').find('.part');
+	$.each(sizeSurChargeFields, function(idx, jobLineSizeFee){
+									sizeSurChargeSum +=parseFloat($(jobLineSizeFee).val()); });
+	return sizeSurChargeSum;
+}
+
 function refreshEstimate(editVal, estimateVal, estimate){	
 	$(estimate).children('span').html('$'+estimateVal);
 	$(estimate).children('.hidden-price').val(estimateVal);
@@ -65,7 +73,9 @@ function recalculateJobLineTotal(editable, estimate, total){
 	var editVal = $(editable).val() * 1;
 	var garmentCount = getGarmentCount(estimate);
 	refreshEstimate(editVal, $(estimate).children('.hidden-price').val(), estimate);
-	$(total).val(editVal * garmentCount).change();
+
+	var sizeSurChargeSum = getSizeSurChargeSum(editable);
+	$(total).val((editVal * garmentCount)+ sizeSurChargeSum).change();
 }
 
 function createStyleSelectFunction(div_id, style_id){

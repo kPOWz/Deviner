@@ -155,7 +155,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 								</a>
 							</label>
 						</div>
-						<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'total-price'), $line->total - $line->extraLargeFee, array(
+						<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'total-price'), $line->total, array(
 							'class'=>'part garment_part',
 						));?>
 					</div>
@@ -187,7 +187,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					'eachDiv'=>CHtml::getIdByName($namePrefix.'['.$startIndex.']'.'[sizes]'.'item'),
 					'div'=>$div,
 					'approved'=>$approved,
-					'onQuantityUpdate'=>"updateLineTotal('".CHtml::normalizeUrl(array('job/garmentCost'))."', $('#$priceSelect'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.estimate-price'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.garment_part'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.product-cost'));",
+					'onQuantityUpdate'=>"updateLineTotal(this, '".CHtml::normalizeUrl(array('job/garmentCost'))."', $('#$priceSelect'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.estimate-price'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.garment_part'), $('#$priceSelect').parents('div[name=\"price-group\"]').find('.product-cost'));",
 					'formatter'=>$formatter,
 				));
 				$index++;

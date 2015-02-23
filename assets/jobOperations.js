@@ -61,7 +61,7 @@ function refreshEstimate(editVal, estimateVal, estimate){
 	}
 }
 
-function recalculateTotal(editable, estimate, total, cost){
+function recalculateJobLineTotal(editable, estimate, total){
 	var editVal = $(editable).val() * 1;
 	var garmentCount = getGarmentCount(estimate);
 	refreshEstimate(editVal, $(estimate).children('.hidden-price').val(), estimate);

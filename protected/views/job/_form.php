@@ -56,11 +56,6 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 	}).always(function(){ btn.button('reset'); });
 }", CClientScript::POS_BEGIN);
 
-Yii::app()->clientScript->registerScript('calculate-total', "" .
-		"function calculateTotal(garments, front, back, sleeve, dest){
-			calculateTotalMain('".CHtml::normalizeUrl(array('job/garmentCost'))."', garments, front, back, sleeve, dest);
-		}",
-CClientScript::POS_BEGIN);
 ?>
 
 
@@ -275,18 +270,11 @@ CClientScript::POS_BEGIN);
 
 		<!-- TODO: WORKING? -->
 		<?php Yii::app()->clientScript->registerScript('auto-garment-totaler', "" .
-				"$('.item_qty, .sleeve_pass, .front_pass, .back_pass').live('change keyup', function(){
+				"$('.item_qty').live('change keyup', function(){
 					var qty = 0;" .
 					"$('.item_qty').each(function(index){
 						qty += (1 * $(this).val());
 					});" .
-					"if(qty > 200){
-						$('#auto_total, #auto_total_each, #auto_tax, #auto_tax_each, #auto_grand, #auto_grand_each').val(0).attr('disabled', 'disabled');" .
-						"$('#qty_warning').show();
-					} else {
-						$('#auto_total, #auto_total_each, #auto_tax, #auto_tax_each, #auto_grand, #auto_grand_each').removeAttr('disabled');" .
-						"$('#qty_warning').hide();
-					}" .
 					"$('#garment_qty').val(qty).change();" .
 					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);".
 					"autoTotalJob();".

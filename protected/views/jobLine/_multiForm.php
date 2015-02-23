@@ -139,7 +139,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 									'disabled'=>$approved,
 									'class'=>'unit_price form-control',
 									'name'=>$namePrefix."[$startIndex]".'[PRICE]',
-									'onkeyup'=>"recalculateTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
+									'onkeyup'=>"recalculateJobLineTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
 								));?>
 							</div>
 						</div>
@@ -149,7 +149,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 								to the value of the hidden field within the link -->
 								<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> 
 									title="Click to choose suggested price"
-									onclick="$(this).parents('.price-select-container').find('#<?php echo $priceSelect;?>').val($(this).children('.hidden-price').val()).keyup(); $(this).hide(); return false;">
+									onclick="chooseEstimatePrice(this, event)">
 									<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
 									<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>
 								</a>

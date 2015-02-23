@@ -33,6 +33,16 @@ function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
 	$(total).val(editVal * garmentCount).change();
 }
 
+function chooseEstimatePrice(element, event){
+	event.preventDefault();
+	$(element).parents('.price-select-container')
+		.find('.unit_price')
+			.val($(element).children('.hidden-price').val())
+			.keyup(); 
+	$(element).hide();
+
+	return false;
+}
 
 
 var calculateSalesTax = function(subTotal){
@@ -61,6 +71,21 @@ var autoTotalJob = function(){
 	setGrandTotal(jobTotal);
 }
 
+var addAutoTotalListeners = function(){
+	//any fee input change
+	$( ".auto_quote .part" ).on( "change keyup", function() {
+	  	autoTotalJob();
+	});
+	//is taxed checkbox change
+	$( "#jobIsTaxed" ).on( "click", function() {
+	  	autoTotalJob();
+	});
+	//job line total change
+	$( ".garment_part" ).on( "change", function() {
+	  	autoTotalJob();
+	});
+}
+
 
 $( document ).ready(function() {
 	$('#jobStatusDropdown .dropdown-toggle').attr('href', '#jobStatusDropdown');
@@ -70,9 +95,6 @@ $( document ).ready(function() {
 	  var statusId = $(this).parent().data('status-id');
 	  group.children('*[type="hidden"]').val(statusId);
 	});
-	$( ".auto_quote .part, #jobIsTaxed" ).on( "change keyup click", function() {
-	  	autoTotalJob();
-	});
-
+	addAutoTotalListeners();
 	setGrandTotal(parseFloat($('#jobTotal').val()));
 });

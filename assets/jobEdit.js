@@ -33,6 +33,35 @@ function updateLineTotal(calculatorUrl, editable, estimate, total, cost){
 	$(total).val(editVal * garmentCount).change();
 }
 
+
+
+var calculateSalesTax = function(subTotal){
+	var taxRate = 0;
+	if($('#jobIsTaxed').prop('checked')){
+		taxRate = parseInt($('#tax_rate').val(), 10);
+		taxRate = (typeof taxRate  === "number" && !isNaN(taxRate)) ? taxRate : 0;		
+	}
+	return parseFloat((taxRate/100 * subTotal).toFixed(2));
+}
+
+var setGrandTotal = function(subTotal){
+	var gTotal = subTotal + calculateSalesTax(subTotal);
+	$('#jobTotal').val(gTotal.toFixed(2));
+}
+
+var autoTotalJob = function(){
+	var jobTotal = 0;
+	$('.auto_quote .part').each(function(index){
+		var lineItemPrice = parseFloat($(this).val());
+		lineItemPrice = (typeof lineItemPrice  === "number" && !isNaN(lineItemPrice)) ? lineItemPrice : 0;
+		jobTotal += lineItemPrice; 
+	});
+	if(!($('#Job_SET_UP_FEE').prop('checked'))) jobTotal -= 30; //remove setup fee
+	$('#lines div[name="price-group"] .garment_part').each(function(index){ jobTotal += parseFloat($(this).val()); });
+	setGrandTotal(jobTotal);
+}
+
+
 $( document ).ready(function() {
 	$('#jobStatusDropdown .dropdown-toggle').attr('href', '#jobStatusDropdown');
 	$("#jobStatusDropdown .dropdown-menu li a").click(function(){
@@ -41,4 +70,9 @@ $( document ).ready(function() {
 	  var statusId = $(this).parent().data('status-id');
 	  group.children('*[type="hidden"]').val(statusId);
 	});
+	$( ".auto_quote .part, #jobIsTaxed" ).on( "change keyup click", function() {
+	  	autoTotalJob();
+	});
+
+	setGrandTotal(parseFloat($('#jobTotal').val()));
 });

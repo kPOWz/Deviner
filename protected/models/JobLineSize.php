@@ -10,6 +10,16 @@
  */
 class JobLineSize extends CActiveRecord
 {
+
+	//product size IDs incurring fees
+	const XX_LARGE = 39;
+	const XXX_LARGE = 40;
+	const XX_LARGE_UNISEX = 73;
+	const XXX_LARGE_UNISEX = 74;
+	const XX_LARGE_WOMEN = 80;
+
+
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return JobLineSize the static model class
@@ -114,7 +124,8 @@ class JobLineSize extends CActiveRecord
 	 * @return False if this line should not be charged, otherwise the per-garment fee.
 	 */
 	public function getIsExtraLarge(){
-		$xlSizes = array(39, 40, 73, 74, 80);
+		$xlSizes = array(JobLineSize::XX_LARGE, JobLineSize::XXX_LARGE
+			, JobLineSize::XX_LARGE_UNISEX, JobLineSize::XXX_LARGE_UNISEX, JobLineSize::XX_LARGE_WOMEN);
 		return (array_search($this->SIZE, $xlSizes) !== false) ? Product::EXTRA_LARGE_FEE : false;
 	}
 	

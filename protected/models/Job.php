@@ -552,6 +552,7 @@ class Job extends CActiveRecord
 		}		
 		
 		$garmentTotal = $this->garmentTotal;
+		//TODO: WHAT ABOUT RUSH FEE ?
 		return $garmentTotal + $totalFee + $this->SET_UP_FEE + ($this->printJob == null ? 0 : $this->printJob->COST);		
 	}
 	

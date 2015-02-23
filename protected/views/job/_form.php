@@ -256,11 +256,17 @@ CClientScript::POS_BEGIN);
 			<div class="col-md-12 form-group">
 				<div class="input-group gus-input-group form-group-calculated">
 					<span class="input-group-addon">$</span>		
-					<input class="form-control" readonly placeholder="not implemented"/>
+					<input id="jobTotal" class="form-control" readonly placeholder="not implemented" value=
+						<?php echo CHtml::encode(Yii::app()->numberFormatter->formatDecimal($model->total)); ?> />
+
+					<?php 
+						$taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
+						 echo CHtml::hiddenField('tax_rate', $taxRate); ?>
 				</div>
 				<label class="form-group-calculated gus-btn">Total</label>
 				<label class="text-muted">
-					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']', array('checked'=>'checked'));?> 
+					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']'
+						, array('checked'=>'checked', 'id'=>'jobIsTaxed'));?> 
 					<?php echo $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];?>% Sales Tax
 				</label>
 			</div>
@@ -282,8 +288,9 @@ CClientScript::POS_BEGIN);
 						"$('#qty_warning').hide();
 					}" .
 					"$('#garment_qty').val(qty).change();" .
-					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);
-				})",
+					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);".
+					"autoTotalJob();".
+				"})",
 		CClientScript::POS_END);?>
 	</fieldset> <!-- <div class="row auto_quote">-->
 

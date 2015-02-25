@@ -12,7 +12,7 @@
 					'options'=>array(),
 					'htmlOptions'=>array(
 							'class'=>'form-control',
-							'placeholder'=>'Search existing customers'
+							'placeholder'=>'Search existing clients'
 					)
 				));
 				

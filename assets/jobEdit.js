@@ -30,7 +30,8 @@ function updateLineTotal(sender, calculatorUrl, editable, estimate, total, cost)
 		refreshEstimate(editVal, 1 * data.result / garmentCount + costVal, estimate);
 		var sizeSurChargeSum =getSizeSurChargeSum(sender);
 		$(total).val((editVal * garmentCount)+ sizeSurChargeSum).change();
-	});	
+	});
+	$(sender).closest('*[name="sizes"]').children('*[name="product-quantity"]:first').val(garmentCount);
 }
 
 function chooseEstimatePrice(element, event){

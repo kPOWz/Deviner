@@ -170,6 +170,10 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		
 		$productLineCounter = count($products['lines']);
 		echo Yii::trace($productLineCounter.' numberOfDataLines', 'application.views.jobLine');
+
+		echo CHtml::hiddenField('product-quantity'
+									, $line->garmentCount ? $line->garmentCount : 0
+									, array('id'=>CHtml::getIdByName($namePrefix.$startIndex.'product-quantity')));
 		
 		foreach($products['lines'] as $dataLine){
 			$continue = false;

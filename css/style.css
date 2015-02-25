@@ -127,12 +127,10 @@ ul.nav ul {
 
 #job-tabs .table>thead>tr>th{
     padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: .75rem;
 }
 
 #job-tabs>ul.nav-tabs{
-    padding-bottom: 2em;
-    border-bottom: 2px solid #ddd;
     margin-right: inherit;
     margin-left: inherit;
 }

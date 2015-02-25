@@ -909,7 +909,7 @@ class JobController extends Controller
 		return new CActiveDataProvider('Job', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-						'pageSize'=>15,
+						'pageSize'=>7,
 				),
 		));
 	}

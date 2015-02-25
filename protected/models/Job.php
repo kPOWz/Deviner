@@ -283,7 +283,7 @@ class Job extends CActiveRecord
                 'defaultOrder'=>'events.DATE DESC',
             ),
 			'pagination'=>array(
-						'pageSize'=>15,
+						'pageSize'=>7,
 				),
 		));
 

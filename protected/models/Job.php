@@ -268,14 +268,20 @@ class Job extends CActiveRecord
 	/* 
 	 * Gets a paged list of jobs with the given status value.
 	 * @param mixed $status The status value, or array of status values, by which to filter.
-	 * @return CActiveDataProvider The set of jobs with the given status(es).
+	 * @return CActiveDataProvider The set of jobs with the given status(es) ordered by due date descending.
 	 */
 	public function searchByStatus($status)
 	{
 		$criteria=new CDbCriteria;
-		$criteria->compare('STATUS', $status, false, 'OR');
+		$criteria->together = true;
+		$criteria->with = array('events');
+		$criteria->compare('events.EVENT_ID', EventLog::JOB_DUE, false, 'AND');
+		$criteria->compare('STATUS', $status, false, 'AND');
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+                'defaultOrder'=>'events.DATE DESC',
+            ),
 			'pagination'=>array(
 						'pageSize'=>15,
 				),

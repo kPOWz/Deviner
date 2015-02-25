@@ -904,8 +904,8 @@ class JobController extends Controller
 		$criteria->compare('STATUS', $statuses, false, 'AND');
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
-		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
-		$criteria->order ='`NAME`ASC';
+		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_DUE);
+		$criteria->order ='`DATE`ASC';
 		return new CActiveDataProvider('Job', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(

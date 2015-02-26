@@ -1,3 +1,10 @@
+function animateStatusChangeRows(rows){
+	rows.animate({backgroundColor: '#FFF'}, 1000, 
+		function(){ 
+					$(this).removeClass('bg-success').attr('style',''); 
+				});
+}
+
 function statusChanged(selector,jobId){
 	var status = $(selector).val(); 
 	$.ajax({
@@ -13,10 +20,14 @@ function statusChanged(selector,jobId){
 			$('[name=salesPercentage]').text(data.cogsPercentage);
 			
 			var targetTab = $(selector).parents('.tab-content').children('#job-content-'+status);
-			var removed = $(selector).closest("tr").remove();
-			removed.removeClass('selected');
-			removed.addClass('bg-success');
-			targetTab.find('tbody').prepend(removed);
+			var row = $(selector).closest("tr");
+			row.removeClass('selected');
+			row.addClass('bg-success');
+			if(targetTab[0] != null){
+				targetTab.find('tbody').prepend(row.remove());
+			}else{				
+				animateStatusChangeRows(row);
+			}						
 		}
 	});
 }
@@ -26,8 +37,5 @@ $( ".nav-tabs a" ).on( "click", function() {
 	var status = $(this).parent().data('status');
 	var successRows = $('.tab-content').children('#job-content-'+status)
 		.find('.bg-success');
-	successRows.animate({backgroundColor: '#FFF'}, 1000, 
-		function(){ 
-					$(this).removeClass('bg-success').attr('style',''); 
-				});
+	animateStatusChangeRows(successRows);
 });

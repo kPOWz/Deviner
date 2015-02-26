@@ -194,7 +194,7 @@ class CalendarWidget extends CWidget {
 	 * @param date $date The date to render.
 	 */
 	protected function renderDay($name, $jobs, $date){
-		$classes = array('ui-cal-header', $this->headerCss);
+		$classes = array('ui-cal-header',' text-muted', $this->headerCss);
 		$id = array($this->id, strtolower($name), 'header');
 				
 		$options = $this->createOptions($classes, $id, $others=array(), null);
@@ -213,14 +213,14 @@ class CalendarWidget extends CWidget {
 		$classes = array('ui-cal-items');
 		$htmlOptions = array();
 		$options = $this->createOptions($classes, $id, $htmlOptions, $nameAttribute);
-		echo CHtml::openTag('div', $options);
+		echo CHtml::openTag('ul', $options);
 	
 		$i = 0;
 		foreach($jobs as $job){
 			$this->renderItem($i, $name, $job);
 			$i++;
 		}
-		echo CHtml::closeTag('div');
+		echo CHtml::closeTag('ul');
 	}
 	
 	/**
@@ -233,13 +233,13 @@ class CalendarWidget extends CWidget {
 		$nameAttribute = $this->id.'-'.strtolower($name).'-item-'.$index;
 		$classes = array('ui-cal-item', $this->itemCss);
 		if($job->LEADER_ID == Yii::app()->user->id || $job->PRINTER_ID == Yii::app()->user->id) {
-			array_push($classes, 'ui-cal-item-mine'); 
+			array_push($classes, 'bg-primary'); 
 		}
 		$htmlOptions = array('draggable'=>'true');
 		$options = $this->createOptions($classes, $id, $htmlOptions, $nameAttribute);
-		echo CHtml::openTag('div', $options);
+		echo CHtml::openTag('li', $options);
 		$this->controller->renderPartial($this->itemView, array('job'=>$job));
-		echo CHtml::closeTag('div');
+		echo CHtml::closeTag('li');
 	}
 	
 	/**

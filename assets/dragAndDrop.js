@@ -10,7 +10,7 @@
 	
 	var handleDragStart = function(e) {
 		  // Target (this) element is the source node.			
-		  dragSrcEl = $(this).parent();
+		  dragSrcEl = $(this).closest('ul');
 		  
 		  e.dataTransfer.effectAllowed = 'move';
 		  e.dataTransfer.setData('text/plain', e.target.id);

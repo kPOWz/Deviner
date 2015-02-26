@@ -238,7 +238,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			</div>
 			<div class="col-md-2 form-group form-group-calculated">
 				<div class="input-group gus-input-group">							
-					<input class="form-control" id="jobCogPercentage" readonly value=
+					<input class="form-control" id="jobCogPercentage" readonly placeholder="N/A" 
+					value=
 						<?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', ($model->total >0 ? $model->costOfGoodsSold / $model->total : 0) * 100)); ?> />
 					<span class="input-group-addon">%</span>
 				</div>

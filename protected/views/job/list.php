@@ -13,17 +13,17 @@ $this->widget('yiistrap.widgets.TbTabs', array(
     'htmlOptions'=>array('menuOptions'=>array('class'=>'row')),
     'tabs'=>array(
         array(
-            'id'=>'job-tab-created',
+            'id'=>'job-content-'.Job::CREATED,
             'active'=>true,
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::CREATED),
             'label'=>'1. Created',
             'content'=>$this->renderPartial('_list', array(
                 'statusId'=>Job::CREATED,
                 ), true),          
         ),
         array(
-            'id'=>'job-tab-ordered',
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'id'=>'job-content-'.Job::ORDERED,
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::ORDERED),
             'active'=>false,
             'label'=>'2. Ordered',
             'content'=>$this->renderPartial('_list', array(
@@ -32,8 +32,8 @@ $this->widget('yiistrap.widgets.TbTabs', array(
         ),
 
         array(
-            'id'=>'job-tab-counted',
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'id'=>'job-content-'.Job::COUNTED,
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::COUNTED),
             'active'=>false,
             'label'=>'3. Counted',
             'content'=>$this->renderPartial('_list', array(
@@ -42,8 +42,8 @@ $this->widget('yiistrap.widgets.TbTabs', array(
         ),
 
         array(
-            'id'=>'job-tab-printed',
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'id'=>'job-content-'.Job::PRINTED,
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::PRINTED),
             'active'=>false,
             'label'=>'4. Printed',
             'content'=>$this->renderPartial('_list', array(
@@ -52,8 +52,8 @@ $this->widget('yiistrap.widgets.TbTabs', array(
         ),
 
         array(
-            'id'=>'job-tab-invoiced',
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'id'=>'job-content-'.Job::INVOICED,
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::INVOICED),
             'active'=>false,
             'label'=>'5. Invoiced',
             'content'=>$this->renderPartial('_list', array(
@@ -62,8 +62,8 @@ $this->widget('yiistrap.widgets.TbTabs', array(
         ),
 
         array(
-            'id'=>'job-tab-completed',
-            'htmlOptions'=>array('class'=>'col-md-2'),
+            'id'=>'job-content-'.Job::COMPLETED,
+            'htmlOptions'=>array('class'=>'col-md-2', 'data-status'=>Job::COMPLETED),
             'active'=>false,
             'label'=>'6. Completed',
             'content'=>$this->renderPartial('_list', array(

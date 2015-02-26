@@ -71,7 +71,7 @@ var setCostOfGoodsSoldPercentage = function(costOfGoods){
 		totalBeforeTax = totalBeforeTax / (getTaxRate()/100 + 1);
 	}
 	$('#jobCogPercentage').val(totalBeforeTax > 0 ? 
-		Math.round(parseFloat(((costOfGoods / totalBeforeTax).toFixed(2)) * 100)) : 0);
+		Math.round(parseFloat(((costOfGoods / totalBeforeTax).toFixed(2)) * 100)) : '');
 }
 
 var calculateJobTotal = function(){

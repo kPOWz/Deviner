@@ -936,13 +936,18 @@ class JobController extends Controller
 		$id = $_POST['id'];
 		$model = $this->loadModel($id);		
 		$model->STATUS = $newStatus;
-		$model->save();
-
-		$sales = SalesReportWidget::getSales();
-		$costOfGoodsSoldPercentage = SalesReportWidget::getCostOfGoodsSoldPercentage();
-		echo CJSON::encode(array('sales'=> Yii::app()->numberFormatter->formatCurrency($sales, 'USD')
-								,'cogsPercentage'=>Yii::app()->numberFormatter->formatPercentage($costOfGoodsSoldPercentage, 'USD')
-						));
+		
+		if($model->save()){
+			$sales = SalesReportWidget::getSales();
+			$costOfGoodsSoldPercentage = SalesReportWidget::getCostOfGoodsSoldPercentage();
+			echo CJSON::encode(array('sales'=> Yii::app()->numberFormatter->formatCurrency($sales, 'USD')
+									,'cogsPercentage'=>Yii::app()->numberFormatter->formatPercentage($costOfGoodsSoldPercentage, 'USD')
+							));
+			
+		}else{
+			Yii::app()->user->setFlash('failure','Something when wrong updating job status.');
+			echo Yii::app()->user->getFlash('failure');
+		}
 	}
 	
 	public function actionUpdatePrintDate(){		

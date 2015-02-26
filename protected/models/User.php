@@ -24,7 +24,7 @@ class User extends CActiveRecord
 	private $_retrievedPassword; //the password retreived on a find operation
 	
 	const CUSTOMER_ROLE = 14;
-	const DEFAULT_ROLE = 13;
+	const DEFAULT_ROLE = 13; //equivalent to printer role
 	const ADMIN_ROLE = 15;
 	const LEAD_ROLE = 16;
 	

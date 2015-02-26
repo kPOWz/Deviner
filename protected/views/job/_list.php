@@ -1,5 +1,7 @@
 <?php 
+Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobList.js', CClientScript::POS_END);
 $model = new Job();
+
 
 $this->widget('yiistrap.widgets.TbGridView', array(
 	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
@@ -48,40 +50,3 @@ $this->widget('yiistrap.widgets.TbGridView', array(
     ),
 ));
 ?>
-
-<script type="text/javascript">
-	function statusChanged(selector,jobId){
-			var status = $(selector).val(); 
-			$.ajax({
-				url: 'status',
-				dataType: "json",
-				data: {
-					status: status,
-					id: jobId,
-				},
-				type: 'POST',
-				success: function(data){
-					$('[name=salesNumber]').text(data.sales);
-					$('[name=salesPercentage]').text(data.cogsPercentage);
-					/*var tabControl = $(selector).parentsUntil('.ui-tabs').parent();
-					
-					switch(1 * status){
-						case JobStatusConstants.canceledStatus : index = 6; break;
-						case JobStatusConstants.completedStatus : index = 5; break;
-						case JobStatusConstants.invoicedStatus : index = 4; break;
-						case JobStatusConstants.printedStatus : index = 3; break;
-						case JobStatusConstants.countedStatus : index = 2; break;
-						case JobStatusConstants.orderedStatus : index = 1; break;
-						default : index = 0; break;
-					}*/
-
-					//TODO: they were init-loading the tab representing the target status & 
-					//TODO: then reloading the current tab to awkwardly sync after the status change
-					//TODO: this is where the above switch came into play
-					//TODO: need to replace this approach with just removing any row that has a status chagne from the DOM
-					//TODO: as long as the POST above was successful the target tab will laod reflecting it's new member 
-					//TODO: automatically when its next navigated to
-				}
-			});
-		}
-</script>

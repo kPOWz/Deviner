@@ -45,22 +45,36 @@ function chooseEstimatePrice(element, event){
 	return false;
 }
 
-
-var calculateSalesTax = function(subTotal){
+var getTaxRate = function(){
 	var taxRate = 0;
 	if($('#jobIsTaxed').prop('checked')){
 		taxRate = parseInt($('#tax_rate').val(), 10);
 		taxRate = (typeof taxRate  === "number" && !isNaN(taxRate)) ? taxRate : 0;		
 	}
-	return parseFloat((taxRate/100 * subTotal).toFixed(2));
+	return taxRate;
+}
+
+var calculateSalesTax = function(subTotal){
+	return parseFloat((getTaxRate()/100 * subTotal).toFixed(2));
 }
 
 var setGrandTotal = function(subTotal){
 	var gTotal = subTotal + calculateSalesTax(subTotal);
-	$('#jobTotal').val(gTotal.toFixed(2));
+	$('#jobTotal').val(gTotal.toFixed(2)).change();
 }
 
-var autoTotalJob = function(){
+var setCostOfGoodsSoldPercentage = function(costOfGoods){
+	var totalBeforeTax = parseFloat($("#jobTotal" ).val());
+	totalBeforeTax = (typeof totalBeforeTax  === "number" && !isNaN(totalBeforeTax)) ? totalBeforeTax : 0;
+	//remove tax if necessary
+	if($('#jobIsTaxed').prop('checked')){
+		totalBeforeTax = totalBeforeTax / (getTaxRate()/100 + 1);
+	}
+	$('#jobCogPercentage').val(totalBeforeTax > 0 ? 
+		Math.round(parseFloat(((costOfGoods / totalBeforeTax).toFixed(2)) * 100)) : 0);
+}
+
+var calculateJobTotal = function(){
 	var jobTotal = 0;
 	$('.auto_quote .part').each(function(index){
 		var lineItemPrice = parseFloat($(this).val());
@@ -72,18 +86,34 @@ var autoTotalJob = function(){
 	setGrandTotal(jobTotal);
 }
 
+var calculateCostOfGoodsPercentage = function(){
+	var costOfGoods = 0;
+	var jobProducts = $('.jobLines')
+	$.each(jobProducts, function(idx, jobProduct){
+									costOfGoods += $(jobProduct).find('*[name="product-cost"]').val() 
+										* $(jobProduct).find('*[name="product-quantity"]').val(); 
+								});
+	setCostOfGoodsSoldPercentage(costOfGoods);
+}
+
 var addAutoTotalListeners = function(){
 	//any fee input change
 	$( ".auto_quote .part" ).on( "change keyup", function() {
-	  	autoTotalJob();
+	  	calculateJobTotal();
 	});
 	//is taxed checkbox change
 	$( "#jobIsTaxed" ).on( "click", function() {
-	  	autoTotalJob();
+	  	calculateJobTotal();
 	});
 	//job line total change
 	$( ".garment_part" ).on( "change", function() {
-	  	autoTotalJob();
+	  	calculateJobTotal();
+	});
+}
+
+var addCostOfGoodsPercentageListeners = function(){
+	$( "#jobTotal" ).on( "change", function() {
+	  	calculateCostOfGoodsPercentage();
 	});
 }
 
@@ -97,5 +127,6 @@ $( document ).ready(function() {
 	  group.children('*[type="hidden"]').val(statusId);
 	});
 	addAutoTotalListeners();
+	addCostOfGoodsPercentageListeners();
 	setGrandTotal(parseFloat($('#jobTotal').val()));
 });

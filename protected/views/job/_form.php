@@ -59,7 +59,6 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 ?>
 
 
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'job-form',
 	'enableAjaxValidation'=>false,
@@ -239,8 +238,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			</div>
 			<div class="col-md-2 form-group form-group-calculated">
 				<div class="input-group gus-input-group">							
-					<input class="form-control" readonly value=
-						<?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', ($model->costOfGoodsSold / $model->total) * 100)); ?> />
+					<input class="form-control" id="jobCogPercentage" readonly value=
+						<?php echo CHtml::encode(Yii::app()->numberFormatter->format('#,##0', ($model->total >0 ? $model->costOfGoodsSold / $model->total : 0) * 100)); ?> />
 					<span class="input-group-addon">%</span>
 				</div>
 				<label>Cost of Goods</label>
@@ -278,7 +277,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 					});" .
 					"$('#garment_qty').val(qty).change();" .
 					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);".
-					"autoTotalJob();".
+					"calculateJobTotal();".
 				"})",
 		CClientScript::POS_END);?>
 	</fieldset> <!-- <div class="row auto_quote">-->

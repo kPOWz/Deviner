@@ -254,8 +254,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 					<input id="jobTotal" class="form-control" readonly placeholder="not implemented" value=
 						<?php echo CHtml::encode(Yii::app()->numberFormatter->formatDecimal($model->total)); ?> />
 
-					<?php 
-						$taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
+					<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
 						 echo CHtml::hiddenField('tax_rate', $taxRate); ?>
 				</div>
 				<label class="form-group-calculated gus-btn">Total</label>

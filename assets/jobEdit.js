@@ -128,5 +128,5 @@ $( document ).ready(function() {
 	});
 	addAutoTotalListeners();
 	addCostOfGoodsPercentageListeners();
-	setGrandTotal(parseFloat($('#jobTotal').val()));
+	setGrandTotal(parseFloat($('#jobTotal').val().replace(/,/g, '')));
 });

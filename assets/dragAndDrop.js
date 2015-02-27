@@ -56,12 +56,12 @@
 							    e.preventDefault(); // Necessary. Allows us to drop.
 							  }	
 							e.dataTransfer.dropEffect = 'move';
-							target.classList.add('valid-target');
+							target.parentNode.classList.add('has-success');
 						}
 						else{
 							//if invalid target date, set class to correctly qualify :drag-over selector
 							e.dataTransfer.dropEffect = 'none';
-							target.classList.add('invalid-target');
+							target.parentNode.classList.add('has-error');
 						}
 					}
 				});
@@ -71,9 +71,9 @@
 		
 	var handleDragLeave = function(e) {	
 		// this / e.target is previous target element.
-		this.classList.remove('valid-target');
+		this.parentNode.classList.remove('has-success');
 		//TODO: remove invalid-target
-		this.classList.remove('invalid-target');
+		this.parentNode.classList.remove('has-error');
 	}
 	
 	var handleDrop = function(e) {
@@ -130,12 +130,12 @@
 	    // this/e.target is the source node.
 		
 		  [].forEach.call(calendarDays, function (day) {
-		    day.classList.remove('valid-target');
+		    day.parentNode.classList.remove('has-success');
 		    //TODO: remove invalid-target
-		    day.classList.remove('invalid-target');
+		    day.parentNode.classList.remove('has-error');
 		  });
 		dragging.splice(dragging.indexOf(e.target.id), 1);
-		}
+	}
 	
 	
 	initCalendar = function(validateUrl,updateUrl){

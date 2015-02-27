@@ -210,7 +210,7 @@ class CalendarWidget extends CWidget {
 	
 		$id = $date;
 		$nameAttribute = $this->id.'-'.strtolower($name).'-items';
-		$classes = array('ui-cal-items');
+		$classes = array('ui-cal-items drop-target');
 		$htmlOptions = array();
 		$options = $this->createOptions($classes, $id, $htmlOptions, $nameAttribute);
 		echo CHtml::openTag('ul', $options);

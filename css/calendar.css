@@ -61,18 +61,7 @@ header div[name="labels"]{
 	height: 115px;
 	list-style-type: none;
 	padding-left: 0;
-
-}
-
-.valid-target,
-.ui-cal-items.valid-target {
-	border:3px solid #C6D880;
-	
-}
-
-.invalid-target,
-.ui-cal-items.invalid-target {
-	border:3px solid #FBC2C4;	
+	border: 1px solid transparent;
 }
 
 /* Prevent the text contents of draggable elements from being selectable. */

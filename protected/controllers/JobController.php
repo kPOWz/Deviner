@@ -886,24 +886,21 @@ class JobController extends Controller
 	
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('LEADER_ID IS NOT NULL');
+		$criteria->addCondition('STATUS <> '.Job::COMPLETED.' AND STATUS <> '.Job::CANCELED);
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
 		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_PRINT);
 		$criteria->addCondition('`event_log`.`DATE` BETWEEN FROM_UNIXTIME(' . $lastSunday . ') AND FROM_UNIXTIME(' . $nextSaturday . ')');
 	
-		$jobsThisWeek = Job::model()->findAllByAttributes(array(
-				'STATUS'=>array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED),
-		), $criteria);
-		return $jobsThisWeek;
+		return Job::model()->findAll($criteria);
 	}
 
 	private function findLedJobsCurrentUser(){			
 		//TODO: if no leader role, just return an info message
-		$statuses = array(Job::CREATED, Job::INVOICED, Job::PAID, Job::SCHEDULED, Job::ORDERED, Job::COUNTED, Job::PRINTED);
 
 		$criteria=new CDbCriteria;
-		$criteria->compare('LEADER_ID', Yii::app()->user->id, false, 'AND'); 
-		$criteria->compare('STATUS', $statuses, false, 'AND');
+		$criteria->compare('LEADER_ID', Yii::app()->user->id, false, 'AND');
+		$criteria->addCondition('STATUS <> '.Job::COMPLETED.' AND STATUS <> '.Job::CANCELED);
 		$criteria->join = 'INNER JOIN `event_log` ON `event_log`.`OBJECT_ID` = `t`.`ID`';
 		$criteria->addCondition('`event_log`.`OBJECT_TYPE`=\'Job\'');
 		$criteria->addCondition('`event_log`.`EVENT_ID`='.EventLog::JOB_DUE);
@@ -911,7 +908,7 @@ class JobController extends Controller
 		return new CActiveDataProvider('Job', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-						'pageSize'=>7,
+						'pageSize'=>8,
 				),
 		));
 	}

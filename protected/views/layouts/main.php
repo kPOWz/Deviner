@@ -20,7 +20,7 @@
 							array('encodeLabel'=>false, 'label'=>'<span class="glyphicon glyphicon-plus text-primary" aria-hidden="true"></span> Create Job', 'url'=>array('/job/create')),
 							array('label'=>'My Jobs', 'url'=>array('/job/index')),					
 							array('label'=>'All Jobs', 'url'=>array('/job/list')),
-							array('label'=>'Calendar', 'url'=>array('/job/calendar')),
+							array('label'=>'Print Calendar', 'url'=>array('/job/calendar')),
 						),
 						'htmlOptions'=>array('class'=>'nav navbar-nav'),
 						'lastItemCssClass'=>'lastmenu',

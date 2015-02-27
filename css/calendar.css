@@ -1,4 +1,8 @@
 /*css used in gus calendars */
+header div[name="labels"]{
+	text-align: right;
+	margin-top: 3.5em;
+}
 .ui-cal-day {
 	display: inline;
 	float: left;
@@ -26,10 +30,10 @@
 	display: block;
 	float: left;
 	margin: 0;
-	padding:5px;
+	padding: 2px;
 	font-size:10px;
 	overflow: visible;
-
+	border-top: 1px solid #fff;
 }
 
 .ui-cal-item a{

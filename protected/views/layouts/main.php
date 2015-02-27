@@ -7,7 +7,7 @@
 
 <div id="wrapper" class="row">
 	<div class="col-md-2 gus-nav-container">
-		<section class="inverse " id='outterContainer' data-spy="affix" data-offset-bottom="20" data-offset-top="20">				
+		<section class="inverse " id='outterContainer' data-spy="affix">				
 			<?php $isAdmin = Yii::app()->user->getState('isAdmin');?>
 			<nav class="navbar navbar-vertical row gus-nav" >
 				<div class="navbar-header">		

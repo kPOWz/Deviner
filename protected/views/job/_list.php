@@ -5,7 +5,9 @@ $model = new Job();
 
 $this->widget('yiistrap.widgets.TbGridView', array(
 	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
+	'pager'=> array('class' => '\TbPager', 'htmlOptions'=>array('class'=>'gus-pagination', 'align'=>TbHtml::PAGINATION_ALIGN_CENTER)),
 	'itemsCssClass'=>'table-primary',
+	'pagerCssClass'=>'text-center', //remove 'pager' class coming from zii - namespace conflict w/ TWBS css
    	'columns' => array(
    		array(
 			'header'=>'Client',

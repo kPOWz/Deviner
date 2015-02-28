@@ -12,18 +12,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crisu83/yiistrap.git",
-                "reference": "ade2580f39ce5eed6f73d162473019d2be5c1597"
+                "reference": "5ca23877eb15c5a3bc87ac3cf34213cc9e20020e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crisu83/yiistrap/zipball/ade2580f39ce5eed6f73d162473019d2be5c1597",
-                "reference": "ade2580f39ce5eed6f73d162473019d2be5c1597",
+                "url": "https://api.github.com/repos/crisu83/yiistrap/zipball/5ca23877eb15c5a3bc87ac3cf34213cc9e20020e",
+                "reference": "5ca23877eb15c5a3bc87ac3cf34213cc9e20020e",
                 "shasum": ""
             },
             "require": {
                 "twbs/bootstrap": ">=3.1.1"
             },
             "require-dev": {
+                "apigen/apigen": "~4.0",
                 "codeception/codeception": "@stable",
                 "crisu83/yii-composer": ">=1.0.0",
                 "yiisoft/yii": ">=1.1.13"
@@ -65,7 +66,7 @@
                 "bootstrap",
                 "yii"
             ],
-            "time": "2015-01-29 22:04:07"
+            "time": "2015-02-11 19:24:18"
         },
         {
             "name": "kpowz/gus-bootstrap",
@@ -73,12 +74,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kPOWz/gus-bootstrap.git",
-                "reference": "b1000d8b8bcb7932720bc8a5c56a4a2479abea53"
+                "reference": "2486f1f070e95ec429af2aa9943783ba206fadb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kPOWz/gus-bootstrap/zipball/b1000d8b8bcb7932720bc8a5c56a4a2479abea53",
-                "reference": "b1000d8b8bcb7932720bc8a5c56a4a2479abea53",
+                "url": "https://api.github.com/repos/kPOWz/gus-bootstrap/zipball/2486f1f070e95ec429af2aa9943783ba206fadb2",
+                "reference": "2486f1f070e95ec429af2aa9943783ba206fadb2",
                 "shasum": ""
             },
             "type": "library",
@@ -113,7 +114,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-27 22:32:28"
+            "time": "2015-02-28 19:34:00"
         },
         {
             "name": "twbs/bootstrap",

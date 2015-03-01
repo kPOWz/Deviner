@@ -49,6 +49,7 @@ class Job extends CActiveRecord
 	// additional fee IDs as constants
 	const FEE_TAX_RATE = 185;
 	const FEE_SHIPPING = 184;
+	const FEE_INK_CHANGE = 447;
 	private $_additionalFees; //cache this value here.
 	
 	/**
@@ -663,7 +664,9 @@ class Job extends CActiveRecord
 			$constraints = CJSON::decode($fee->EXTENDED);
 			$result[(string) $fee->ID] = array(
 				'TEXT'=>$fee->TEXT,
-				'VALUE'=>isset($constraints['default']) ? $constraints['default'] : ($values ? $values[(string) $fee->ID] : 0),
+				'VALUE'=>(isset($constraints['default'])) 
+							? $constraints['default'] : ($values && isset($values[(string) $fee->ID])
+															? $values[(string) $fee->ID] : 0),
 				'CONSTRAINTS'=>$constraints,
 			);
 		}

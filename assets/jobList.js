@@ -32,10 +32,15 @@ function statusChanged(selector,jobId){
 	});
 }
 
-$( ".nav-tabs a" ).on( "click", function() {
-	//only fade out succuess highlight if has been seen
-	var status = $(this).parent().data('status');
-	var successRows = $('.tab-content').children('#job-content-'+status)
-		.find('.bg-success');
-	animateStatusChangeRows(successRows);
+jQuery(document).ready(function($) {
+   $( ".nav-tabs a" ).on( "click", function() {
+           //only fade out succuess highlight if has been seen
+           var status = $(this).parent().data('status');
+           var successRows = $('.tab-content').children('#job-content-'+status)
+                   .find('.bg-success');
+           animateStatusChangeRows(successRows);
+   });
+    $(".row-clickable").click(function() {
+        window.document.location = $(this).data("href");
+	});
 });

@@ -6,8 +6,12 @@ $model = new Job();
 $this->widget('yiistrap.widgets.TbGridView', array(
 	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
 	'pager'=> array('class' => '\TbPager', 'htmlOptions'=>array('class'=>'gus-pagination', 'align'=>TbHtml::PAGINATION_ALIGN_CENTER)),
+	'rowHtmlOptionsExpression' => 'array("data-href"=>CHtml::normalizeUrl(array("job/update", "id"=>$data->ID)))',
 	'itemsCssClass'=>'table-primary',
 	'pagerCssClass'=>'text-center', //remove 'pager' class coming from zii - namespace conflict w/ TWBS css
+	'rowCssClassExpression' => '
+       ( $row%2 ? $this->rowCssClass[1] : $this->rowCssClass[0] ) . " row-clickable"
+	',
    	'columns' => array(
    		array(
 			'header'=>'Client',
@@ -15,10 +19,8 @@ $this->widget('yiistrap.widgets.TbGridView', array(
             'value' => 'CHtml::encode($data->CUSTOMER->COMPANY == NULL ? $data->CUSTOMER->USER->FIRST ." ".$data->CUSTOMER->USER->LAST : $data->CUSTOMER->COMPANY)'			
 		),
         array(
-			'class'=>'CLinkColumn',
 			'header'=>'Job',
-			'labelExpression'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
-			'urlExpression'=>"CHtml::normalizeUrl(array('job/update', 'id'=>\$data->ID));",
+			'value'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
 		),
 		array(
 			'header'=>'Leader',

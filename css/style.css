@@ -136,6 +136,14 @@ ul.nav ul {
     margin-left: inherit;
 }
 
+/*//tables*/
+tr.row-clickable{
+    cursor: pointer;
+}
+tr.row-clickable:hover{
+    color: #09f;
+}
+
 /*//alerts*/
 .alert .text-inverse{
     color: #fff;

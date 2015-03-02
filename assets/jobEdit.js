@@ -123,7 +123,10 @@ $( document ).ready(function() {
 	$("#jobStatusDropdown .dropdown-menu li a").click(function(){
 	  var group = $(this).parents(".input-group");
 	  group.find('.selection').text($(this).text());
-	  var statusId = $(this).parent().data('status-id');
+	  var listItem = $(this).parent();
+	  var statusId = listItem.data('status-id');
+	  listItem.siblings().removeClass('active');
+	  listItem.addClass('active');
 	  group.children('*[type="hidden"]').val(statusId);
 	});
 	addAutoTotalListeners();

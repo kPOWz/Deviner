@@ -319,7 +319,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			    </label>
 			    <?php echo TbHtml::activeHiddenField($model, 'STATUS') ?>
 			    <div class="input-group-btn">
-			    	<?php echo TbHtml::buttonDropdown('', Job::statusButtonData()
+			    	<?php echo TbHtml::buttonDropdown('', Job::statusButtonData($model->isNewRecord ? Job::CREATED : $model->status->ID)
 			    		, array(
 			    				'type'=> TbHtml::BUTTON_TYPE_HTML
 			    				,'data-target'=>'#'

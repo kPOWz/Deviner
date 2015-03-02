@@ -159,15 +159,40 @@ tr.row-clickable:hover{
 }
 
 /*//forms*/
-.gus-input-group * {
+.gus-input-group-submit * {
     border-radius: 0 !important;
+}
+.gus-input-group-submit label:first-child{
+    border-right: 0;
+}
+
+.gus-input-group-submit .form-control{
+    text-align: right;
+}
+.gus-input-group-submit .form-control:nth-child(4){
+    padding-right: 2.2em;
+    padding-left: 2.2em;
+    border-left: 0;
+}
+.gus-input-group-submit button[type="button"].btn{
+    border-radius: 0;
+    border-right: 0;
+    border-left: 0;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    border-right-width: 0;
+    border-left-width: 0;
+    color: #09f;
+}
+.gus-input-group-submit button[type="submit"].btn{
+    padding-right: 1.5em;
+    padding-left: 1.5em;
 }
 .gus-form .form-control,
 .gus-form .btn,
 .gus-form .well{
     border-radius: 0;
 }
-
 /* bootstrap input groups get set to a z-index of 2, causing overlap with jQuery UI datepicker. 
  * solution : associated element's non-statically positioned z-index is incremented by 1 by plugin
  */
@@ -175,13 +200,11 @@ tr.row-clickable:hover{
     position: relative;
     z-index: 2;
 }
-
 .hidden-size{
     visibility: hidden;
     height: 0;
     width: 0;
 }
-
 #lines .well{
     position: relative;
 }
@@ -192,9 +215,4 @@ tr.row-clickable:hover{
     position: absolute;
     right: 0;
     top: 0;
-}
-
-/* job form */
-#jobStatusDisplay{
-    text-align: center;
 }

@@ -313,9 +313,9 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			<?php echo $form->labelEx($model,'NOTES'); ?>
 		</div>
 		<div class="col-md-6">
-			<div class="input-group">  
-			    <label id="jobStatusDisplay" class="form-control gus-btn" readonly>Job Status: 
-			    	<span class="selection text-primary h5 heading-primary"><?php echo $model->isNewRecord ? 'CREATED' : $model->status->TEXT ?></span>
+			<div class="input-group gus-input-group-submit">  
+			    <label id="jobStatusDisplay" class="form-control gus-btn text-right">Job Status: 
+			    	<span class="selection h5 heading-primary"><?php echo $model->isNewRecord ? 'CREATED' : $model->status->TEXT ?></span>
 			    </label>
 			    <?php echo TbHtml::activeHiddenField($model, 'STATUS') ?>
 			    <div class="input-group-btn">
@@ -324,14 +324,17 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			    				'type'=> TbHtml::BUTTON_TYPE_HTML
 			    				,'data-target'=>'#'
 			    				,'href'=>''
-			    				,'class'=>'text-primary'
+			    				,'class'=>''
 			    				,'groupOptions'=>array('class'=>'dropdown', 'id'=>'jobStatusDropdown')
 			    				,'menuOptions'=>array('class'=>'dropdown-menu-right'))); 
 			    	?>
+			    </div>
+			    <label class="form-control"></label>
+			    <div class="input-group-btn">
 			        <?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok text-success"/>', array(
 						'class'=> 'btn btn-default',
 						'type'=>'submit',
-						'title'=>'save'
+						'title'=>'save job'
 					)); ?>
 			    </div>
 		 	</div>

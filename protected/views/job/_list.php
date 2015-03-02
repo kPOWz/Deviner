@@ -20,7 +20,8 @@ $this->widget('yiistrap.widgets.TbGridView', array(
 		),
         array(
 			'header'=>'Job',
-			'value'=>"((\$data->RUSH != 0) ? '<span class=\"warning\">RUSH</span>&nbsp;' : '') . \$data->NAME;",
+			'type' => 'raw',
+			'value'=>"\$data->NAME . ((\$data->RUSH > 0) ? ' <span class=\"label label-warning\">RUSH</span>' : '');",
 		),
 		array(
 			'header'=>'Leader',

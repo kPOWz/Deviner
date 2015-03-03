@@ -159,6 +159,7 @@ tr.row-clickable:hover{
 }
 
 /*//forms*/
+.gus-input-group *,
 .gus-input-group-submit * {
     border-radius: 0 !important;
 }

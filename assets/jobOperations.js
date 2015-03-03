@@ -103,18 +103,12 @@ function createStyleSelectFunction(div_id, style_id){
 	}
 }
 
-function updateSetupCost(url, editable, hidden, garmentCount){
-	var oldCost = $(hidden).val() * 1;
+function updateSetupCost(url, editable, garmentCount){
 	var editVal = $(editable).val() * 1;
 	calculateSetupFeeCore(url, garmentCount, function(data){
 		var newCost = data.result;
-		newCost > 0 ? editable.prop('checked', true) 
-			: 
-			editable.prop('checked', false);
-
-		if(oldCost != editVal){
-			editable.change();
-		}
+		editable.val('');
+		newCost > 0 ? editable.prop('placeholder', 30) : editable.prop('placeholder', 0);
 	});
 }
 

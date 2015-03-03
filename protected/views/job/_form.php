@@ -206,6 +206,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						'size'=>6,
 						'maxlength'=>6,
 						'class'=>$shippingFee['ISPART'] ? 'part form-control' : 'form-control',
+						'step'=>'any',
 					));?>
 				</div>
 				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
@@ -222,6 +223,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						'value'=>$inkChangeFee['VALUE'],
 						'placeholder'=>$inkChangeFee['DEFAULT'],
 						'class'=>$inkChangeFee['ISPART'] ? 'part form-control' : 'form-control',
+						'step'=>'any',
+						
 					));?>
 				</div>
 				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_INK_CHANGE.']', array(
@@ -230,21 +233,16 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 
 			<!-- Setup Fee Group-->
 			<div class="col-md-2 form-group">
-			    <?php echo CHtml::error($model,'SET_UP_FEE'); ?>		    	
-		    	<div class="input-group gus-input-group">
-			      <span class="input-group-addon">
-			        <?php echo CHtml::activeCheckBox($model,'SET_UP_FEE', array(
-			    		'value'=>GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT,
-			    		'uncheckValue'=> GlobalConstants::SETUP_FEE_AMOUNT_WAIVED,
-			    		'class'=>'part editable-fee',
-			    		'onchange'=>"$('#setup-fee-hint').val('$' + ($(this).is(':checked') ? $(this).val() : '0') + '.00')"
-		    		)); ?>
-			      </span>
-			      <input type="text" readonly class="form-control intToUsd" id='setup-fee-hint' 
-			      	value="<?php echo Yii::app()->numberFormatter->formatCurrency($model->SET_UP_FEE, '$') ?>" />
-			    </div>
-			    <?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>		    	
+				<?php echo $form->error($model,'SET_UP_FEE'); ?>
+				<div class="input-group gus-input-group">
+					<span class="input-group-addon">$</span>		
+					<?php echo $form->numberField($model,'SET_UP_FEE'
+							, array('class'=>'part form-control', 'placeholder'=>'30', 'step'=>'any')); ?>
+				</div>
+				<?php echo $form->labelEx($model,'SET_UP_FEE'); ?>
 			</div>
+
+			<!-- Calculated Group-->
 			<div class="col-md-2 form-group form-group-calculated">
 				<div class="input-group gus-input-group">							
 					<input class="form-control" id="jobCogPercentage" readonly placeholder="N/A" 
@@ -285,7 +283,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						qty += (1 * $(this).val());
 					});" .
 					"$('#garment_qty').val(qty).change();" .
-					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('.editable-fee'), $('#setup-fee-hint'), qty);".
+					"updateSetupCost('".CHtml::normalizeUrl(array('job/setupFee'))."', $('#Job_SET_UP_FEE'), qty);".
 					"calculateJobTotal();".
 				"})",
 		CClientScript::POS_END);?>

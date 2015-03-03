@@ -25,7 +25,7 @@ class CostCalculator extends CComponent {
 					  break;
 		}
 		/*we have a cost for 11 or less and 12 or more, which are the same
-		 * but orders of 11 or less have a $30 screen fee added. then we have
+		 * but orders of 11 or less have a $30 setup fee added. then we have
 		 * a cost for 24 or more, 50 or more, 100 or more, and 200 or more.*/
 		$cutoffs = array(0, 24, 50, 100, 200); //must be backwards, otherwise the last item would almost always be greater.
 		$count = count($cutoffs);
@@ -46,7 +46,7 @@ class CostCalculator extends CComponent {
 	 */	
 	public static function calculateSetupFee($garments){
 		Yii::log('Number garments :  '. $garments, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
-		if($garments < 24 && $garments != 0){
+		if($garments < 12 && $garments != 0){
 			Yii::log('Setup fee returned :  '. GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
 			return GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT;
 		} else {

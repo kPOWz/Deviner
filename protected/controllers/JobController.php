@@ -38,7 +38,7 @@ class JobController extends Controller
 			array('allow',
 				'actions'=>array('status', 'create', 'update', 'search'
 						, 'calendar', 'validatePrintDate', 'updatePrintDate'
-						, 'deleteLine', 'approveLine', 'newLine', 'view', 'list', 'loadList', 'index', 'garmentCost', 'addArt', 'deleteArt', 'art'),
+						, 'setupFee', 'deleteLine', 'approveLine', 'newLine', 'view', 'list', 'loadList', 'index', 'garmentCost', 'addArt', 'deleteArt', 'art'),
 				'users'=>array('@'),
 				'expression'=>"Yii::app()->user->getState('isLead');",
 			),

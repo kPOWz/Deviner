@@ -110,7 +110,7 @@ $setup = $model->SET_UP_FEE;
 		<td><?php echo $formatter->formatCurrency($setup);?></td>
 	</tr>
 	<?php foreach($model->additionalFees as $fee){?>
-		<?php if($fee['CONSTRAINTS']['part'] !== false){?>
+		<?php if($fee['ISPART']){?>
 			<tr class="item_row">
 				<td>Add'l Charge</td>
 				<td><?php echo $fee['TEXT'];?></td>

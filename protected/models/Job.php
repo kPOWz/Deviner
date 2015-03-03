@@ -49,7 +49,7 @@ class Job extends CActiveRecord
 	// additional fee IDs as constants
 	const FEE_TAX_RATE = 185;
 	const FEE_SHIPPING = 184;
-	const FEE_INK_CHANGE = 447;
+	const FEE_INK_CHANGE = 448;
 	private $_additionalFees; //cache this value here.
 	
 	/**
@@ -507,7 +507,9 @@ class Job extends CActiveRecord
 				if(is_array($realValue)){
 					$realValue = $realValue['VALUE'];
 				}
-				$inserter->insert('job_fee', array('FEE_ID'=>$fee_id, 'JOB_ID'=>$this->ID, 'VALUE'=>$realValue));
+				if($realValue && $realValue > 0){				
+					$inserter->insert('job_fee', array('FEE_ID'=>$fee_id, 'JOB_ID'=>$this->ID, 'VALUE'=>$realValue));
+				}
 			}
 		}
 	}
@@ -551,7 +553,7 @@ class Job extends CActiveRecord
 		$additionalFees = $this->additionalFees;
 		$totalFee = 0;
 		foreach($additionalFees as $fee){
-			if($fee['CONSTRAINTS']['part'] !== false){
+			if($fee['ISPART']){
 				$totalFee += $fee['VALUE'];
 			}
 		}		
@@ -662,10 +664,9 @@ class Job extends CActiveRecord
 			$constraints = CJSON::decode($fee->EXTENDED);
 			$result[(string) $fee->ID] = array(
 				'TEXT'=>$fee->TEXT,
-				'VALUE'=>(isset($constraints['default'])) 
-							? $constraints['default'] : ($values && isset($values[(string) $fee->ID])
-															? $values[(string) $fee->ID] : 0),
-				'CONSTRAINTS'=>$constraints,
+				'DEFAULT'=>isset($constraints['default']) ? $constraints['default'] : '0.00',
+				'VALUE'=>$values && isset($values[(string) $fee->ID]) ? $values[(string) $fee->ID] : '',
+				'ISPART'=>(isset($constraints['part']) && $constraints['part']) || !isset($constraints['part']),
 			);
 		}
 		return $result;	

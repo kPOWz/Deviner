@@ -199,11 +199,13 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_SHIPPING.']'); ?>
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>			
-					<?php echo $form->textField($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
-						'value'=>$model->additionalFees[Job::FEE_SHIPPING]['VALUE'],
+					<?php $shippingFee = $model->additionalFees[Job::FEE_SHIPPING];
+						echo $form->numberField($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
+						'value'=>$shippingFee['VALUE'],
+						'placeholder'=>$shippingFee['DEFAULT'],
 						'size'=>6,
 						'maxlength'=>6,
-						'class'=>($model->additionalFees[Job::FEE_SHIPPING]['CONSTRAINTS']['part'] !== false) ? 'part form-control' : 'form-control',
+						'class'=>$shippingFee['ISPART'] ? 'part form-control' : 'form-control',
 					));?>
 				</div>
 				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
@@ -212,11 +214,18 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 
 			<!-- Ink Change Fee Group-->
 			<div class="col-md-2 form-group">
+				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_INK_CHANGE.']'); ?>
 				<div class="input-group gus-input-group">
-					<span class="input-group-addon">$</span>				
-					<input placeholder="not implemented" class="form-control" />
+					<span class="input-group-addon">$</span>			
+					<?php $inkChangeFee = $model->additionalFees[Job::FEE_INK_CHANGE];
+						echo $form->numberField($model, 'additionalFees['.Job::FEE_INK_CHANGE.']', array(
+						'value'=>$inkChangeFee['VALUE'],
+						'placeholder'=>$inkChangeFee['DEFAULT'],
+						'class'=>$inkChangeFee['ISPART'] ? 'part form-control' : 'form-control',
+					));?>
 				</div>
-				<label>Ink Change Fee</label>
+				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_INK_CHANGE.']', array(
+					'label'=>$model->additionalFees[Job::FEE_INK_CHANGE]['TEXT'],));?>
 			</div>
 
 			<!-- Setup Fee Group-->
@@ -232,7 +241,7 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 		    		)); ?>
 			      </span>
 			      <input type="text" readonly class="form-control intToUsd" id='setup-fee-hint' 
-			      	value="<?php echo Yii::app()->numberFormatter->formatCurrency(GlobalConstants::SETUP_FEE_AMOUNT_WAIVED, '$') ?>" />
+			      	value="<?php echo Yii::app()->numberFormatter->formatCurrency($model->SET_UP_FEE, '$') ?>" />
 			    </div>
 			    <?php echo CHtml::activeLabelEx($model,'SET_UP_FEE'); ?>		    	
 			</div>

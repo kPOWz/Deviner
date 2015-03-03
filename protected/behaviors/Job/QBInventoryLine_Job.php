@@ -63,7 +63,7 @@ class QBInventoryLine_Job extends QBInventoryLine {
 		$lines[] = $this->createSetupFee();			
 		$index = 0;
 		foreach ($this->owner->additionalFees as $fee) {
-			if($fee['CONSTRAINTS']['part'] !== false){
+			if($fee['ISPART']){
 				$lines[] = $this->createAdditional($fee, $index);
 			}
 		}

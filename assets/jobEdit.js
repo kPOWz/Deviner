@@ -86,6 +86,69 @@ var calculateJobTotal = function(){
 	setGrandTotal(jobTotal);
 }
 
+function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, productFindUrl){
+	var btn = $(sender);
+	btn.button('loading');
+	var count = $(sender).parents('.row').prev('#lines').children('.jobLines')
+							.children('div[name="sizes"]').children('.jobLine').children('.part').size();
+	$.ajax({
+		url: newJobLineUrl,
+		type: 'POST',
+		data: {
+			namePrefix: namePrefix,
+			count: count,
+		},
+		success: function(data){
+			var productsContainer = $(sender).parents('.gus-form').children('#lines');
+			$(data).appendTo(productsContainer);
+			var div_id = $(data).find('.line_delete').parent().attr('id');
+			$('#' + div_id).find('.item-select').autocomplete({
+				'select': function(event, ui){
+					$.getJSON( productOptionsUrl,{
+							itemID: ui.item.id,
+							namePrefix: namePrefix,
+							count: count,
+						},
+						function(data){
+							var colors = data.colors;
+							var sizes = data.sizes;
+							var cost = data.productCost;
+							var colorOptions = $('<select></select>').attr('name', 'color-select')
+																		.attr('class', 'color-select form-control');
+							for(var color in colors){
+								colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
+							}
+							colorOptions.attr('name', $('#' + div_id).children('.color-select').attr('name'));
+							$('#' + div_id + ' .row div[name="color-group"]').children('.color-select').replaceWith(colorOptions);
+							$('#' + div_id + ' .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);
+							$('#' + div_id + ' .row').children('.jobLine').children('.hidden_cost').val(cost);
+							onGarmentCostUpdate($('#' + div_id).find('.product-cost')
+								, cost, $('#' + div_id).find('.editable-price')
+								, $('#' + div_id).find('.hidden-price')
+								, $('#' + div_id).find('.garment_part')
+							);
+							for(var size in sizes){
+								$('#' + div_id + ' .row').children('.' + div_id + sizes[size].ID)
+								.removeClass('hidden-size')
+								.addClass('col-md-2')
+								.children('.score_part').removeAttr('disabled');
+							}
+							$('#' + div_id +' .row div[name="style-group"]').find('.hidden-style').val(ui.item.id);
+						}
+					);
+				},
+				'source': productFindUrl
+			});
+		},
+	}).always(function(){ btn.button('reset'); });
+}
+
+//need to distinguish betwene this and a normal submit
+// $( "#job-form-update" ).on( "submit", function(event) {
+//   	event.preventDefault();
+
+// });
+
 var calculateCostOfGoodsPercentage = function(){
 	var costOfGoods = 0;
 	var jobProducts = $('.jobLines')

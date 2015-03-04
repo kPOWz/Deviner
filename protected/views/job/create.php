@@ -13,6 +13,7 @@ $this->menu=array(
 <h1>Create Job</h1>
 
 <?php echo $this->renderPartial('_form', array(
+	'id'=>'job-form-create',
 	'model'=>$model,
 	'customerList'=>$customerList,
 	'newCustomer'=>$newCustomer,

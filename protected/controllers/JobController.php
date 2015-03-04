@@ -224,6 +224,7 @@ class JobController extends Controller
 		
 		Yii::log('newLine count ' . $count, CLogger::LEVEL_TRACE, 'application.controllers.job');
 		$this->renderPartial($view, array(
+			
 			'namePrefix'=>$namePrefix,
 			'startIndex'=>$count,
 			'products'=>$products,
@@ -706,9 +707,16 @@ class JobController extends Controller
 				$saved = $saved && $model->save();
 			}
 			if($saved){
-				//if saved, redirect
-				Yii::app()->user->setFlash('success', 'Success! Job changes saved.');
-				$this->redirect(array('update', 'id'=>$model->ID));
+				if(!Yii::app()->request->isAjaxRequest)
+				{
+					Yii::app()->user->setFlash('success', 'Success! Job changes saved.');
+					$this->redirect(array('update', 'id'=>$model->ID));
+				}else{
+					header('Content-type: application/json');			
+					echo CJSON::encode(array('SAVED'=>true));					
+					Yii::app()->end();
+					return;
+				}
 			}
 		}
 
@@ -1129,7 +1137,7 @@ class JobController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='job-form')
+		if(isset($_POST['ajax']) && ($_POST['ajax']==='job-form-create' || $_POST['ajax']==='job-form-update'))
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

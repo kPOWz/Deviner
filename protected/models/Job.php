@@ -96,9 +96,11 @@ class Job extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('NAME', 'required'),
 			array('SCORE', 'numerical', 'integerOnly'=>true),
 			array('RUSH', 'numerical'),
 			array('SET_UP_FEE', 'numerical'),
+			array('SET_UP_FEE','default', 'value'=> 0.00, 'setOnEmpty'=>TRUE),
 			array('ID, NAME, DESCRIPTION, NOTES, ISSUES, STATUS, additionalFees', 'safe'),
 			array('printDate', 'compareDate', 'compareAttribute'=>'dueDate', 'operator'=>'<='),	
 			// The following rule is used by search().
@@ -463,7 +465,9 @@ class Job extends CActiveRecord
 			//Prep for comarission of stored and current due date
 			
 			//Usually the case of a new record; don't need to compare due dates as none exists, so bail
-			$savedDueDateString = EventLog::model()->findByPk($dueDateEvent->getPrimaryKey())->DATE;
+			if(EventLog::model()->findByPk($dueDateEvent->getPrimaryKey())){
+				$savedDueDateString = EventLog::model()->findByPk($dueDateEvent->getPrimaryKey())->DATE;
+			}
 			if(!isset($savedDueDateString) || trim($savedDueDateString)==='') return true;
 			
 			//Convert due date back to a Date before comparison because of EventLog's afterFind() DateConverter behavior

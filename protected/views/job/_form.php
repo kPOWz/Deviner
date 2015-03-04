@@ -2,74 +2,20 @@
 Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobOperations.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, namePrefix){
-	var btn = $(sender);
-	btn.button('loading');
-	var count = $(sender).parents('.row').prev('#lines').children('.jobLines').children('div[name=\"sizes\"]').children('.jobLine').children('.part').size();" .
-	"$.ajax({
-		url: '".CHtml::normalizeUrl(array('job/newLine'))."'," .
-		"type: 'POST'," .
-		"data: {
-			namePrefix: namePrefix," .
-			"count: count,
-		}," .
-		"success: function(data){
-			var productsContainer = $(sender).parents('.gus-form').children('#lines');
-			$(data).appendTo(productsContainer);" .
-			"var div_id = \$(data).attr('id');" .
-			"\$('#' + div_id).find('.item-select').autocomplete({
-				'select': function(event, ui){
-					\$.getJSON(
-					'".CHtml::normalizeUrl(array('product/allowedOptions'))."'," .
-					"{
-						itemID: ui.item.id," .
-						"namePrefix: namePrefix," .
-						"count: count,
-					}," .
-					"function(data){
-						var colors = data.colors;" .
-						"var sizes = data.sizes;" .
-						"var cost = data.productCost;" .
-						"var colorOptions = $('<select></select>')" .
-							"\n.attr('name', 'color-select')" .
-							".attr('class', 'color-select form-control');" .
-						"for(var color in colors){
-							colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
-						}" .
-						"colorOptions.attr('name', \$('#' + div_id).children('.color-select').attr('name'));" .
-						"\$('#' + div_id + ' .row div[name=\"color-group\"]').children('.color-select').replaceWith(colorOptions);\n" .
-						"\$('#' + div_id + ' .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);" .
-						"\$('#' + div_id + ' .row').children('.jobLine').children('.hidden_cost').val(cost);" .
-						"onGarmentCostUpdate($('#' + div_id).find('.product-cost'), cost, $('#' + div_id).find('.editable-price'), $('#' + div_id).find('.hidden-price'), $('#' + div_id).find('.garment_part'));" .
-						"for(var size in sizes){
-							\$('#' + div_id + ' .row').children('.' + div_id + sizes[size].ID)" .
-							".removeClass('hidden-size')" .
-							".addClass('col-md-2')" .
-							".children('.score_part').removeAttr('disabled');
-						}" .
-						"\$('#' + div_id +' .row div[name=\"style-group\"]').find('.hidden-style').val(ui.item.id);
-					});
-				}," .
-				"'source': '".CHtml::normalizeUrl(array('product/findProduct', 'response'=>'juijson'))."'
-			});
-		},
-	}).always(function(){ btn.button('reset'); });
-}", CClientScript::POS_BEGIN);
-
 ?>
 
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'job-form',
+	'id'=>$id,
 	'enableAjaxValidation'=>false,
 	'htmlOptions'=>array(
 		'enctype'=>'multipart/form-data',
 		'class'=>'gus-form',
 	),
 )); ?>
-
-	<?php echo $form->errorSummary($model); ?>
-
+	<div class="<?php echo strlen(CHtml::errorSummary($model)) > 0 ? 'alert alert-danger' : 'hide';?>" role="alert" >
+		<?php echo $form->errorSummary($model); ?>
+	</div>
 	<h4 class="heading-primary">Client Details</h4>
 	<?php
 		$this->renderPartial('//customer/_jobForm', array(
@@ -82,18 +28,17 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 	<h4 class="heading-primary">Job Details</h4>
 	<fieldset class="row">
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
-		<div class="col-md-4 form-group">
-			<?php echo $form->error($model, 'NAME');?>
+		<div class="col-md-4 form-group">			
 			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client'));?>			
 			<?php echo $form->labelEx($model, 'NAME');?>
+			<?php echo $form->error($model, 'NAME', array('class'=>'text-danger'));?>
 		</div>
-		<div class="col-md-4 form-group">
-			<?php echo $form->error($model, 'LEADER_ID');?>
+		<div class="col-md-4 form-group">			
 			<?php echo $form->dropDownList($model, 'LEADER_ID', $leaderList, array('class'=>'form-control', 'prompt'=>'-- Select leader --')); ?>
 			<?php echo $form->labelEx($model, 'LEADER_ID');?>
+			<?php echo $form->error($model, 'LEADER_ID', array('class'=>'text-danger'));?>
 		</div>
 		<div class="col-md-4 form-group">
-			<?php echo $form->error($model, 'formattedDueDate'); ?>
 			<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				'name'=>'Job[formattedDueDate]',
 				'model'=>$model,
@@ -108,7 +53,8 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 						'class'=>'form-control gus-datepicker'
 				),
 			));?>
-			<?php echo $form->labelEx($model, 'formattedDueDate');?>			
+			<?php echo $form->labelEx($model, 'formattedDueDate');?>
+			<?php echo $form->error($model, 'formattedDueDate', array('class'=>'text-danger')); ?>			
 		</div>		
 	</fieldset>
 
@@ -134,7 +80,11 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 		<div class="row">
 			<div class='col-md-6'>
 				<?php echo TbHtml::button('Additional product', array(
-					'onclick'=>"addLine(this, '".CHtml::activeName($model, 'jobLines')."');",
+					'onclick'=>"addJobLine(this, '".CHtml::activeName($model, 'jobLines')."'
+													,'".CHtml::normalizeUrl(array('job/newLine', 'form'=>'e'))."' 
+													,'".CHtml::normalizeUrl(array('product/allowedOptions'))."'
+													,'".CHtml::normalizeUrl(array('product/findProduct', 'response'=>'juijson'))."'
+													);",
 					'icon'=>'plus',
 					'iconOptions'=>array('class'=>'text-primary'),
 					'color'=>'inverse gus-btn',
@@ -232,14 +182,14 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 			</div>
 
 			<!-- Setup Fee Group-->
-			<div class="col-md-2 form-group">
-				<?php echo $form->error($model,'SET_UP_FEE'); ?>
+			<div class="col-md-2 form-group">				
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>		
 					<?php echo $form->numberField($model,'SET_UP_FEE'
 							, array('class'=>'part form-control', 'placeholder'=>'30', 'step'=>'any')); ?>
 				</div>
 				<?php echo $form->labelEx($model,'SET_UP_FEE'); ?>
+				<?php echo $form->error($model,'SET_UP_FEE'); ?>
 			</div>
 
 			<!-- Calculated Group-->
@@ -262,14 +212,14 @@ Yii::app()->clientScript->registerScript('add-job', "function addLine(sender, na
 					<input id="jobTotal" class="form-control" readonly placeholder="not implemented" value=
 						<?php echo CHtml::encode(Yii::app()->numberFormatter->formatDecimal($model->total)); ?> />
 
-					<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];
+					<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'];
 						 echo CHtml::hiddenField('tax_rate', $taxRate); ?>
 				</div>
 				<label class="form-group-calculated gus-btn">Total</label>
 				<label class="text-muted">
 					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']'
 						, array('checked'=>'checked', 'id'=>'jobIsTaxed'));?> 
-					<?php echo $model->additionalFees[Job::FEE_TAX_RATE]['VALUE'];?>% Sales Tax
+					<?php echo $model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'];?>% Sales Tax
 				</label>
 			</div>
 		</div>

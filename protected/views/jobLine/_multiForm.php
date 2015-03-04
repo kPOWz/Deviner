@@ -4,7 +4,9 @@
 $line = $products['model'];
 $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 
-<?php echo CHtml::errorSummary($line); ?>
+<div class="<?php echo strlen(CHtml::errorSummary($line)) > 0 ? 'alert alert-danger' : 'hide';?>" role="alert" >
+	<?php echo CHtml::errorSummary($line); ?>
+</div>
 <div class="jobLines well" id="<?php echo $div;?>">	
 	<?php 
 		$approved = $products['approved'];
@@ -128,39 +130,42 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 				?>
 				
 				
-				<div class="price-select-container form-horizontal">					
-					<div class="col-md-10">
-						<div class="input-group gus-input-group">
-							<span class="input-group-addon">$</span>
-							<?php echo CHtml::activeNumberField($line, 'PRICE', array(
-								'id'=>$priceSelect,
-								'required'=>'required',
-								'step'=>'any',
-								'min'=>'0.01',
-								'disabled'=>$approved,
-								'class'=>'unit_price form-control',
-								'name'=>$namePrefix."[$startIndex]".'[PRICE]',
-								'onkeyup'=>"recalculateJobLineTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
-							));?>
+				<div class="price-select-container form-horizontal">
+					<div class="form-group">					
+						<div class="col-md-10">
+							<div class="input-group gus-input-group">
+								<span class="input-group-addon">$</span>
+								<?php echo CHtml::activeNumberField($line, 'PRICE', array(
+									'id'=>$priceSelect,
+									'required'=>'required',
+									'step'=>'any',
+									'min'=>'0.01',
+									'disabled'=>$approved,
+									'class'=>'unit_price form-control',
+									'name'=>$namePrefix."[$startIndex]".'[PRICE]',
+									'onkeyup'=>"recalculateJobLineTotal(this, $(this).parents('.price-select-container').find('.estimate-price'), $(this).parents('.price-select-container').find('.garment_part'));",
+								));?>
+							</div>
+							<?php echo CHtml::activeLabelEx($line, 'PRICE');?>
+							<?php echo CHtml::error($line, 'PRICE'); ?>
 						</div>
-						<label>Price per product</label><span class="text-danger">*</span>
-					</div>
-					<div class="col-md-2">
-						<label class="control-label">
-						<!-- when the link is clicked, we want to hide the link and set the value of the input field 
-							to the value of the hidden field within the link -->
-							<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> 
-								title="Click to choose suggested price"
-								onclick="chooseEstimatePrice(this, event)">
-								<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
-								<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>
-							</a>
-						</label>
-					</div>
+						<div class="col-md-2">
+							<label class="control-label">
+							<!-- when the link is clicked, we want to hide the link and set the value of the input field 
+								to the value of the hidden field within the link -->
+								<a class="estimate-price" href="#" <?php echo ($line->PRICE != $unitEstimate) ? 'style="display: hidden;"' : '';?> 
+									title="Click to choose suggested price"
+									onclick="chooseEstimatePrice(this, event)">
+									<span><?php echo CHtml::encode($formatter->formatCurrency($unitEstimate));?></span>
+									<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'hidden-price'), $unitEstimate, array('class'=>'hidden-price hidden-value'));?>
+								</a>
+							</label>
+						</div>
+					</div>					
 					<?php echo CHtml::hiddenField(CHtml::getIdByName($namePrefix.$startIndex.'total-price'), $line->total, array(
 						'class'=>'part garment_part',
 					));?>
-				</div>
+				</div>				
 				<?php echo CHtml::hiddenField('product-cost', $line->product ? $line->product->COST : 0, array('class'=>'product-cost'));?>
 		</div>
 	</div>

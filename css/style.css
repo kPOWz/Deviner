@@ -159,6 +159,9 @@ tr.row-clickable:hover{
 }
 
 /*//forms*/
+.gus-form span.required{
+    color: #FF3333;
+}
 .gus-input-group *,
 .gus-input-group-submit * {
     border-radius: 0 !important;

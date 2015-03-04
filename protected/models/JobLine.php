@@ -142,6 +142,7 @@ class JobLine extends CActiveRecord
 			array('JOB_ID, PRODUCT_ID, APPROVAL_USER', 'numerical', 'integerOnly'=>true),
 			array('APPROVAL_DATE, ID', 'safe'),
 			array('PRICE', 'numerical'),
+			array('PRICE', 'required'),
 			array('PRODUCT_COLOR', 'numerical'),			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -175,7 +176,7 @@ class JobLine extends CActiveRecord
 			'ID' => 'ID',
 			'JOB_ID' => 'Job',
 			'PRODUCT_ID' => 'Product',
-			'PRICE' => 'Price',
+			'PRICE' => 'Price per product',
 			'APPROVAL_DATE' => 'Approval Date',
 			'APPROVAL_USER' => 'Approval User',
 			'PRODUCT_COLOR'=> 'Color',

@@ -137,10 +137,10 @@ ul.nav ul {
 }
 
 /*//tables*/
-tr.row-clickable{
+tr .td-clickable{
     cursor: pointer;
 }
-tr.row-clickable:hover{
+tr .td-clickable:hover{
     color: #09f;
 }
 

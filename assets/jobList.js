@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
                    .find('.bg-success');
            animateStatusChangeRows(successRows);
    });
-    $(".row-clickable").click(function() {
-        window.document.location = $(this).data("href");
+    $(".td-clickable").click(function() {
+        window.document.location = $(this).parent().data("href");
 	});
 });

@@ -9,29 +9,30 @@ $this->widget('yiistrap.widgets.TbGridView', array(
 	'rowHtmlOptionsExpression' => 'array("data-href"=>CHtml::normalizeUrl(array("job/update", "id"=>$data->ID)))',
 	'itemsCssClass'=>'table-primary',
 	'pagerCssClass'=>'text-center', //remove 'pager' class coming from zii - namespace conflict w/ TWBS css
-	'rowCssClassExpression' => '
-       ( $row%2 ? $this->rowCssClass[1] : $this->rowCssClass[0] ) . " row-clickable"
-	',
    	'columns' => array(
    		array(
 			'header'=>'Client',
             'type' => 'raw',
-            'value' => 'CHtml::encode($data->CUSTOMER->COMPANY == NULL ? $data->CUSTOMER->USER->FIRST ." ".$data->CUSTOMER->USER->LAST : $data->CUSTOMER->COMPANY)'			
+            'value' => 'CHtml::encode($data->CUSTOMER->COMPANY == NULL ? $data->CUSTOMER->USER->FIRST ." ".$data->CUSTOMER->USER->LAST : $data->CUSTOMER->COMPANY)',
+            'htmlOptions' => array('class'=>'td-clickable'),		
 		),
         array(
 			'header'=>'Job',
 			'type' => 'raw',
 			'value'=>"\$data->NAME . ((\$data->RUSH > 0) ? ' <span class=\"label label-warning\">RUSH</span>' : '');",
+			'htmlOptions' => array('class'=>'td-clickable'),
 		),
 		array(
 			'header'=>'Leader',
             'type' => 'raw',
-            'value' => 'CHtml::encode($data->LEADER->FIRST)'			
+            'value' => 'CHtml::encode($data->LEADER->FIRST)',
+       		'htmlOptions' => array('class'=>'td-clickable'),
 		),
 		array(
 			'header'=>'Due',
 			'name'=>'dueDate',
 			'value'=>"(strtotime(\$data->dueDate) <= 0) ? '(None)' : date('l (n/j)', strtotime(\$data->dueDate));",
+			'htmlOptions' => array('class'=>'td-clickable'),
 		),
 		array(
 			'header'=>'Status',

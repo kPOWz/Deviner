@@ -624,6 +624,7 @@ class JobController extends Controller
 		$printers = User::listUsersWithRole(User::DEFAULT_ROLE);
 		$sizes = Lookup::model()->findAllByAttributes(array('TYPE'=>'Size'));
 		$colors = Lookup::model()->findAllByAttributes(array('TYPE'=>'Color'));
+		//Yii::log('color count : '.sizeof($colors) CLogger::LEVEL_TRACE, 'application.controllers.job');
 		$passes = array(0, 1, 2, 3, 4, 5, 6); //as instructed by Ben, number of passes
 		//should be limited to a few numbers.
 		
@@ -644,9 +645,9 @@ class JobController extends Controller
 				foreach($styleGroup as $color=>$colorGroup){
 					$approved = false;
 					$line = $colorGroup['line'];
-					foreach($sizes as $size){ //iterating through sizes because we want ALL of them
-						if(isset($colorGroup['sizes'][(string) $size->ID])){							
-							$sizeLine = $colorGroup['sizes'][(string) $size->ID];
+					foreach($sizes as $size){ //iterating through sizes because we want ALL of them	
+						$sizeLine = isset($colorGroup['sizes'][(string) $size->ID]) ? $colorGroup['sizes'][(string) $size->ID] : NULL;
+						if(isset($sizeLine) && isset($sizeLine->productLine)){						
 							$productLine = $sizeLine->productLine;							
 						} else {
 							$sizeLine = new JobLineSize;
@@ -657,7 +658,7 @@ class JobController extends Controller
 							$productLine->SIZE = $size->ID;
 						}						
 						$products[] = array(
-							'productLine' => $productLine,
+							'productLine'=>$productLine,
 							'line'=>$sizeLine,
 						);
 					}

@@ -113,15 +113,16 @@ function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, produc
 							var colors = data.colors;
 							var sizes = data.sizes;
 							var cost = data.productCost;
-							var colorOptions = $('<select></select>').attr('name', 'color-select')
-																		.attr('class', 'color-select form-control');
+							var selectElement = $('#' + div_id + ' .row div[name="color-group"]').find('.color-select:first-child');
+							selectElement.empty();
 							for(var color in colors){
-								colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
+								selectElement.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
 							}
-							colorOptions.attr('name', $('#' + div_id).children('.color-select').attr('name'));
-							$('#' + div_id + ' .row div[name="color-group"]').children('.color-select').replaceWith(colorOptions);
-							$('#' + div_id + ' .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);
-							$('#' + div_id + ' .row').children('.jobLine').children('.hidden_cost').val(cost);
+							selectElement.removeAttr('disabled');
+							var jobSizeLine = $('#' + div_id + ' .row').children('.jobLine');
+							jobSizeLine.addClass('hidden-size').removeClass('col-md-2')
+										.children('.score_part').attr('disabled', true).val(0);
+							jobSizeLine.children('.hidden_cost').val(cost);
 							onGarmentCostUpdate($('#' + div_id).find('.product-cost')
 								, cost, $('#' + div_id).find('.editable-price')
 								, $('#' + div_id).find('.hidden-price')

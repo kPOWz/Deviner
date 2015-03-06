@@ -116,9 +116,17 @@ class JobLine extends CActiveRecord
 	protected function afterSave(){
 		parent::afterSave();
 		if(isset($this->sizes)){
-			foreach($this->sizes as $line){
-				$line->JOB_LINE_ID = $this->ID;
-				$line->save();
+			foreach($this->sizes as $sizeLine){
+				$sizeLine->JOB_LINE_ID = $this->ID;
+				//Extra logic needed to take care of situation where the jobLine's product is changed - the size line object may be new
+				//	 which woudl normally trigger an insert, instead, update
+				$existingSizeLine = JobLineSize::model()->findByPk(array('JOB_LINE_ID'=>$this->ID, 'SIZE'=>$sizeLine->SIZE));
+				if($existingSizeLine == null){
+					$sizeLine->save();
+				}else{
+					$existingSizeLine->QUANTITY = $sizeLine->QUANTITY;
+					$existingSizeLine->save();
+				}
 			}
 		}
 	}

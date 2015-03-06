@@ -60,17 +60,14 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 									"var sizes = data.sizes;" .
 									"var product = data.product;" .
 									"var cost = data.productCost;" .
-									"var colorOptions = $('<select></select>')" .
-										".attr('name', 'color-select')" .
-										".attr('class', 'color-select form-control');" .
+									"var selectElement = \$('#".$div." .row div[name=\"color-group\"]').find('.color-select:first-child');".
+									"selectElement.empty();" .
 									"for(var color in colors){
-										colorOptions.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
-									}" .
-									"colorOptions.attr('name', \$('#$div').children('.color-select').attr('name'));" .
-									"\$('#".$div." .row div[name=\"color-group\"]').children('.color-select').replaceWith(colorOptions);" .
+										selectElement.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
+									}" .									
 									"\$('#".$div." .row').children('.jobLine').children('.hidden_cost').val(cost);" .
 									"onGarmentCostUpdate($('#$div').find('.product-cost'), cost, $('#$div').find('.unit_price'), $('#$div').find('.hidden-price'), $('#$div').find('.garment_part'));" .
-									"\$('#".$div." .row').children('.jobLine').addClass('hidden-size').children('.score_part').attr('disabled', true).val(0);" .
+									"\$('#".$div." .row').children('.jobLine').addClass('hidden-size').removeClass('col-md-2').children('.score_part').attr('disabled', true).val(0);" .
 									"for(var size in sizes){
 										\$('#".$div." .row').children('.".$div."' + sizes[size].ID)" .
 										".removeClass('hidden-size')" .
@@ -173,9 +170,8 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		<?php
 		$index = 0;
 		
-		$productLineCounter = count($products['lines']);
-		echo Yii::trace($productLineCounter.' numberOfDataLines', 'application.views.jobLine');
-
+		$productsCounter = count($products['lines']);
+		echo Yii::trace($productsCounter.' numberOfDataLines', 'application.views._multiForm');
 		echo CHtml::hiddenField('product-quantity'
 									, $line->garmentCount ? $line->garmentCount : 0
 									, array('id'=>CHtml::getIdByName($namePrefix.$startIndex.'product-quantity')));
@@ -186,7 +182,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 				//echo Yii::trace($key.' key', 'application.views.jobLine');
 				if($key == 'productLine') $productLine = $dataLineValue;
 				if($key == 'line') $sizeLine = $dataLineValue;
-			}	$continue = $productLine && $sizeLine; //beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
+			}	$continue = $productLine && $sizeLine; // [MT] - beats me as to why I needed to do this. For some reason, dataLine thought it was a JobLine instance.
 			if($continue){
 				$this->renderPartial('//jobLineSize/_form', array(
 					'product'=>$productLine,

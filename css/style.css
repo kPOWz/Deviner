@@ -95,13 +95,13 @@ ul.nav ul {
 ul.nav li:hover > ul {
  display: block;
  visibility: visible;
- top: 1px;
+ top: 1em;
  left: 99%;
 }
 
 ul.nav ul li:hover > ul{
- top: 1px;
- left: 99%;
+ overflow-y: scroll;
+ max-height: 20em;
 }
 
 ul.nav ul {

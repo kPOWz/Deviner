@@ -58,6 +58,7 @@ div.gus-nav-container{
     padding: 0;
     text-align: center;
     height: 100vh;
+    z-index: 1;
 }
 .gus-nav-container li{
     text-transform: uppercase;
@@ -106,6 +107,12 @@ ul.nav ul {
  left: 0;
  z-index: 598;
  width: 100%;
+}
+
+ul.nav li.dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /*//tabs*/

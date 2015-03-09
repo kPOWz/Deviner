@@ -9,14 +9,12 @@ function fadeOut(fadeScaler) {
     if (!this instanceof Element) return false;
     var element = this;   
     var opacity = 1;
-    //    opacity = "0";
-   // var opacity = this.style.opacity = 1;
-
     animate = setInterval(function() {
         opacity += fadeScaler;
 
         if (opacity <= -1) {
             clearInterval(animate);
+            element.className += " hide";           
         }
         element.style.opacity = opacity;
        },

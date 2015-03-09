@@ -13,7 +13,7 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 		$saved = $products['saved'];
 	?>
 	<div class="row line_delete">
-		<?php if($saved){?>
+<!-- 		<?php if($saved){?>
 			<?php if(!$approved){?>
 				<?php echo CHtml::button('Approve', array(
 					'class'=>'line_approve',
@@ -23,13 +23,14 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 					'class'=>'line_unapprove',				
 				));?>
 			<?php }?>
-		<?php }?>	
+		<?php }?>	 -->
 		<?php if(!$approved){?>
 			<?php echo TbHtml::button('', array(
 				'class'=>'btn_line_delete pull-right',
 				'icon'=>'remove',
 				'iconOptions'=>array('class'=>'text-danger'),
 				'color'=>'inverse',
+				'title'=>'remove style'
 			));?>
 		<?php }?>
 	</div>

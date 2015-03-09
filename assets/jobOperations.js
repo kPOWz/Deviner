@@ -108,7 +108,7 @@ function updateSetupCost(url, editable, garmentCount){
 	calculateSetupFeeCore(url, garmentCount, function(data){
 		var newCost = data.result;
 		editable.removeAttr('value');
-		newCost > 0 ? editable.prop('placeholder', 30) : editable.prop('placeholder', 0);
+		editable.prop('placeholder', newCost.toFixed(2));
 	});
 }
 

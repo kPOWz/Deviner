@@ -668,7 +668,8 @@ class Job extends CActiveRecord
 			$constraints = CJSON::decode($fee->EXTENDED);
 			$result[(string) $fee->ID] = array(
 				'TEXT'=>$fee->TEXT,
-				'DEFAULT'=>isset($constraints['default']) ? $constraints['default'] : '0.00',
+				'DEFAULT'=>isset($constraints['default']) ?
+					number_format($constraints['default'], 2) : '0.00',
 				'VALUE'=>$values && isset($values[(string) $fee->ID]) ? $values[(string) $fee->ID] : '',
 				'ISPART'=>(isset($constraints['part']) && $constraints['part']) || !isset($constraints['part']),
 			);

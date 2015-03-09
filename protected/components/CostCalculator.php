@@ -50,7 +50,7 @@ class CostCalculator extends CComponent {
 			Yii::log('Setup fee returned :  '. GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT, CLogger::LEVEL_INFO, 'application.components.CostCalculator');
 			return GlobalConstants::SETUP_FEE_AMOUNT_DEFAULT;
 		} else {
-			return 0;
+			return 0.00;
 		}
 	}
 }

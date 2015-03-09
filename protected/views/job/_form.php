@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 	<fieldset class="row">
 		<?php $leaderList = CHtml::listData($leaders, 'ID', 'FIRST');?>
 		<div class="col-md-4 form-group">			
-			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client'));?>			
+			<?php echo $form->textField($model, 'NAME', array('class'=>'form-control', 'placeholder'=>'Unique job name for client', 'required'=>'required'));?>			
 			<?php echo $form->labelEx($model, 'NAME');?>
 			<?php echo $form->error($model, 'NAME', array('class'=>'text-danger'));?>
 		</div>
@@ -186,7 +186,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>		
 					<?php echo $form->numberField($model,'SET_UP_FEE'
-							, array('class'=>'part form-control', 'placeholder'=>'30', 'step'=>'any')); ?>
+							, array('class'=>'part form-control', 'placeholder'=>'30.00', 'step'=>'any')); ?>
 				</div>
 				<?php echo $form->labelEx($model,'SET_UP_FEE'); ?>
 				<?php echo $form->error($model,'SET_UP_FEE'); ?>
@@ -291,7 +291,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 			        <?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok text-success"/>', array(
 						'class'=> 'btn btn-default',
 						'type'=>'submit',
-						'title'=>'save job'
+						'title'=>'save job',
 					)); ?>
 			    </div>
 		 	</div>

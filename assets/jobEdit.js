@@ -81,7 +81,6 @@ var calculateJobTotal = function(){
 		lineItemPrice = (typeof lineItemPrice  === "number" && !isNaN(lineItemPrice)) ? lineItemPrice : 0;
 		jobTotal += lineItemPrice; 
 	});
-	if(!($('#Job_SET_UP_FEE').prop('checked'))) jobTotal -= 30; //remove setup fee
 	$('#lines div[name="price-group"] .garment_part').each(function(index){ jobTotal += parseFloat($(this).val()); });
 	setGrandTotal(jobTotal);
 }

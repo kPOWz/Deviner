@@ -85,16 +85,21 @@ div.gus-nav-container{
 }
 
 ul.nav ul {
- width: 124px;
  margin-top: 0px;
  background-color: #D1D2D4;
  padding-bottom: 0px;
  padding-top: 0px;
+
 }
 
 ul.nav li:hover > ul {
  display: block;
  visibility: visible;
+ top: 1px;
+ left: 99%;
+}
+
+ul.nav ul li:hover > ul{
  top: 1px;
  left: 99%;
 }
@@ -105,7 +110,6 @@ ul.nav ul {
  position: absolute;
  top: 100%;
  left: 0;
- z-index: 598;
  width: 100%;
 }
 
@@ -113,6 +117,10 @@ ul.nav li.dropdown ul {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+li.dropdown li:hover{
+    position: relative;
 }
 
 /*//tabs*/

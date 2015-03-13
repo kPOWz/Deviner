@@ -221,7 +221,7 @@ $( document ).ready(function() {
 	$('#jobStatusDropdown .dropdown-toggle').attr('href', '#jobStatusDropdown');
 	$("#jobStatusDropdown .dropdown-menu li a").click(function(){
 	  var group = $(this).parents(".input-group");
-	  group.find('.selection').text($(this).text());
+	  group.find('.selection').text($(this).text()).change();
 	  var listItem = $(this).parent();
 	  var statusId = listItem.data('status-id');
 	  listItem.siblings().removeClass('active');

@@ -1,6 +1,6 @@
 
 /*
- * script to fade out all success & error flash messages populated on the server by PHP setFlash()
+ * script to fade out all success & error flash messages populated from the server with PHP setFlash()
  *  or from the client with FLASH.setContent()
 */
 //  

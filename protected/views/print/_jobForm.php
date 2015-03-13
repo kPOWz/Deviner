@@ -75,7 +75,7 @@ CClientScript::POS_END);?>
 				<?php echo TbHtml::activeDropDownList($model,'SLEEVE_PASS', $passes, array('class'=>'pass_part sleeve_pass')); ?>
 			</div>
 		</div>
-		<label>Ink Colors (Front/Back/Sleve)</label>
+		<label>Ink Colors (Front/Back/Sleeve)</label>
 
 
 	<?php echo CHtml::hiddenField('score_pass',$model->pass, array('class'=>'score_pass')); ?>

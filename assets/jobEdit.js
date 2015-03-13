@@ -1,3 +1,5 @@
+var jobAutoSaveIntervalId = -1;
+
 function onGarmentCostUpdate(costField, newCost, editable, estimate, total){
 	var oldCost = $(costField).val() * 1;
 	var garmentCount = getGarmentCount(estimate);
@@ -143,11 +145,45 @@ function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, produc
 	}).always(function(){ btn.button('reset'); });
 }
 
-//need to distinguish betwene this and a normal submit
-// $( "#job-form-update" ).on( "submit", function(event) {
-//   	event.preventDefault();
+//bonus points: add in progress data
+//only do this if document.valid  (auto handled by yii if ajax validation enabled?)
+var ajaxSubmit = function(form){
+	var data=$("#job-form-update").serialize();
+    var submitIcon = $('.gus-input-group-submit').find('.glyphicon');
+    	submitIcon.removeClass('glyphicon-ok text-success')
+    		.addClass('glyphicon-repeat glyphicon-spin');
+    // contentType: 'application/json', //only accept json response /respond with json
+    $.ajax(form.attr('action'), {
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(response){
+        	console.log(response + '');
+        	(new FLASH()).setContent(response.MESSAGE);
+            submitIcon.addClass('text-success');
+            //form.remove(); <- only if html response, we probably only want to do this if not successful
+            //$('').hide().html(response).fadeIn();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(xhr.responseJSON);
+        },
+        failure: function(response){
+            alert('failure!');
+        },
+    }).always(function(){submitIcon.removeClass('glyphicon-repeat glyphicon-spin').addClass('glyphicon-ok');});
+  
+}
 
-// });
+var setupAutoSave = function(form){
+    if(form.first().val() === undefined) return;
+    $('.gus-input-group-submit').find('.glyphicon').removeClass('text-success');
+    //TODO: should we make this so its always 30 seconds from last save - regardless of whether last save was auto or not?
+    clearTimeout( jobAutoSaveIntervalId );
+    jobAutoSaveIntervalId = setTimeout(function(){
+        ajaxSubmit(form); 
+    }, 15000);
+}
 
 var calculateCostOfGoodsPercentage = function(){
 	var costOfGoods = 0;
@@ -195,4 +231,10 @@ $( document ).ready(function() {
 	addAutoTotalListeners();
 	addCostOfGoodsPercentageListeners();
 	setGrandTotal(parseFloat($('#jobTotal').val().replace(/,/g, '')));
+
+	$( "#job-form-update" ).on( "change", function(event) {
+		console.log('job form change detected');
+	  	setupAutoSave($(this));
+
+	});
 });

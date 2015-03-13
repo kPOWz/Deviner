@@ -680,12 +680,29 @@ class JobController extends Controller
 			}
 		}
 
+		if(!Yii::app()->request->isPostRequest){
+			$this->render('update',array(
+				'model'=>$model,
+				'customerList'=>$existingCustomers,
+				'newCustomer'=>$customer,
+				'print'=>$print,
+				'leaders'=>$leaders,
+				'printers'=>$printers,
+				'colors'=>$colors,
+				'sizes'=>$sizes,
+				'passes'=>$passes,
+				'lineData'=>$lineData,
+				'fileTypes'=>Lookup::listItems('ArtFileType'),
+			));
+		}
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Job']))
 		{
 			$model->loadFromArray($_POST['Job']);
+
 			if(isset($_POST['Customer']['ID'])){
 				$customer = Customer::model()->findByPk((int) $_POST['Customer']['ID']);
 			} else {
@@ -693,7 +710,7 @@ class JobController extends Controller
 			}
 			unset($_POST['Customer']['summary']);
 			$customer->attributes = $_POST['Customer'];
-			$print->loadFromArray($_POST['PrintJob'], $_FILES);
+			$print->loadFromArray($_POST['PrintJob'], $_FILES || []);
 			
 			$saved = true;
 			if($saved){
@@ -713,27 +730,15 @@ class JobController extends Controller
 					Yii::app()->user->setFlash('success', 'Success! Job changes saved.');
 					$this->redirect(array('update', 'id'=>$model->ID));
 				}else{
-					header('Content-type: application/json');			
-					echo CJSON::encode(array('SAVED'=>true));					
+					header('Content-type: application/json');		
+					echo CJSON::encode(array('SAVED'=>true, 'MESSAGE'=>'Success! Job changes saved.'));					
 					Yii::app()->end();
 					return;
 				}
 			}
+		}else{
+			Yii::log('Invalid job POST attempt', CLogger::LEVEL_INFO, 'application.controllers.job');
 		}
-
-		$this->render('update',array(
-			'model'=>$model,
-			'customerList'=>$existingCustomers,
-			'newCustomer'=>$customer,
-			'print'=>$print,
-			'leaders'=>$leaders,
-			'printers'=>$printers,
-			'colors'=>$colors,
-			'sizes'=>$sizes,
-			'passes'=>$passes,
-			'lineData'=>$lineData,
-			'fileTypes'=>Lookup::listItems('ArtFileType'),
-		));
 		
 	}
 	

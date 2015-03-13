@@ -1,25 +1,66 @@
 
 /*
- * script to fade out all success & error flash messages populated by PHP setFlash()
+ * script to fade out all success & error flash messages populated on the server by PHP setFlash()
+ *  or from the client with FLASH.setContent()
 */
-var flashError = document.getElementById('flash-error');
-var flashSuccess = document.getElementById('flash-success');
+//  
+var FLASH = function(){
+    //private
+    var fadeOut = function(fadeScaler) {
+        if (!this instanceof Element) return false;
+            var element = this;   
+            var opacity = 1;
+            animate = setInterval(function() {
+                opacity += fadeScaler;
 
-function fadeOut(fadeScaler) {
-    if (!this instanceof Element) return false;
-    var element = this;   
-    var opacity = 1;
-    animate = setInterval(function() {
-        opacity += fadeScaler;
+                if (opacity <= -1) {
+                    clearInterval(animate);
+                    element.className += " hide";           
+                }
+                element.style.opacity = opacity;
+               },
+               5000);
+    };
+    var createFlash = function(){
+        return $('<div></div>').addClass('alert');
+    };
+    this.createFlashSuccess = function(){
+        this.flashSuccess = (this.flashSuccess || createFlash()
+            .addClass('alert-success')
+            .attr('id', 'flash-success')
+            ).removeClass('hide').css('opacity', 1);
+        fadeOut.apply(this.flashSuccess[0], [-1]);
+    };
+    this.createFlashFailure = function(){
+        this.flashError = (this.flashError || createFlash()
+            .addClass('alert-danger')
+            .attr('id', 'flash-error')
+            ).removeClass('hide').css('opacity', 1);
+        fadeOut.apply(this.flashError[0], [-1]);
+    };
 
-        if (opacity <= -1) {
-            clearInterval(animate);
-            element.className += " hide";           
+    if(this.flashError){ fadeOut.apply(this.flashError, [-1]); };
+    if(this.flashSuccess){ fadeOut.apply(this.flashSuccess, [-1]); };
+}
+
+FLASH.prototype = (function () {
+    return {
+        setContent: function(content, success){
+            success = success || true;
+            if(success) {
+                this.createFlashSuccess();
+                $('main').prepend((this.flashSuccess).text(content));
+            
+            }
+            else {
+                this.createFlashError();
+                $('main').prepend((this.flashError).text(content));
+            }
         }
-        element.style.opacity = opacity;
-       },
-       5000);
-};
+    };
+}());
 
-if(flashError) {fadeOut.apply(flashError, [-1]); };
-if (flashSuccess) {fadeOut.apply(flashSuccess, [-1]); };
+
+FLASH.prototype.flashError = document.getElementById('flash-error');
+FLASH.prototype.flashSuccess = document.getElementById('flash-success');
+new FLASH();

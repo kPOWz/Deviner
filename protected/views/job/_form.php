@@ -288,11 +288,14 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 			    </div>
 			    <label class="form-control"></label>
 			    <div class="input-group-btn">
-			        <?php echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok text-success"/>', array(
-						'class'=> 'btn btn-default',
-						'type'=>'submit',
-						'title'=>'save job',
-					)); ?>
+			        <?php 
+			        	$savedState = $model->isNewRecord ? '' : 'text-success';
+			        	echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok '. $savedState .'"/>', array(
+							'class'=> 'btn btn-default',
+							'type'=>'submit',
+							'title'=>'save job',
+						)); 
+					?>
 			    </div>
 		 	</div>
 		</div>

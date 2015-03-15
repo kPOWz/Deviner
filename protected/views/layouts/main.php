@@ -71,7 +71,7 @@
 								<span class="glyphicon glyphicon-cog text-primary" aria-hidden="true"></span>
 							</a>
 						</div>
-						<div class="row gray" id="sales">
+						<div class="row gray-dark" id="sales">
 							<?php $this->widget('application.widgets.SalesReportWidget'); ?>
 						</div>	
 					</div>		

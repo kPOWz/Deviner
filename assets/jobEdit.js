@@ -147,29 +147,35 @@ function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, produc
 
 //bonus points: add in progress data
 //only do this if document.valid  (auto handled by yii if ajax validation enabled?)
+
 var ajaxSubmit = function(form){
 	var data=$("#job-form-update").serialize();
-    var submitIcon = $('.gus-input-group-submit').find('.glyphicon');
-    	submitIcon.removeClass('glyphicon-ok text-success')
-    		.addClass('glyphicon-repeat glyphicon-spin');
-    // contentType: 'application/json', //only accept json response /respond with json
+
+	var submitInputGroup = $('.gus-input-group-submit');    	
+    var submitIcon = submitInputGroup.find('.glyphicon').removeClass('glyphicon-ok text-success text-danger text-faint')
+    		.addClass('glyphicon-repeat glyphicon-spin').remove();
+    var submitBtn = submitInputGroup.find('button[type="submit"]');
+    submitBtn.empty();
+   	submitBtn.append(submitIcon).append(' Saving...');
     $.ajax(form.attr('action'), {
         type: 'POST',
         dataType: 'json',
         data: data,
         success: function(response){
-        	console.log(response + '');
-        	(new FLASH()).setContent(response.MESSAGE);
-            submitIcon.addClass('text-success');
-            //form.remove(); <- only if html response, we probably only want to do this if not successful
-            //$('').hide().html(response).fadeIn();
+        	submitBtn.empty();
+   			submitBtn.append(submitIcon.addClass('text-success'));
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(xhr.responseJSON);
+        	console.log('auto save error!');
+            console.log(xhr.status);
+            console.log(xhr.responseJSON);
+            submitBtn.empty();
+   			submitBtn.append(submitIcon.addClass('text-danger'));
         },
         failure: function(response){
-            alert('failure!');
+            console.log('auto save failure!');
+            submitBtn.empty();
+   			submitBtn.append(submitIcon.addClass('text-danger'));
         },
     }).always(function(){submitIcon.removeClass('glyphicon-repeat glyphicon-spin').addClass('glyphicon-ok');});
   
@@ -177,7 +183,12 @@ var ajaxSubmit = function(form){
 
 var setupAutoSave = function(form){
     if(form.first().val() === undefined) return;
-    $('.gus-input-group-submit').find('.glyphicon').removeClass('text-success');
+    var submitInputGroup = $('.gus-input-group-submit');
+    var submitIcon = submitInputGroup.find('.glyphicon').removeClass('text-success').remove();
+    var submitBtn = submitInputGroup.find('button[type="submit"]');
+    submitBtn.empty();
+   	submitBtn.append(submitIcon.addClass('text-faint')).append(' Save');
+
     //TODO: should we make this so its always 30 seconds from last save - regardless of whether last save was auto or not?
     clearTimeout( jobAutoSaveIntervalId );
     jobAutoSaveIntervalId = setTimeout(function(){

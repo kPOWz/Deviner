@@ -291,7 +291,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 			        <?php 
 			        	$savedState = $model->isNewRecord ? '' : 'text-success';
 			        	echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok '. $savedState .'"/>', array(
-							'class'=> 'btn btn-default',
+							'class'=> 'btn btn-default gus-btn text-muted',
 							'type'=>'submit',
 							'title'=>'save job',
 						)); 

@@ -193,19 +193,23 @@ tr .td-clickable:hover{
     padding-left: 2.2em;
     border-left: 0;
 }
+
+.gus-input-group-submit button.btn{
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
 .gus-input-group-submit button[type="button"].btn{
     border-radius: 0;
     border-right: 0;
     border-left: 0;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     border-right-width: 0;
     border-left-width: 0;
     color: #09f;
 }
-.gus-input-group-submit button[type="submit"].btn{
+.gus-input-group-submit button[type="submit"].btn{   
     padding-right: 1.5em;
     padding-left: 1.5em;
+    color: #506681;
 }
 .gus-form .form-control,
 .gus-form .btn,

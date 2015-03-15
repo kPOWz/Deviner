@@ -710,7 +710,7 @@ class JobController extends Controller
 			}
 			unset($_POST['Customer']['summary']);
 			$customer->attributes = $_POST['Customer'];
-			$print->loadFromArray($_POST['PrintJob'], $_FILES || []);
+			$print->loadFromArray($_POST['PrintJob'], $_FILES || array());
 			
 			$saved = true;
 			if($saved){

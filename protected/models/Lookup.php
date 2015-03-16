@@ -111,21 +111,19 @@ class Lookup extends CActiveRecord
 	public static function taxRateId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_TAX_RATE, false, 'AND');
-		Yii::log('tax rate : '.Lookup::getId('JobFeeType', $criteria)[0]
-			, CLogger::LEVEL_TRACE, 'application.models.lookup');
-		return self::getId('JobFeeType', $criteria)[0];
+		return array_pop(self::getId('JobFeeType', $criteria));
 	}
 
 	public static function shippingFeeId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_SHIPPING, false, 'AND');
-		return self::getId('JobFeeType', $criteria)[0];
+		return array_pop(self::getId('JobFeeType', $criteria));
 	}
 
 	public static function inkChangeFeeId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_INK_CHANGE, false, 'AND');
-		return self::getId('JobFeeType', $criteria)[0];
+		return array_pop(self::getId('JobFeeType', $criteria));
 	}
 	
 	/**

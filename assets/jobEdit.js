@@ -251,11 +251,10 @@ $( document ).ready(function() {
 		if(!$(this)[0].checkValidity || !$(this)[0].checkValidity()) return;
 		console.log('job form change detected');
 	  	setupAutoSave($(this));
-
 	});
 	$( ".gus-input-group-submit button[type='submit']" ).on( "click", function(event) {
 		var form = $('.gus-form');
-		if(!form.checkValidity || !form.checkValidity()) return;
+		if(!form[0].checkValidity || !form[0].checkValidity()) return;
 		console.log('job form submitted');
 	  	var submitInputGroup = $('.gus-input-group-submit');
 		var submitIcon = iconToPendingSave(submitInputGroup);

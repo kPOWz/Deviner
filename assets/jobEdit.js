@@ -157,7 +157,6 @@ function btnToPendingSave(submitInputGroup, submitIcon){
 //bonus points: add in progress data
 //only do this if document.valid  (auto handled by yii if ajax validation enabled?)
 var ajaxSubmit = function(form){
-	//TODO: only do this if form is valid
 	var data=$("#job-form-update").serialize();
 	var submitInputGroup = $('.gus-input-group-submit');
 	var submitIcon = iconToPendingSave(submitInputGroup);
@@ -249,12 +248,14 @@ $( document ).ready(function() {
 	setGrandTotal(parseFloat($('#jobTotal').val().replace(/,/g, '')));
 
 	$( "#job-form-update" ).on( "change", function(event) {
+		if(!$(this)[0].checkValidity || !$(this)[0].checkValidity()) return;
 		console.log('job form change detected');
 	  	setupAutoSave($(this));
 
 	});
 	$( ".gus-input-group-submit button[type='submit']" ).on( "click", function(event) {
-		//TODO: only do this if form is valid
+		var form = $('.gus-form');
+		if(!form.checkValidity || !form.checkValidity()) return;
 		console.log('job form submitted');
 	  	var submitInputGroup = $('.gus-input-group-submit');
 		var submitIcon = iconToPendingSave(submitInputGroup);

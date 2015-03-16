@@ -58,7 +58,7 @@ div.gus-nav-container{
     padding: 0;
     text-align: center;
     height: 100vh;
-    z-index: 1;
+    z-index: 3;
 }
 .gus-nav-container li{
     text-transform: uppercase;
@@ -89,7 +89,6 @@ ul.nav ul {
  background-color: #D1D2D4;
  padding-bottom: 0px;
  padding-top: 0px;
-
 }
 
 ul.nav li:hover > ul {
@@ -216,7 +215,8 @@ tr .td-clickable:hover{
 .gus-form .well{
     border-radius: 0;
 }
-/* bootstrap input groups get set to a z-index of 2, causing overlap with jQuery UI datepicker. 
+/* 
+ * bootstrap input groups get set to a z-index of 2, causing overlap with jQuery UI datepicker. 
  * solution : associated element's non-statically positioned z-index is incremented by 1 by plugin
  */
 .gus-datepicker{

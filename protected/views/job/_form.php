@@ -146,11 +146,11 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 
 			<!-- Shipping Fee Group-->
 			<div class="col-md-2 form-group">
-				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_SHIPPING.']'); ?>
+				<?php echo CHtml::error($model,'additionalFees['.Lookup::shippingFeeId().']'); ?>
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>			
-					<?php $shippingFee = $model->additionalFees[Job::FEE_SHIPPING];
-						echo $form->numberField($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
+					<?php $shippingFee = $model->additionalFees[Lookup::shippingFeeId()];
+						echo $form->numberField($model, 'additionalFees['.Lookup::shippingFeeId().']', array(
 						'value'=>$shippingFee['VALUE'],
 						'placeholder'=>$shippingFee['DEFAULT'],
 						'size'=>6,
@@ -159,17 +159,17 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 						'step'=>'any',
 					));?>
 				</div>
-				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_SHIPPING.']', array(
-					'label'=>$model->additionalFees[Job::FEE_SHIPPING]['TEXT'],));?>
+				<?php echo $form->labelEx($model, 'additionalFees['.Lookup::shippingFeeId().']', array(
+					'label'=>$model->additionalFees[Lookup::shippingFeeId()]['TEXT'],));?>
 			</div>
 
 			<!-- Ink Change Fee Group-->
 			<div class="col-md-2 form-group">
-				<?php echo CHtml::error($model,'additionalFees['.Job::FEE_INK_CHANGE.']'); ?>
+				<?php echo CHtml::error($model,'additionalFees['.Lookup::inkChangeFeeId().']'); ?>
 				<div class="input-group gus-input-group">
 					<span class="input-group-addon">$</span>			
-					<?php $inkChangeFee = $model->additionalFees[Job::FEE_INK_CHANGE];
-						echo $form->numberField($model, 'additionalFees['.Job::FEE_INK_CHANGE.']', array(
+					<?php $inkChangeFee = $model->additionalFees[Lookup::inkChangeFeeId()];
+						echo $form->numberField($model, 'additionalFees['.Lookup::inkChangeFeeId().']', array(
 						'value'=>$inkChangeFee['VALUE'],
 						'placeholder'=>$inkChangeFee['DEFAULT'],
 						'class'=>$inkChangeFee['ISPART'] ? 'part form-control' : 'form-control',
@@ -177,8 +177,8 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 						
 					));?>
 				</div>
-				<?php echo $form->labelEx($model, 'additionalFees['.Job::FEE_INK_CHANGE.']', array(
-					'label'=>$model->additionalFees[Job::FEE_INK_CHANGE]['TEXT'],));?>
+				<?php echo $form->labelEx($model, 'additionalFees['.Lookup::inkChangeFeeId().']', array(
+					'label'=>$model->additionalFees[Lookup::inkChangeFeeId()]['TEXT'],));?>
 			</div>
 
 			<!-- Setup Fee Group-->
@@ -211,15 +211,14 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 					<span class="input-group-addon">$</span>		
 					<input id="jobTotal" class="form-control" readonly placeholder="not implemented" value=
 						<?php echo CHtml::encode(Yii::app()->numberFormatter->formatDecimal($model->total)); ?> />
-
-					<?php $taxRate = number_format($model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'],0);
-						 echo CHtml::hiddenField('tax_rate', $taxRate); ?>
+						<?php $taxRate = number_format($model->additionalFees[Lookup::taxRateId()]['DEFAULT'],0);
+						 	echo CHtml::hiddenField('tax_rate', $taxRate); ?>
 				</div>
 				<label class="form-group-calculated gus-btn">Total</label>
 				<label class="text-muted">
-					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']'
+					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Lookup::taxRateId().']'
 						, array('checked'=>'checked', 'id'=>'jobIsTaxed'));?> 
-					<?php echo number_format($model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'],0);?>% Sales Tax
+					<?php echo number_format($model->additionalFees[Lookup::taxRateId()]['DEFAULT'],0);?>% Sales Tax
 				</label>
 			</div>
 		</div>

@@ -46,10 +46,7 @@ class Job extends CActiveRecord
 	const COUNTED = 269; //the garments have been received and counted.
 	const PRINTED = 270; //the garments have been printed.
 	
-	// additional fee IDs as constants
-	const FEE_TAX_RATE = 185;
-	const FEE_SHIPPING = 184;
-	const FEE_INK_CHANGE = 448;
+
 	private $_additionalFees; //cache this value here.
 	
 	/**

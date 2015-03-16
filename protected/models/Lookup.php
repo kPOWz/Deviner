@@ -20,6 +20,11 @@
  */
 class Lookup extends CActiveRecord
 {
+	// additional fee IDs as constants
+	const FEE_TAX_RATE = 'Tax Rate';
+	const FEE_SHIPPING =  'Shipping Fee';
+	const FEE_INK_CHANGE = 'Ink Change Fee';
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Lookup the static model class
@@ -103,6 +108,25 @@ class Lookup extends CActiveRecord
 		));
 	}
 	
+	public static function taxRateId(){
+		$criteria = new CDbCriteria;
+		$criteria->compare('TEXT', self::FEE_TAX_RATE, false, 'AND');
+		Yii::log('tax rate : '.Lookup::getId('JobFeeType', $criteria)[0]
+			, CLogger::LEVEL_TRACE, 'application.models.lookup');
+		return self::getId('JobFeeType', $criteria)[0];
+	}
+
+	public static function shippingFeeId(){
+		$criteria = new CDbCriteria;
+		$criteria->compare('TEXT', self::FEE_SHIPPING, false, 'AND');
+		return self::getId('JobFeeType', $criteria)[0];
+	}
+
+	public static function inkChangeFeeId(){
+		$criteria = new CDbCriteria;
+		$criteria->compare('TEXT', self::FEE_INK_CHANGE, false, 'AND');
+		return self::getId('JobFeeType', $criteria)[0];
+	}
 	
 	/**
 	 * Gets the text corresponding to the given lookup unique ID, when type is not provided.
@@ -120,6 +144,10 @@ class Lookup extends CActiveRecord
 			$text = $result->TEXT;
 		}
 		return $text;
+	}
+
+	public static function getId($type, $critera){
+		return array_keys(self::listValues($type, $critera));
 	}
 	
 	/**

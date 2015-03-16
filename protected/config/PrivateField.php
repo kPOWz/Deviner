@@ -35,7 +35,7 @@ class PrivateField {
 		return $config[$id];
 	}
 	private static function getLive($id){
-		$passwords = array(
+		$config = array(
 				'dbPass'=>'salemsal', //enter database password here.
 				'hashkey'=>'rockOnBUDDY!', //changing this will prevent any existing users from logging in
 				'email'=>'justin@eightsevencentral.com',

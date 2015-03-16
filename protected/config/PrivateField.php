@@ -4,10 +4,10 @@ class PrivateField {
 		
 		$baseUri = $_SERVER['SERVER_NAME'];
 		
-		if($baseUri === "/gus.87c.us/"){
+		if($baseUri === "/gus.87c.us/" || $baseUri === "gus1pt0.87c.us"){
 			return self::getLive($id) ;
 		}
-		else if($baseUri === "testgus.87c.us" || $baseUri === "gus1pt0.87c.us"){			
+		else if($baseUri === "testgus.87c.us"){			
 			return self::getTest($id);
 		}
 		

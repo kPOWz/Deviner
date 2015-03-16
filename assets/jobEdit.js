@@ -145,18 +145,24 @@ function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, produc
 	}).always(function(){ btn.button('reset'); });
 }
 
+function iconToPendingSave(submitInputGroup){
+	return submitInputGroup.find('.glyphicon').removeClass('glyphicon-ok text-success text-danger text-faint')
+    		.addClass('glyphicon-repeat glyphicon-spin').remove();
+}
+
+function btnToPendingSave(submitInputGroup, submitIcon){
+	return submitInputGroup.find('button[type="submit"]').empty().append(submitIcon).append(' Saving...');
+}
+
 //bonus points: add in progress data
 //only do this if document.valid  (auto handled by yii if ajax validation enabled?)
-
 var ajaxSubmit = function(form){
+	//TODO: only do this if form is valid
 	var data=$("#job-form-update").serialize();
+	var submitInputGroup = $('.gus-input-group-submit');
+	var submitIcon = iconToPendingSave(submitInputGroup);
+	var submitBtn = btnToPendingSave(submitInputGroup, submitIcon);
 
-	var submitInputGroup = $('.gus-input-group-submit');    	
-    var submitIcon = submitInputGroup.find('.glyphicon').removeClass('glyphicon-ok text-success text-danger text-faint')
-    		.addClass('glyphicon-repeat glyphicon-spin').remove();
-    var submitBtn = submitInputGroup.find('button[type="submit"]');
-    submitBtn.empty();
-   	submitBtn.append(submitIcon).append(' Saving...');
     $.ajax(form.attr('action'), {
         type: 'POST',
         dataType: 'json',
@@ -178,7 +184,6 @@ var ajaxSubmit = function(form){
    			submitBtn.append(submitIcon.addClass('text-danger'));
         },
     }).always(function(){submitIcon.removeClass('glyphicon-repeat glyphicon-spin').addClass('glyphicon-ok');});
-  
 }
 
 var setupAutoSave = function(form){
@@ -246,6 +251,14 @@ $( document ).ready(function() {
 	$( "#job-form-update" ).on( "change", function(event) {
 		console.log('job form change detected');
 	  	setupAutoSave($(this));
+
+	});
+	$( ".gus-input-group-submit button[type='submit']" ).on( "click", function(event) {
+		//TODO: only do this if form is valid
+		console.log('job form submitted');
+	  	var submitInputGroup = $('.gus-input-group-submit');
+		var submitIcon = iconToPendingSave(submitInputGroup);
+		btnToPendingSave(submitInputGroup, submitIcon);
 
 	});
 });

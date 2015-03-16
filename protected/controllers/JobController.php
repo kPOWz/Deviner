@@ -680,22 +680,6 @@ class JobController extends Controller
 			}
 		}
 
-		if(!Yii::app()->request->isPostRequest){
-			$this->render('update',array(
-				'model'=>$model,
-				'customerList'=>$existingCustomers,
-				'newCustomer'=>$customer,
-				'print'=>$print,
-				'leaders'=>$leaders,
-				'printers'=>$printers,
-				'colors'=>$colors,
-				'sizes'=>$sizes,
-				'passes'=>$passes,
-				'lineData'=>$lineData,
-				'fileTypes'=>Lookup::listItems('ArtFileType'),
-			));
-		}
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -739,6 +723,20 @@ class JobController extends Controller
 		}else{
 			Yii::log('Invalid job POST attempt', CLogger::LEVEL_INFO, 'application.controllers.job');
 		}
+
+		$this->render('update',array(
+			'model'=>$model,
+			'customerList'=>$existingCustomers,
+			'newCustomer'=>$customer,
+			'print'=>$print,
+			'leaders'=>$leaders,
+			'printers'=>$printers,
+			'colors'=>$colors,
+			'sizes'=>$sizes,
+			'passes'=>$passes,
+			'lineData'=>$lineData,
+			'fileTypes'=>Lookup::listItems('ArtFileType'),
+		));
 		
 	}
 	

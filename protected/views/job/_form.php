@@ -288,9 +288,13 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 			    </div>
 			    <label class="form-control"></label>
 			    <div class="input-group-btn">
-			        <?php 
-			        	$savedState = $model->isNewRecord ? '' : 'text-success';
-			        	echo CHtml::htmlButton('<span class="glyphicon glyphicon-ok '. $savedState .'"/>', array(
+			        <?php
+			        	$iconClassNewRecord = $model->hasErrors() ? "text-danger" : "text-faint";
+			        	$textNewRecord = $model->hasErrors() ? "" : "save";
+			        	$iconClassExistingRecord = $model->hasErrors() ? "text-danger" : "text-success";
+			        	$savedState = $model->isNewRecord ? "<span class='glyphicon glyphicon-ok ".$iconClassNewRecord."'></span> ".$textNewRecord
+			        											: "<span class='glyphicon glyphicon-ok ".$iconClassExistingRecord."'></span>";
+			        	echo CHtml::htmlButton($savedState, array(
 							'class'=> 'btn btn-default gus-btn text-muted',
 							'type'=>'submit',
 							'title'=>'save job',

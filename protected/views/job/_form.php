@@ -79,7 +79,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 
 		<div class="row">
 			<div class='col-md-6'>
-				<?php echo TbHtml::button('Additional product', array(
+				<?php echo TbHtml::button('Add product', array(
 					'onclick'=>"addJobLine(this, '".CHtml::activeName($model, 'jobLines')."'
 													,'".CHtml::normalizeUrl(array('job/newLine', 'form'=>'e'))."' 
 													,'".CHtml::normalizeUrl(array('product/allowedOptions'))."'
@@ -212,14 +212,14 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 					<input id="jobTotal" class="form-control" readonly placeholder="not implemented" value=
 						<?php echo CHtml::encode(Yii::app()->numberFormatter->formatDecimal($model->total)); ?> />
 
-					<?php $taxRate = $model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'];
+					<?php $taxRate = number_format($model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'],0);
 						 echo CHtml::hiddenField('tax_rate', $taxRate); ?>
 				</div>
 				<label class="form-group-calculated gus-btn">Total</label>
 				<label class="text-muted">
 					<?php echo CHtml::activeCheckBox($model,'additionalFees['.Job::FEE_TAX_RATE.']'
 						, array('checked'=>'checked', 'id'=>'jobIsTaxed'));?> 
-					<?php echo $model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'];?>% Sales Tax
+					<?php echo number_format($model->additionalFees[Job::FEE_TAX_RATE]['DEFAULT'],0);?>% Sales Tax
 				</label>
 			</div>
 		</div>

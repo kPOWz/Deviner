@@ -10,6 +10,7 @@
 	<![endif]-->
 	<script type="text/javascript" src="http://fast.fonts.net/jsapi/447f25d3-cc3d-43e0-a550-3dab00d3cb83.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

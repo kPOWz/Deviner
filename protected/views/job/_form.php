@@ -61,7 +61,7 @@ Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'jobEdit.j
 	<hr />
 
 	<h4 class="heading-primary">Product Details</h4>
-	<fieldset></fieldset>
+	<fieldset>
 		<div id="lines">
 			<?php
 			$index = 0;

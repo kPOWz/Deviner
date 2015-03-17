@@ -41,7 +41,7 @@ main h1{
 	margin-bottom: 3rem;
 }
 
-.gus-nav-container .affix{
+#gus-nav-container .affix{
     position: fixed !important;
     top: 2px;
     width: 16.66666667%;
@@ -54,17 +54,17 @@ main h1{
     right: 0;
 }
 
-div.gus-nav-container{
+div#gus-nav-container{
     padding: 0;
     text-align: center;
     height: 100vh;
     z-index: 3;
 }
-.gus-nav-container li{
+#gus-nav-container li{
     text-transform: uppercase;
 }
 
-.gus-nav-container .row{
+#gus-nav-container .row{
     margin-right: 0;
     margin-left: 0;
 }

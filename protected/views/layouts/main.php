@@ -6,7 +6,7 @@
 <?php Yii::app()->clientScript->registerScriptFile($this->scriptDirectory . 'flashMessages.js', CClientScript::POS_END);?>
 
 <div id="wrapper" class="row">
-	<div class="col-md-2 gus-nav-container">
+	<div class="col-md-2" id="gus-nav-container">
 		<section class="inverse " id='outterContainer' data-spy="affix">				
 			<?php $isAdmin = Yii::app()->user->getState('isAdmin');?>
 			<nav class="navbar navbar-vertical row gus-nav" >

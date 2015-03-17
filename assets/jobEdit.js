@@ -100,7 +100,7 @@ function addJobLine(sender, namePrefix, newJobLineUrl, productOptionsUrl, produc
 			count: count,
 		},
 		success: function(data){
-			var productsContainer = $(sender).parents('.gus-form').children('#lines');
+			var productsContainer = $(sender).parents('.gus-form').children('fieldset').find('#lines');
 			$(data).appendTo(productsContainer);
 			var div_id = $(data).find('.line_delete').parent().attr('id');
 			$('#' + div_id).find('.item-select').autocomplete({

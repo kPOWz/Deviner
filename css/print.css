@@ -13,16 +13,17 @@
 @media print {
 	#gus-nav-container {visibility: hidden; width:0; display:none;}
 	.alert {visibility: hidden; height:0;}
-	.jobLines {border:5px solid #ddd;}
+	.jobLines {border: 2px solid #ddd; margin-bottom: .5em;}
 	.clear {clear:both;}
+	div[name='style-group'] .item-select{ width: 50%; }
 
 	.btn,
 	.gus-input-group-submit .input-group-btn,
 	.price-select-container .col-md-2,
-	.line_delete
+	.line_delete,
+	.search-customer
 	{display: none;}
 
-	body {zoom: 1.4; font-size:140%;}
 	#hugebig {font-size:18px;}
 	#notes {font-size:18px; display:block;}
 	a:after {width:0; height:0; visibility: hidden;}
@@ -39,5 +40,4 @@
 	.total_label {margin-right:1em; font-size: 1em;}
 	#date_invoice {width:100%;}
 	.right {text-align:right;}
-	#customer {font-size:2em; margin:0 0 1em;}
 }

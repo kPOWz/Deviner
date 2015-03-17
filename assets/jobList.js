@@ -32,6 +32,12 @@ function statusChanged(selector,jobId){
 	});
 }
 
+var addPaginationListener = function(){
+	$(".td-clickable").click(function() {
+		window.document.location = $(this).parent().data("href");
+	});
+}
+
 jQuery(document).ready(function($) {
    $( ".nav-tabs a" ).on( "click", function() {
            //only fade out succuess highlight if has been seen

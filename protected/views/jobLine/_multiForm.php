@@ -65,7 +65,8 @@ $garmentCost = CHtml::getIdByName($namePrefix . $startIndex . 'garment-cost');?>
 									"selectElement.empty();" .
 									"for(var color in colors){
 										selectElement.append($('<option></option>').val(colors[color].ID).html(colors[color].TEXT));
-									}" .									
+									}" .
+									"selectElement.removeAttr('disabled');".									
 									"\$('#".$div." .row').children('.jobLine').children('.hidden_cost').val(cost);" .
 									"onGarmentCostUpdate($('#$div').find('.product-cost'), cost, $('#$div').find('.unit_price'), $('#$div').find('.hidden-price'), $('#$div').find('.garment_part'));" .
 									"\$('#".$div." .row').children('.jobLine').addClass('hidden-size').removeClass('col-md-2').children('.score_part').attr('disabled', true).val(0);" .

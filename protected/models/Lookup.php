@@ -111,19 +111,22 @@ class Lookup extends CActiveRecord
 	public static function taxRateId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_TAX_RATE, false, 'AND');
-		return array_pop(self::getId('JobFeeType', $criteria));
+		$taxRateId = self::getId('JobFeeType', $criteria);
+		return array_pop($taxRateId);
 	}
 
 	public static function shippingFeeId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_SHIPPING, false, 'AND');
-		return array_pop(self::getId('JobFeeType', $criteria));
+		$fee_id = self::getId('JobFeeType', $criteria);
+		return array_pop($fee_id);
 	}
 
 	public static function inkChangeFeeId(){
 		$criteria = new CDbCriteria;
 		$criteria->compare('TEXT', self::FEE_INK_CHANGE, false, 'AND');
-		return array_pop(self::getId('JobFeeType', $criteria));
+		$fee_id = self::getId('JobFeeType', $criteria);
+		return array_pop($fee_id);
 	}
 	
 	/**

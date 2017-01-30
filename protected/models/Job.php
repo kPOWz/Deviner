@@ -593,13 +593,35 @@ class Job extends CActiveRecord
 		$garments = $this->garmentCount;		
 		return ($garments == 0 ? 0 : $this->total / $garments);
 	}
-	
-	public function getGarmentCount(){
-		$garments = 0;
-		foreach($this->jobLines as $line){			
-			$garments += $line->garmentCount;		
+
+
+	/**
+	 * Gets the unique (grouped by product, product color), newest job lines.
+	 * Makes up for flaw in legacy code that always inserts new job lines rather than update
+	 */
+	public function getUniqueJobLines(){
+		$groupedJobLines = array();
+		foreach($this->jobLines as $jobLine){		
+			$groupedJobLines[$jobLine->PRODUCT_ID][$jobLine->PRODUCT_COLOR] = 
+				!isset($priorJobLine) || $jobLine->ID > $priorJobLine->ID ? $jobLine : $priorJobLine;
+			$priorJobLine = $jobLine;
 		}
-		return $garments;
+		return $groupedJobLines;
+	}
+	
+	/**
+	 * Gets the garment/product count.
+	 */
+	public function getGarmentCount(){
+		$count = 0;
+		foreach($this->uniqueJobLines as $prod => $colors){
+			foreach($colors as $color => $ujl){		
+				$count += $ujl->garmentCount;
+			}
+
+		}
+		
+		return $count;
 	}
 	
 	/**

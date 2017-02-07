@@ -2,6 +2,7 @@
 	<?php 
 		Yii::app()->yiistrap->bootstrapPath = Yii::getPathOfAlias('vendor.kpowz.gus-bootstrap.dist');
 		Yii::app()->yiistrap->register();
+		Yii::app()->yiistrap->registerCoreCss(null, $media = '');
 	?>
 	<script>
 		var cog = document.getElementById('cog');

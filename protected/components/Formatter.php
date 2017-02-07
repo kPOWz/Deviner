@@ -11,4 +11,8 @@ class Formatter extends CFormatter {
 	public function formatLookup($value){
 		return Lookup::getText($value);
 	}
+
+	public function formatDate($value){
+		return Yii::app()->dateFormatter->format('EEE, MM/dd/yy', strtotime($value));
+	}
 }

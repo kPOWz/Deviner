@@ -2,6 +2,7 @@
 
 class PrintController extends Controller
 {
+	public $layout = 'column1';
 
 	/**
 	 * @return array action filters
@@ -22,7 +23,7 @@ class PrintController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('view', 'update', 'index'),
+				'actions'=>array('view', 'update', 'index', 'printer'),
 				'users'=>array('@'),
 				'expression'=>"Yii::app()->user->getState('isDefaultRole');",
 			),
@@ -150,6 +151,19 @@ class PrintController extends Controller
 		));
 	}
 
+
+	public function actionPrinter($id)
+	{
+		$job = $this->loadJobModel($id);
+		$customer = $job->CUSTOMER;
+		$print = $job->printJob;
+		$this->render('print', array(
+			'job'=>$job,
+			'customer'=>$customer,
+			'print'=>$print,
+			'formatter'=> new Formatter));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -174,5 +188,13 @@ class PrintController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function loadJobModel($id)
+	{
+		$model=Job::model()->findByPk((int)$id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.'.$id);
+		return $model;
 	}
 }

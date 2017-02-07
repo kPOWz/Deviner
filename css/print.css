@@ -11,7 +11,7 @@
 
 ----------------------------------------------------------------------- */
 @media print {
-	#gus-nav-container {visibility: hidden; width:0; display:none;}
+/*	#gus-nav-container {visibility: hidden; width:0; display:none;}
 	.alert {visibility: hidden; height:0;}
 	.jobLines {border: 2px solid #ddd; margin-bottom: .5em;}
 	.clear {clear:both;}
@@ -39,5 +39,61 @@
 	#total {text-align:right; font-size:1.4em; border-top:2px solid #000;}
 	.total_label {margin-right:1em; font-size: 1em;}
 	#date_invoice {width:100%;}
-	.right {text-align:right;}
+	.right {text-align:right;}*/
+
+	.gus-print dt { color: #f2f2f2 !important;}
+	h4.text-primary { color: #f2f2f2 !important;}
+	h4.text-primary .text-muted { color: #293442 !important;}
+	div.job-print { border: 1px solid #293442 !important;}
+	div.job-print hr { border-top: 1px solid #293442 !important;}
+	h4 { font-family: "Avenir LT W01 35 Light","Helvetica Neue",Helvetica,Arial,sans-serif !important; }
+	ol.list-size > li.list-size-item:first-child { border-color: #293442 !important;}
+	ol.list-size > li { border-color: #293442 !important;}
+}
+
+.container-fluid.gus-print{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+div.job-print {
+	border: 2px solid #e3e3e3;
+	padding: 2rem;
+}
+
+div.job-print hr {
+	border-top: 2px solid #e3e3e3;
+	margin-top: 1em;
+	margin-bottom: 3em;
+}
+
+
+.job-print ol {
+    list-style-type: none
+}
+
+ol.list-size > li {
+    height: 2.5em;
+	line-height: 2.5em;
+    border-bottom: 1px solid #e3e7ed;
+    text-align: center;
+}
+
+ol.list-size > li.list-size-item:first-child {
+	border-top: 1px solid #e3e7ed;
+}
+
+ol.list-size > li.list-size-item:last-child {
+	border-bottom: 1px solid #e3e7ed;
+}
+
+.gus-print .ink-color::after {
+	content: "/";
+}
+.gus-print .print-notes {
+	min-height: 5em;
+}
+
+.gus-print h4 dd {
+	font-family: "Avenir LT W01 35 Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 }

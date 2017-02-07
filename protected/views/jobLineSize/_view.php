@@ -1,4 +1,13 @@
-<div class="jobLineView <?php echo ($line->JOB_LINE_ID == null) ? 'hidden-size' : '';?> <?php echo $div.$product->SIZE;?>" id="<?php echo $eachDiv;?>">
-	<span class="size-label"><?php echo CHtml::label($product->size->TEXT, CHtml::getIdByName($linePrefix . '[QUANTITY]'));?></span>
-	<span class="size-content"><?php echo CHtml::encode($line->QUANTITY);?></span>
-</div>
+
+<li class="col-md-9 list-size-item">
+	<div class="row">
+		<span class="col-md-10">
+			<span class="pull-right">
+				<?php echo $formatter->formatLookup($model->SIZE) ?>
+			</span>
+		</span>
+		<span class="col-md-2">
+			<span class="pull-right"><?php echo $model->QUANTITY ?></span>
+		</span>
+	</div>
+</li>

@@ -5,8 +5,6 @@
  */
 class Controller extends CController
 {
-	private $_layout = 'column1';
-				
 	public function getLayout(){
 		return $this->layoutDirectory . $this->layoutCore;
 	}
@@ -60,7 +58,6 @@ class Controller extends CController
 	
 	protected function beforeAction($action){
 		if(parent::beforeAction($action)){
-			$this->setLayout('column1');
 			if(isset($this->actionParams['mobile'])){
 				$cookies = Yii::app()->request->cookies;
 				$cookies['SUPPRESS_MOBILE'] = $this->createCookie('SUPPRESS_MOBILE', $this->actionParams['mobile']);

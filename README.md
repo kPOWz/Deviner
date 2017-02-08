@@ -14,14 +14,14 @@ Composer
 
 ##Deployment
 
-To deploy GUS each environment has a bare repo to <pre> git push</pre> to. The bare repo, having no working copy of the source, is equipped with a post-recieve hook listening for pushes.  When the push completes, the post-recieve hook issues a <pre>git pull</pre> latest on behalf of the deployment directory.
+To deploy GUS each environment has a bare repo to <code> git push</code> to. The bare repo, having no working copy of the source, is equipped with a post-recieve hook listening for pushes.  When the push completes, the post-recieve hook issues a <code>git pull</code> latest on behalf of the deployment directory.
 
 <table>
-	<th>
-		<td>env</td>
-		<td>location</td>
-		<td>remote</td> 
-	</th>
+	<tr>
+		<th>env</th>
+		<th>location</th>
+		<th>remote</th> 
+	</tr>
 	<tr>
 		<td>test</td>
 		<td>testgus.87c.us</td>

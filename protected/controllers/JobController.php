@@ -31,12 +31,13 @@ class JobController extends Controller
 				'expression'=>"Yii::app()->user->getState('isCustomer');",
 			),
 			array('allow',
-				'actions'=>array('status', 'create', 'update', 'calendar', 'search', 'deleteLine', 'approveLine', 'newLine', 'view', 'list', 'loadList', 'index', 'garmentCost', 'addArt', 'deleteArt', 'art'),
+				'actions'=>array('status', 'create', 'update', 'calendar', 'search', 'filter', 'searchResult'
+					, 'deleteLine', 'approveLine', 'newLine', 'view', 'list', 'loadList', 'index', 'garmentCost', 'addArt', 'deleteArt', 'art'),
 				'users'=>array('@'),
 				'expression'=>"Yii::app()->user->getState('isDefaultRole');",
 			),
 			array('allow',
-				'actions'=>array('status', 'create', 'update', 'search'
+				'actions'=>array('status', 'create', 'update', 'search', 'filter', 'searchResult'
 						, 'calendar', 'validatePrintDate', 'updatePrintDate'
 						, 'setupFee', 'deleteLine', 'approveLine', 'newLine', 'view', 'list', 'loadList', 'index', 'garmentCost', 'addArt', 'deleteArt', 'art'),
 				'users'=>array('@'),
@@ -52,6 +53,25 @@ class JobController extends Controller
 		);
 	}
 
+	public function actionFilter(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term']) && isset($_GET['status'])) {
+			Yii::log('reached filter action AJAX', CLogger::LEVEL_TRACE, 'application.controllers.Job');
+
+			$term = $_GET['term'];
+			$status = $_GET['status'];
+			$model = new Job('search');
+			$model->unsetAttributes();
+			
+			$model->NAME = $term;
+			$model->customer_search = $term;
+					
+			$this->renderPartial('_list', array(
+            	'dataProvider' => $model->search($status, 7),
+            	'statusId' => $status
+        	));
+		}	
+
+	}
 	
 	public function actionSearch(){
 		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {

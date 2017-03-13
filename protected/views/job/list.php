@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui');
 ?>
 
 <h1>All Jobs</h1>
-<?php  $this->renderPartial('_search',array(
+<?php  $this->renderPartial('_filter',array(
     'model'=>new Job('search'),
 )); ?>
 <?php 

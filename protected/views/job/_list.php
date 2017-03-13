@@ -4,9 +4,11 @@ $model = new Job();
 
 
 $this->widget('yiistrap.widgets.TbGridView', array(
-	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->searchByStatus($statusId),
+	'dataProvider' => isset($dataProvider) ? $dataProvider : $model->search($statusId, 7),
+	'id'=> isset($statusId) ? 'job-grid-status-'.$statusId : 'job-grid',
 	'pager'=> array('class' => '\TbPager', 'htmlOptions'=>array('class'=>'gus-pagination', 'align'=>TbHtml::PAGINATION_ALIGN_CENTER)),
 	'rowHtmlOptionsExpression' => 'array("data-href"=>CHtml::normalizeUrl(array("job/update", "id"=>$data->ID)))',
+	'ajaxUrl'=>'filter',
 	'afterAjaxUpdate'=>'addPaginationListener',
 	'itemsCssClass'=>'table-primary',
 	'pagerCssClass'=>'text-center', //remove 'pager' class coming from zii - namespace conflict w/ TWBS css

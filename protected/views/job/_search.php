@@ -35,7 +35,7 @@
 		    	'class'=>'form-control',
 				'id'=>'job-search-box',
 				'role'=>'search',
-	    		'placeholder'=>'Search by client or company name',
+	    		'placeholder'=>'Search by client, company or job name',
 		    	'spellcheck'=>'false',
 		    	'results'=>'5',	    		
 		    	),
@@ -44,7 +44,7 @@
 			   	<span class="glyphicon glyphicon-search"></span>
 	   		</span>
 	   	</div>
-	   <input type="hidden" id="search-result-job-id" name="id" >
+	   <input type="hidden" id="search-result-job-id" name="id" />
 	</div>
 	 
 </form>

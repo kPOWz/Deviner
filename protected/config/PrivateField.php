@@ -26,7 +26,7 @@ class PrivateField {
 	}
 	private static function getTest($id){
 		$config = array(
-			'dbPass'=>'testgus', //enter database password here.
+			'dbPass'=>'f03cogdr7hXZV2em',
 			'hashkey'=>'rockOnBUDDY!', //changing this will prevent any existing users from logging in
 			'email'=>'karrie.zeman@gmail.com',
 			'connectionString' => 'mysql:host=localhost;dbname=eight7cu_testgus;port=3306',

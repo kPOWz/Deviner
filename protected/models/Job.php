@@ -246,7 +246,7 @@ class Job extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 * TODO: may need to set specific scenario for AutoComplete search vs a form search ...
 	 */
-	public function search()
+	public function search($status = null, $pageSize = 25)
 	{
 		$criteria=new CDbCriteria;
 		$criteria->compare('NAME', $this->NAME, true, 'OR');
@@ -255,10 +255,14 @@ class Job extends CActiveRecord
 		$criteria->compare('USER.FIRST', $this->customer_search, true, 'OR');
 		$criteria->compare('USER.LAST', $this->customer_search, true, 'OR');
 
+		if($status){
+			$criteria->compare('STATUS', $status, false, 'AND');
+		}
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-						'pageSize'=>25,
+						'pageSize'=> $pageSize
 				),
 		));
 	}
@@ -284,16 +288,6 @@ class Job extends CActiveRecord
 						'pageSize'=>7,
 				),
 		));
-
-		//option 2  (slower, but can handle status array)
-		// $activeData = $this->listJobsByStatus($status);
-		// $dataProvider =  new CActiveDataProvider(get_class($this), array(
-		// 		'pagination'=>array(
-		// 				'pageSize'=>15,
-		// 		),
-		// 	));
-		// $dataProvider->setData($activeData);
-		// return $dataProvider;
 	}
 	
 	/**

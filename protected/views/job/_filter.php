@@ -13,7 +13,6 @@
 		});
 	});
 </script>
-
 <form id='form-job-filter' class='gus-input-search' method='GET'>
 	<div class="form-group">
 		<div class="input-group-lg input-group gus-input-group">

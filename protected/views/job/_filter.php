@@ -11,6 +11,14 @@
 				updateGridView(term, activeStatus);
 			}
 		});
+		$( "#job-filter-box" ).on("keypress", function(event) {
+			const term = event.target.value;
+			if(event.keyCode === 13){
+				event.preventDefault();
+				const activeStatus = $('#job-tabs li.active').data('status')
+				updateGridView(term, activeStatus);
+			}
+		});
 	});
 </script>
 <form id='form-job-filter' class='gus-input-search' method='GET'>

@@ -67,13 +67,20 @@ CClientScript::POS_END);?>
 		<?php echo CHtml::error($model,'SLEEVE_PASS'); ?>
 
 		<div class="row">
-			<div class="btn-group col-md-4">
+			<div class="btn-group col-md-3">
 				<?php echo TbHtml::activeDropDownList($model,'FRONT_PASS', $passes, array('class'=>'pass_part front_pass')); ?>
-			</div><div class="btn-group col-md-4">		
+			</div><div class="btn-group col-md-3">		
 				<?php echo TbHtml::activeDropDownList($model,'BACK_PASS', $passes, array('class'=>'pass_part back_pass')); ?>
-			</div><div class="btn-group col-md-4">
+			</div><div class="btn-group col-md-3">
 				<?php echo TbHtml::activeDropDownList($model,'SLEEVE_PASS', $passes, array('class'=>'pass_part sleeve_pass')); ?>
 			</div>
+			<?php echo TbHtml::button('', array(
+				'class'=>'btn btn-link',
+				'icon'=>'print',
+				'type'=>'button',
+				'title'=>'open printer print view',
+				'submit'=>array('print/printer/'.$job->ID)
+			));?>
 		</div>
 		<label>Ink Colors (Front/Back/Sleeve)</label>
 

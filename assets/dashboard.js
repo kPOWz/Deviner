@@ -8,7 +8,11 @@ var ENCOURAGEMENT = (function(){
 		"Radical stuff",
 		"Zang",
 		"Yippie-kai-yai-yeay",
-		"Roughest, toughest, he-man stuffest hombre’"
+		"Roughest, toughest, he-man stuffest hombre’",
+		"Quaffing nitro coffee?",
+		"Catwalk or cakewalk?",
+		"Allez Allez Allez",
+		"¡Andale! ¡Andale! ¡Arriba! ¡Arriba!"
 	]
 
 	return {

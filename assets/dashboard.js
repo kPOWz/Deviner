@@ -12,7 +12,7 @@ var ENCOURAGEMENT = (function(){
 		"Quaffing nitro coffee?",
 		"Catwalk or cakewalk?",
 		"Allez Allez Allez",
-		"¡Andale! ¡Andale! ¡Arriba! ¡Arriba!"
+		"¡Andale! ¡Andale! ¡Arriba! ¡Arriba"
 	]
 
 	return {
